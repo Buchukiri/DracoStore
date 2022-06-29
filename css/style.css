@@ -63,7 +63,7 @@ button {
     align-items: flex-start;
     height: 5rem;
     width: 100%;
-    background-image: url(/img/titre.png);
+    background-image: url(../img/titre.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 31rem;
