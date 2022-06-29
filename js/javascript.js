@@ -1,4 +1,4 @@
-const articles = {
+const articlesObj = {
     potion : {
         prix : 2,
         quantité : 10
@@ -37,5 +37,15 @@ const articles = {
     },
 }
 
-const articlesName = Object.keys(articles);
-console.log(articlesName);
+const articlesName = Object.keys(articlesObj);
+// console.log(articlesName);
+
+const articles = document.getElementById("article-list");
+let display = "";
+
+for(const art of articlesName){
+    display += "<li class='article-item'><a class='article-link' id='"+art+"' href='#' >"+
+    "<img class = article-img src='' alt='' >test</a></li>";
+}
+
+articles.innerHTML = display;
