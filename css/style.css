@@ -55,7 +55,8 @@ button {
 
 /* HEADER */
 
-.header {
+.header { 
+    display:flex;
     height: 5rem;
     width: 100%;
     background-image: url(/img/titre.png);
@@ -63,6 +64,7 @@ button {
     background-position: center;
     background-size: 31rem;
     padding:3.5rem;
+    border: black 3px solid;
 }
 
 .header-logo{
@@ -70,6 +72,10 @@ button {
     height: 7rem;
     margin-left: -30px;
     margin-top: -41px;
+}
+
+.header-content-img{
+    height: 5rem;
 }
 
 
