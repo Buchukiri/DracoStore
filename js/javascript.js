@@ -45,7 +45,7 @@ let display = "";
 
 for(const art of articlesName){
     display += "<li class='article-item'><a class='article-link' id='"+art+"' href='#' >"+
-    "<img class = article-img src='' alt='' >test</a></li>";
+    "<img class='article-img' src='img/"+art+".png' alt='"+art+"' >test</a></li>";
 }
 
 articles.innerHTML = display;
