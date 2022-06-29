@@ -52,3 +52,36 @@ button {
     border: none;
     background: none;
 }
+
+/* HEADER */
+
+.header {
+    height: 5rem;
+    width: 100%;
+    border: 1px black solid;
+}
+
+
+
+
+
+
+
+
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+h1 {
+    
+}
+
+.cart-section {
+    border: 1px grey solid;
+    width: 25rem;
+    height:calc(100vh - 5rem);
+}
+.chart-ttl {
+    margin-top: 2rem;
+    text-align: center;
+}
