@@ -100,7 +100,7 @@ button {
 
 .article-list{
     display : grid;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     gap: 10px;
 }
@@ -117,8 +117,12 @@ button {
     width: 150px;
 }
 
-.price{
-    
+.art-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
 }
 
 .cart-section {
