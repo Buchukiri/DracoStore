@@ -180,6 +180,7 @@ button {
 
 .cart-section {
     border: 1px grey solid;
+    color: white;
     width: 20%;
     height:calc(100vh - 8rem);
 }
