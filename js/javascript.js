@@ -58,9 +58,10 @@ articles.innerHTML = display;
 const articleCount = document.getElementById("articles-count");
 
 function articlesCounter() {
-  articleCount.innerText = cart.childElementCount; 
+  articleCount.innerText = finalCart.childElementCount; 
 }
 
+const finalCart = document.getElementById("final-cart-ul")
 const imgBtns = document.querySelectorAll(".article-img")
 
 
@@ -73,7 +74,10 @@ imgBtns.forEach(btn => {
         li.classList.add("articleCart");
         li.innerText = articlesName[index];
         console.log(articlesName[index]);
-        cart.appendChild(li);
+        finalCart.appendChild(li);
         index++;
+
+        articlesCounter()
     })
 });
+
