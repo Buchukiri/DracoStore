@@ -45,7 +45,7 @@ let display = "";
 
 for(const art of articlesName){
     display += "<li class='article-item'><a class='article-link' id='"+art+"' href='#' >"+
-    "<img class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
+    "<img data-name='"+art+"' class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
     "<div class='art-info'><p class='art-name'>"+art+"</p>"+
     "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
     "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p></div></a></li>";
@@ -66,17 +66,13 @@ const imgBtns = document.querySelectorAll(".article-img")
 
 
 // click image
-let index = 0;
 imgBtns.forEach(btn => {
     btn.addEventListener("click",function (event) {
         console.log(this);
         const li = document.createElement("li");
         li.classList.add("articleCart");
-        li.innerText = articlesName[index];
-        console.log(articlesName[index]);
+        li.innerText = this.dataset.name;
         finalCart.appendChild(li);
-        index++;
-
         articlesCounter()
     })
 });
