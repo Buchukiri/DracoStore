@@ -91,12 +91,15 @@ button {
 
 .header-content{
     text-align: center;
+
 }
 
 .header-content-img{
     position: relative;
     top: 10px;
     height: 9rem;
+  
+
 }
 
 
@@ -128,7 +131,7 @@ button {
     grid-template-columns: repeat(3, 25%);
     justify-content: center;
     gap: 10px;
-    padding: 0 10px;
+    padding: 50px 10px;
 }
 
 .article-item{
@@ -166,30 +169,54 @@ button {
     font-size: 42px;
 }
 
-.art-name{
-    
-}
-
-.art-price{
-
-}
-
 .art-stock{
     font-size: 30px;
 }
 
 .cart-section {
-    border: 1px grey solid;
+    background-image: url("/img/parch-panier-test.png");
+    background-size: 380px;
+    background-position: top 10px center;
+    background-repeat: no-repeat;
+    /* border: 1px grey solid; */
     width: 20%;
     height:calc(100vh - 8rem);
 }
-.chart-ttl {
+
+.cart-ttl {
+    position: relative;
+    bottom: 8px;
     margin-top: 2rem;
+    font-family: 'East Sea Dokdo', cursive;
     text-align: center;
+    font-size: 3rem;
+    width: 100%;
 }
 
-.img-panier{
-width:300px ;
+.active-cart{
+    text-align: center;
+    height: 55%;
 }
 
+/* .cart-price{
+    background-image: url("/img/panneau-price.png");
+    background-size:cover ;
+    height: 28%;
+    background-position: top -30px center;
+} */
 
+.img-draco{
+    position: absolute;
+    right: 25px;
+    bottom: 0px;
+    width: 380px;
+    overflow: hidden;
+}
+
+/* .footer{
+
+}
+
+.img-flamme{
+
+} */
