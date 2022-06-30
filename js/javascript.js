@@ -67,13 +67,16 @@ const imgBtns = document.querySelectorAll(".article-img")
 
 // click image
 imgBtns.forEach(btn => {
-    btn.addEventListener("click",function (event) {
-        console.log(this);
+        btn.addEventListener('click', addCart);
+    
+});
+// add bucket
+    function addCart(event) {
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerText = this.dataset.name;
         finalCart.appendChild(li);
         articlesCounter()
-    })
-});
+        this.removeEventListener("click",addCart)
+        }
 
