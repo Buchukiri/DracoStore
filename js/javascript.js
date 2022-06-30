@@ -53,3 +53,27 @@ for(const art of articlesName){
 }
 
 articles.innerHTML = display;
+
+// compteur d'articles
+const articleCount = document.getElementById("articles-count");
+
+function articlesCounter() {
+  articleCount.innerText = cart.childElementCount; 
+}
+
+const imgBtns = document.querySelectorAll(".article-img")
+
+
+// click image
+let index = 0;
+imgBtns.forEach(btn => {
+    btn.addEventListener("click",function (event) {
+        console.log(this);
+        const li = document.createElement("li");
+        li.classList.add("articleCart");
+        li.innerText = articlesName[index];
+        console.log(articlesName[index]);
+        cart.appendChild(li);
+        index++;
+    })
+});
