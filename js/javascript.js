@@ -84,3 +84,16 @@ imgBtns.forEach(btn => {
         this.removeEventListener("click",addCart)
         }
 
+//remove cross button
+
+const crossBtn = document.querySelectorAll(".cross-button")
+
+crossBtn.forEach(cross => {
+    cross.addEventListener('click', removeCart);
+})
+
+        function removeCart(event) {
+            const close = document.removeChild("li");
+            close.classList.removeChild("articleCart")
+            console.log(this);
+        };
