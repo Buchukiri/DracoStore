@@ -49,9 +49,9 @@ for(const art of articlesName){
     "<div class='art-info'><p class='art-name'>"+art+"</p>"+
     "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
     "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
-    "<div class='main-btns' id='main-btns'><div><img class='minus' id='minus' src='img/minus.png'></div>"+
-    "<input class ='main-number' id='main-number' type='number'>"+
-    "<div><img class='plus' id='plus' src='img/plus.png'></div></div></div></a></li>";
+    // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+    "<input class ='main-number' id='main-number' type='number'></div></div></a></li>";
+    // "<div><img class='plus' id='plus' src='img/plus.png'></div>
    
 
 }
