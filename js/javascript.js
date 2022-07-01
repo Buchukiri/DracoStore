@@ -78,6 +78,7 @@ imgBtns.forEach(btn => {
         li.innerHTML = "<img class='cart-img' src='"+this.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
                         "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
+        li.innerHTML += "<img class='cross-button' src=../img/cross-button.png>"
         finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart)
