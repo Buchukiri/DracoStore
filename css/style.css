@@ -49,6 +49,7 @@ a {
 }
 
 button {
+    /* border: none; */
     background: none;
 }
 
@@ -300,7 +301,7 @@ button {
 }
 
 .cart-img{
-    width: 60px;
+    width: 80px;
 }
 
 .cart-art-info{
@@ -318,6 +319,26 @@ button {
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2.5rem;
     transform: rotate(-7deg);
+}
+
+.quantity-item{
+    display: flex;
+}
+/* .art-button-moins{
+    font-size: 20px;
+    width: 25px;
+}
+
+.art-button-plus{
+    font-size: 20px;
+    width: 25px;
+
+} */
+
+.art-button{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 19px;
+    width: 65px;
 }
 
 /* .footer{

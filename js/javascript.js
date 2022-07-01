@@ -107,7 +107,10 @@ function addCart(event) {
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+        "<input class='art-button'type='number'>";
+        // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
