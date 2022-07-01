@@ -122,7 +122,6 @@ button {
 }
 
 .articles{
- 
     width: 100%;
 }
 
@@ -193,9 +192,16 @@ button {
     width: 100%;
 }
 
+.final-cart-ul{
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
 .active-cart{
     text-align: center;
-    height: 55%;
+    height: 51%;
+    overflow-y: scroll;
 }
 
 /* .cart-price{
@@ -211,6 +217,25 @@ button {
     bottom: 0px;
     width: 380px;
     overflow: hidden;
+}
+
+.articleCart{
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto;
+    width: 65%;
+    border-bottom: black 1px solid;
+}
+
+.cart-img{
+    width: 60px;
+}
+
+.cart-art-info{
+    display: flex;
+    flex-direction: column;
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 25px;
 }
 
 /* .footer{

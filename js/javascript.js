@@ -75,9 +75,9 @@ imgBtns.forEach(btn => {
         const li = document.createElement("li");
         li.classList.add("articleCart");
         console.log(this);
-        li.innerHTML = this.dataset.name+"<br>";
-        li.innerHTML += "<img src='"+this.src+"'>"
-        li.innerHTML += articlesObj[this.dataset.name].prix;
+        li.innerHTML = "<img class='cart-img' src='"+this.src+"'>";
+        li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
+                        "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
         finalCart.appendChild(li);
         articlesCounter()
         this.removeEventListener("click",addCart)
