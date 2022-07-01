@@ -264,8 +264,14 @@ button {
 
 .art-button{
     font-family: 'East Sea Dokdo', cursive;
-    font-size: 19px;
+    font-size: 25px;
     width: 65px;
+    height: 3rem;
+    width: 5rem;
+    text-align: center;
+    border: 1px solid #3b301a;
+    background-color: #dec18cb9;
+    border-radius: 2rem;
 }
 
 /* .footer{
