@@ -95,18 +95,44 @@ function addCart(event) {
         this.removeEventListener("click",addCart) 
     }
 
-    //remove cross button
+
+    // articleCart
+    // finalCart
+
+    finalCart.addEventListener("click", function(event) {
+document.querySelector(".cross-button").addEventListener('click', function(event) {
+    console.log(this)
+    console.warn(event.target.parentElement.parentElement)
+    console.log(event.target.parentNode.parentNode)
+    // if (event.target.classList.contains("articleCart")) return;
+            this.target.remove(event.target.parentNode.parentNode);
+        })
+})
+
+//         if (event.target.classList.contains("articleCart")) return;
+//         event.target.parentElement.remove(event.target);
+//     })
+
+
+
+
+
+
+
+
+//  const crossBtn = document.querySelectorAll(".cross-button")
+//     console.log(crossBtn)  
+//     //remove cross button
     
-    const crossBtn = document.querySelectorAll(".cross-button")
+   
+//     crossBtn.forEach(cross => {
+//         cross.addEventListener('click', removeCart);
+//     })
     
-    crossBtn.forEach(cross => {
-        cross.addEventListener('click', removeCart);
-    })
-    
-            function removeCart(event) {
-                const close = document.removeChild("li");
-                close.classList.removeChild("articleCart")
-                console.log(this);
-            };
+//             function removeCart(event) {
+//                 document.getElementById("final-cart-ul")
+//                 this.remove("articleCart")
+//                 console.log(this);
+//             };
     
     
