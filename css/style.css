@@ -48,9 +48,9 @@ a {
     text-decoration: none;
 }
 
-button {
+/* button {
     background: none;
-}
+} */
 
 /* BODY */
 
@@ -212,6 +212,21 @@ button {
     color: black;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 42px;
+}
+
+.modify-art{
+    position: absolute;
+    top: 35px;
+    right: 30px;
+    border: 1px solid black;
+    width: 22px;
+    height: 19px;
+    cursor: pointer;
+    background: none;
+}
+
+.modify-img{
+    height: 80%;
 }
 
 .art-stock{

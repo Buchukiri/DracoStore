@@ -38,29 +38,31 @@ const articlesObj = {
 }
 
 
-const admin = document.getElementById("admin");
 
-function createModal() {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-    modal.appendChild(modalContent);
-    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-    modalContent.addEventListener("click", function() {
-        this.remove();
-        admin.addEventListener("click", clickAdmin);
-    });
-    return modalContent;
-}
 
-function clickAdmin(){
-    const modalContent = createModal();
-    modalContent.innerHTML = '<button class="modal-close">x</button>';
-    this.removeEventListener("click", clickAdmin)
-}
+// const admin = document.getElementById("admin");
 
-admin.addEventListener("click", clickAdmin);
+// function createModal() {
+//     const modal = document.createElement("div");
+//     modal.className = "modal";
+//     const modalContent = document.createElement("div");
+//     modalContent.className = "modal-content";
+//     modal.appendChild(modalContent);
+//     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+//     modalContent.addEventListener("click", function() {
+//         this.remove();
+//         admin.addEventListener("click", clickAdmin);
+//     });
+//     return modalContent;
+// }
+
+// function clickAdmin(){
+//     const modalContent = createModal();
+//     modalContent.innerHTML = '<button class="modal-close">x</button>';
+//     this.removeEventListener("click", clickAdmin)
+// }
+
+// admin.addEventListener("click", clickAdmin);
 
 
 const articlesName = Object.keys(articlesObj);
@@ -72,8 +74,9 @@ let display = "";
 for(const art of articlesName){
     display += "<li class='article-item'><a  data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
     "<img class='article-img' src='img/"+art+".png' alt='"+art+"' ></a>"+
-    "<div class='art-info'><p class='art-name'>"+art+"</p>"+
-    "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
+    "<div class='art-info'><button class='modify-art'>"+
+    "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
+    "<p class='art-name'>"+art+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
     "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p></div></li>";
 
 }
