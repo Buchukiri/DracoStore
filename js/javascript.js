@@ -109,7 +109,7 @@ function addCart(event) {
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button'type='number'>";
+        "<input id='art-button' class='art-button' type='number'>";
         // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
@@ -118,3 +118,16 @@ function addCart(event) {
         this.removeEventListener("click",addCart)
     }
     
+// Add main qty to panier qty
+
+const mainQtity = document.querySelectorAll("#main-number")
+const panierQty = document.querySelectorAll("#art-button")
+console.log(panierQty);
+
+const totalArtQty ="";
+function getValueMainQty() {
+    return mainQtity.values()
+}
+getValueMainQty()
+
+
