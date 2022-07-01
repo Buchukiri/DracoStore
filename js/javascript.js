@@ -57,9 +57,9 @@ articles.innerHTML = display;
 // compteur d'articles
 const articleCount = document.getElementById("articles-count");
 
-function articlesCounter() {
-  articleCount.innerText = finalCart.childElementCount; 
-}
+// function articlesCounter() {
+//   articleCount.innerText = finalCart.childElementCount; 
+// }
 
 const finalCart = document.getElementById("final-cart-ul")
 const imgBtns = document.querySelectorAll(".article-img")
@@ -79,7 +79,7 @@ imgBtns.forEach(btn => {
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
                         "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
         finalCart.appendChild(li);
-        articlesCounter()
+        // articlesCounter()
         this.removeEventListener("click",addCart)
         }
 
