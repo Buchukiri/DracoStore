@@ -49,7 +49,6 @@ a {
 }
 
 button {
-    border: none;
     background: none;
 }
 
@@ -85,6 +84,7 @@ button {
 .header-logo{
     position: relative;
     top: 7rem;
+    z-index: 10;
     height: 20rem;
     opacity: .8;
 }
@@ -98,22 +98,38 @@ button {
     position: relative;
     top: 10px;
     height: 9rem;
-  
-
 }
 
 
 /* MAIN DIV */
 
-
-.menu{
-    width: 20%;
-    border: 1px solid gray;
-}
-
 .main {
     display: flex;
     justify-content: space-between;
+}
+
+.menu{
+    position: relative;
+    /* width: 20%;
+    border: 1px solid gray; */
+}
+
+.admin{
+    color: rgba(43, 214, 226, 0.74);
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 50px;
+}
+
+.admin-ttl{
+    position: absolute;
+    top: 200px;
+    left: 55px;
+    z-index: 10;
+}
+
+.admin-img{
+    position: relative;
+    top: 160px;
 }
 
 .art-title{
@@ -122,7 +138,36 @@ button {
 }
 
 .articles{
+    position: relative;
     width: 100%;
+}
+
+.modal{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 5rem;
+}
+
+.modal-content {
+    position: relative;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    bottom: 1rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-close {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 1rem;
+    right: 2rem;
+    font-size: 2rem;
+    color: gray;
 }
 
 .article-list{
@@ -134,14 +179,15 @@ button {
 }
 
 .article-item{
+    display: flex;
     background-image: url("/img/livre.png");
     background-size: cover;
-    /* border: 1px solid black; */
     height: 250px;
 }
 
 .article-link{
     display: flex;
+    width: 50%;
     height: 100%;
 }
 
@@ -155,13 +201,13 @@ button {
 
 .art-info{
     position: relative;
-    left: 10px;
+    right: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     font-size: 20px;
-    width: 100%;
+    width: 50%;
     height: 100%;
     color: black;
     font-family: 'East Sea Dokdo', cursive;
