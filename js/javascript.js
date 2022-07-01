@@ -37,6 +37,32 @@ const articlesObj = {
     },
 }
 
+
+const admin = document.getElementById("admin");
+
+function createModal() {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modal.appendChild(modalContent);
+    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    modalContent.addEventListener("click", function() {
+        this.remove();
+        admin.addEventListener("click", clickAdmin);
+    });
+    return modalContent;
+}
+
+function clickAdmin(){
+    const modalContent = createModal();
+    modalContent.innerHTML = '<button class="modal-close">x</button>';
+    this.removeEventListener("click", clickAdmin)
+}
+
+admin.addEventListener("click", clickAdmin);
+
+
 const articlesName = Object.keys(articlesObj);
 // console.log(articlesName);
 
@@ -44,8 +70,8 @@ const articles = document.getElementById("article-list");
 let display = "";
 
 for(const art of articlesName){
-    display += "<li class='article-item'><a class='article-link' id='"+art+"' href='#' >"+
-    "<img data-name='"+art+"' class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
+    display += "<li class='article-item'><a  data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
+    "<img class='article-img' src='img/"+art+".png' alt='"+art+"' ></a>"+
     "<div class='art-info'><p class='art-name'>"+art+"</p>"+
     "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
     "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
@@ -53,7 +79,6 @@ for(const art of articlesName){
     "<input class ='main-number' id='main-number' type='number'></div></div></a></li>";
     // "<div><img class='plus' id='plus' src='img/plus.png'></div>
    
-
 }
 
 articles.innerHTML = display;
@@ -66,10 +91,10 @@ const articleCount = document.getElementById("articles-count");
 // }
 
 const finalCart = document.getElementById("final-cart-ul")
-const imgBtns = document.querySelectorAll(".article-img")
+const imgLinks = document.querySelectorAll(".article-link")
 
 // click image
-imgBtns.forEach(btn => {
+imgLinks.forEach(btn => {
         btn.addEventListener('click', addCart);
     
 });
@@ -80,12 +105,10 @@ let priceWithoutTaxe = 0;
 function addCart(event) {
         const li = document.createElement("li");
         li.classList.add("articleCart");
-        // console.log(this);
-        li.innerHTML = "<img class='cart-img' src='"+this.src+"'>";
+        li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
-        console.log(priceWithoutTaxe);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
         // articlesCounter()
