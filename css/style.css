@@ -242,6 +242,16 @@ button {
     height: 17px;
 }
 
+.final-price{
+    position: relative;
+    z-index: 100;
+    right: 110px;
+    /* top: 10px; */
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 2.5rem;
+    transform: rotate(-7deg);
+}
+
 /* .footer{
 
 }

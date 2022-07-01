@@ -64,36 +64,49 @@ const articleCount = document.getElementById("articles-count");
 const finalCart = document.getElementById("final-cart-ul")
 const imgBtns = document.querySelectorAll(".article-img")
 
-
 // click image
 imgBtns.forEach(btn => {
         btn.addEventListener('click', addCart);
     
 });
+
+let priceWithoutTaxe = 0;
+
 // add bucket
-    function addCart(event) {
+function addCart(event) {
         const li = document.createElement("li");
         li.classList.add("articleCart");
-        console.log(this);
+        // console.log(this);
         li.innerHTML = "<img class='cart-img' src='"+this.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
                         "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
-        li.innerHTML += "<img class='cross-button' src=../img/cross-button.png>"
+        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart)
-        }
+       
 
-//remove cross button
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
+        priceWithoutTaxe += articlesObj[this.dataset.name].prix;
+        console.log(priceWithoutTaxe);
+        document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
+        finalCart.appendChild(li);
+        // articlesCounter()
+        this.removeEventListener("click",addCart) 
+    }
 
-const crossBtn = document.querySelectorAll(".cross-button")
-
-crossBtn.forEach(cross => {
-    cross.addEventListener('click', removeCart);
-})
-
-        function removeCart(event) {
-            const close = document.removeChild("li");
-            close.classList.removeChild("articleCart")
-            console.log(this);
-        };
+    //remove cross button
+    
+    const crossBtn = document.querySelectorAll(".cross-button")
+    
+    crossBtn.forEach(cross => {
+        cross.addEventListener('click', removeCart);
+    })
+    
+            function removeCart(event) {
+                const close = document.removeChild("li");
+                close.classList.removeChild("articleCart")
+                console.log(this);
+            };
+    
+    
