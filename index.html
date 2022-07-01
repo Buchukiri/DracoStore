@@ -9,23 +9,30 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Rubik+Moonrocks&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="body">
     <header class="header">
         <div class="header-img"><img class="header-logo" src="img/logo-white.png" alt="logo"></div>
         <div class="header-content">
-            <img class= header-content-img src="img/titre-gris.png" alt="font-header">
+            <img class=header-content-img src="img/titre-gris.png" alt="font-header">
         </div>
     </header>
 
-    <main class="main">
+    <main class="main" id="main">
 
-        <div class="menu"><h2>Menu</h2></div>
+        <div class="menu" id="menu">
+            <a href="#" class="admin" id="admin">
+                <h2 class="admin-ttl">ADMIN</h2>
+                <img class="admin-img" id="admin-img" src="img/panneau-bois.png" alt="panneau admin">
+            </a>
+        </div>
 
         <section class="articles" id="articles">
             <!-- <h2 class="art-title">Articles</h2> -->
-            <div class="article-main">
+            <div class="article-main" id="article-main">
                 <ul class="article-list" id="article-list">
                 </ul>
             </div>
@@ -35,15 +42,16 @@
         <section class="cart-section">
             <h2 class="cart-ttl">Panier</h2>
             <div id="active-cart" class="active-cart">
-                <div class="counter-article-ttl">Total <span id="articles-count">0</span> Article(s).</div>
+                <!-- <div class="counter-article-ttl">Total <span id="articles-count">0</span> Article(s).</div> -->
                 <ul id="final-cart-ul" class="final-cart-ul"></ul>
             </div>
             <!-- <div class="cart-price"></div> -->
-            <div class="final-price"><img class="img-draco" src="img/draco-sign.png" alt="draco"></div>
+            <div class="final-price" id="final-price"></div><img class="img-draco" src="img/draco-sign.png" alt="draco">
         </section>
 
 
     </main>
+
 <!-- <footer class="footer">
     <img class="img-flamme" id="img-flamme" src="img/fire.gif" alt="flamme">
 </footer> -->
