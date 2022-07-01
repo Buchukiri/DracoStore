@@ -1,39 +1,39 @@
 const articlesObj = {
     potion : {
         prix : 2,
-        quantité : 10
+        stock : 10
     },
     elixir : {
         prix : 3,
-        quantité : 10
+        stock : 10
     },
     dague : {
         prix : 12,
-        quantité : 10
+        stock : 10
     },
     fleche : {
         prix : 1,
-        quantité : 10
+        stock : 10
     },
     pantalon : {
         prix : 8,
-        quantité : 10
+        stock : 10
     },
     gants : {
         prix : 4,
-        quantité : 10
+        stock : 10
     },
     marteau : {
         prix : 16,
-        quantité : 10
+        stock : 10
     },
     epee : {
         prix : 22,
-        quantité : 10
+        stock : 10
     },
     casque : {
         prix : 18,
-        quantité : 10
+        stock : 10
     },
 }
 
@@ -45,8 +45,41 @@ let display = "";
 
 for(const art of articlesName){
     display += "<li class='article-item'><a class='article-link' id='"+art+"' href='#' >"+
-    "<img class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
-    "<p class='price'>"+articlesObj[art].prix+" PO</p></a></li>";
+    "<img data-name='"+art+"' class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
+    "<div class='art-info'><p class='art-name'>"+art+"</p>"+
+    "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
+    "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p></div></a></li>";
+
 }
 
 articles.innerHTML = display;
+
+// compteur d'articles
+const articleCount = document.getElementById("articles-count");
+
+function articlesCounter() {
+  articleCount.innerText = finalCart.childElementCount; 
+}
+
+const finalCart = document.getElementById("final-cart-ul")
+const imgBtns = document.querySelectorAll(".article-img")
+
+
+// click image
+imgBtns.forEach(btn => {
+        btn.addEventListener('click', addCart);
+    
+});
+// add bucket
+    function addCart(event) {
+        const li = document.createElement("li");
+        li.classList.add("articleCart");
+        console.log(this);
+        li.innerHTML = this.dataset.name+"<br>";
+        li.innerHTML += "<img src='"+this.src+"'>"
+        li.innerHTML += articlesObj[this.dataset.name].prix;
+        finalCart.appendChild(li);
+        articlesCounter()
+        this.removeEventListener("click",addCart)
+        }
+
