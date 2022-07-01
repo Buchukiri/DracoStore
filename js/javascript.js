@@ -77,8 +77,11 @@ for(const art of articlesName){
     "<div class='art-info'><button class='modify-art'>"+
     "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
     "<p class='art-name'>"+art+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
-    "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p></div></li>";
-
+    "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
+    // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+    "<input class ='main-number' id='main-number' type='number'></div></li>";
+    // "<div><img class='plus' id='plus' src='img/plus.png'></div>
+   
 }
 
 articles.innerHTML = display;
@@ -107,7 +110,10 @@ function addCart(event) {
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p></div>"; 
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+        "<input class='art-button'type='number'>";
+        // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
