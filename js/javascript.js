@@ -48,7 +48,11 @@ for(const art of articlesName){
     "<img data-name='"+art+"' class='article-img' src='img/"+art+".png' alt='"+art+"' >"+
     "<div class='art-info'><p class='art-name'>"+art+"</p>"+
     "<p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
-    "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p></div></a></li>";
+    "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
+    "<div class='main-btns' id='main-btns'><div><img class='minus' id='minus' src='img/minus.png'></div>"+
+    "<input class ='main-number' id='main-number' type='number'>"+
+    "<div><img class='plus' id='plus' src='img/plus.png'></div></div></div></a></li>";
+   
 
 }
 
