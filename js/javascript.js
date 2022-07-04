@@ -128,12 +128,13 @@ function addCart(event) {
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         if (priceWithoutTaxe >= 100){
-            alert('Gift')
+            "<img class='gift' src='img/gift.png'>"
         }
         finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart)
     }
+    
 
     
 function createModal() {
