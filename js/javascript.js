@@ -1,45 +1,45 @@
 const articlesObj = {
-    potion : {
+    id1 : {
         name : "potion",
         prix : 2,
         stock : 10,
     },
-    elixir : {
+    id2 : {
         name : "elixir",
         prix : 3,
         stock : 10
     },
-    dague : {
+    id3 : {
         name : "dague",
         prix : 12,
         stock : 10
     },
-    fleche : {
+    id4 : {
         name : "fleche",
         prix : 1,
         stock : 10
     },
-    pantalon : {
+    id5 : {
         name : "pantalon",
         prix : 8,
         stock : 10
     },
-    gants : {
+    id6 : {
         name : "gants",
         prix : 4,
         stock : 10
     },
-    marteau : {
+    id7 : {
         name : "marteau",
         prix : 16,
         stock : 10
     },
-    epee : {
+    id8 : {
         name : "epee",
         prix : 22,
         stock : 10
     },
-    casque : {
+    id9 : {
         name : "casque",
         prix : 18,
         stock : 10
@@ -56,7 +56,7 @@ function displayArticles(){
 let display = "";
     for(const art of articlesName){
         display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
-        "<img class='article-img' src='img/"+art+".png' alt='"+art+"' ></a>"+
+        "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
         "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
         "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
@@ -92,7 +92,7 @@ function addCart(event) {
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
+        li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
@@ -115,14 +115,17 @@ function validateCart(){
             // console.log(articlesObj[qtt.dataset.input].stock);
             console.log(qtt.value);
             articlesObj[qtt.dataset.input].stock -= qtt.value;
+            if(articlesObj[qtt.dataset.input].stock <= 0){
+                alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
+            }
             // console.log(articlesObj[qtt.dataset.input].stock);
         }
         finalCart.innerHTML = "";
         document.getElementById("final-price").innerHTML = "";
         priceWithoutTaxe=0;
         displayArticles();
+        this.removeEventListener("click",validateCart);
     }
-    this.removeEventListener("click",validateCart);
 }
 
 document.getElementById("validate").addEventListener("click", validateCart);
@@ -145,7 +148,7 @@ function modifArticle(){
     console.log(article);
     const modalContent = createModal();
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
-    modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+article+"' </div>"+
+    modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
     "<div><form class='form' method='post'>"+
     "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
     "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
