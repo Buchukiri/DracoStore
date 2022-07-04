@@ -93,7 +93,9 @@ function addCart(event) {
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"
+        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+        finalCart.appendChild(li);
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
         "<input class='art-button' type='number' data-input='"+this.dataset.name+"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
@@ -101,7 +103,7 @@ function addCart(event) {
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
         // articlesCounter()
-        this.removeEventListener("click",addCart)
+        this.removeEventListener("click",addCart) 
     }
 
 
@@ -176,5 +178,10 @@ function modifArticle(){
         modif.addEventListener("click", modifArticle);
     }
     
+     finalCart.addEventListener("click", function(event) {
+        if (event.target.classList.contains("cross-button")){
+            event.target.parentElement.parentElement.remove()
+        }
+     })
 }
     displayArticles();
