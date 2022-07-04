@@ -130,7 +130,7 @@ function addCart(event) {
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         if (priceWithoutTaxe >= 100){
-            alert(Gift)
+            alert('Gift')
         }
         finalCart.appendChild(li);
         // articlesCounter()
