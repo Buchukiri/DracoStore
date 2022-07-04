@@ -87,7 +87,9 @@ function addCart(event) {
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"
+        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+        finalCart.appendChild(li);
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
         "<input class='art-button'type='number'>";
         // "<button class='art-button-plus'>+</button></div></div>";
@@ -144,3 +146,28 @@ function modifArticle(){
         modif.addEventListener("click", modifArticle);
     }
     
+    // finalCart
+
+     finalCart.addEventListener("click", function(event) {
+        if (event.target.classList.contains("cross-button")){
+            event.target.parentElement.parentElement.remove()
+        }
+     })
+
+
+
+
+    // finalCart.addEventListener("click", function(event) {
+    //     if (document.querySelectorAll(".cross-button"))
+    //         console.log(event.target)
+    //        finalCart.remove(".articleCart");
+    //      console.log(querySelectorAll(".button"));           
+    // })
+        
+
+    // let finalCartUl = document.querySelector(".final-cart-ul");
+    // finalCart.addEventListener("click", function(event) {
+    //     document.querySelectorAll(".cross-button").addEventListener('click', function(event) {
+    //         console.log(document.querySelectorAll(".articleCart >.cross-button"))
+    //         finalCartUl.remove("target.articleCart");
+    //             })})

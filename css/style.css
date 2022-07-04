@@ -326,6 +326,7 @@ button {
     bottom: 0px;
     width: 380px;
     overflow: hidden;
+    display: none; /*J'le vire temporairement, il gène mes clics*/
 }
 
 .articleCart{
