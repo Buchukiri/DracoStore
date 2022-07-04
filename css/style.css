@@ -195,7 +195,7 @@ button {
     grid-template-columns: repeat(3, 25%);
     justify-content: center;
     /* gap: 2px; */
-    padding: 50px 10px;
+    padding: 35px 10px;
 }
 
 .article-item{
