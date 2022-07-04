@@ -51,6 +51,7 @@ const articlesName = Object.keys(articlesObj);
 // console.log(articlesName);
 
 const articles = document.getElementById("article-list");
+let priceWithoutTaxe = 0;
 
 
 function displayArticles(){
@@ -73,7 +74,7 @@ let display = "";
 
 
 // compteur d'articles
-const articleCount = document.getElementById("articles-count");
+// const articleCount = document.getElementById("articles-count");
 
 // function articlesCounter() {
 //   articleCount.innerText = finalCart.childElementCount; 
@@ -89,8 +90,6 @@ imgLinks.forEach(btn => {
 });
 
 
-let priceWithoutTaxe = 0;
-
 // add bucket
 function addCart(event) {
         const li = document.createElement("li");
@@ -101,7 +100,7 @@ function addCart(event) {
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
         "<input class='art-button'type='number'>";
         // "<button class='art-button-plus'>+</button></div></div>";
-        priceWithoutTaxe += articlesObj[this.dataset.name].prix;
+        priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
         // articlesCounter()
