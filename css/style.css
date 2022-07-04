@@ -48,8 +48,9 @@ a {
     text-decoration: none;
 }
 
+
 button {
-    border: none;
+    /* border: none; */
     background: none;
 }
 
@@ -85,6 +86,7 @@ button {
 .header-logo{
     position: relative;
     top: 7rem;
+    z-index: 10;
     height: 20rem;
     opacity: .8;
 }
@@ -98,22 +100,38 @@ button {
     position: relative;
     top: 10px;
     height: 9rem;
-  
-
 }
 
 
 /* MAIN DIV */
 
-
-.menu{
-    width: 20%;
-    border: 1px solid gray;
-}
-
 .main {
     display: flex;
     justify-content: space-between;
+}
+
+.menu{
+    position: relative;
+    /* width: 20%;
+    border: 1px solid gray; */
+}
+
+.admin{
+    color: rgba(43, 214, 226, 0.74);
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 50px;
+}
+
+.admin-ttl{
+    position: absolute;
+    top: 200px;
+    left: 55px;
+    z-index: 10;
+}
+
+.admin-img{
+    position: relative;
+    top: 160px;
 }
 
 .art-title{
@@ -122,26 +140,101 @@ button {
 }
 
 .articles{
+    position: relative;
     width: 100%;
+}
+
+.modal{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 5rem;
+}
+
+.modal-content {
+    position: relative;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    bottom: 1rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: beige;
+}
+
+.modal-close {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 1rem;
+    right: 2rem;
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.modif-content{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 50px;
+}
+
+.form input{
+    font-size: 20px;
 }
 
 .article-list{
     display : grid;
     grid-template-columns: repeat(3, 25%);
     justify-content: center;
-    gap: 10px;
+    /* gap: 2px; */
     padding: 50px 10px;
 }
 
 .article-item{
-    background-image: url("/img/livre.png");
+    display: flex;
+    background-image: url("/img/livre2.png");
     background-size: cover;
-    /* border: 1px solid black; */
     height: 250px;
+}
+
+/* Bottons in display */
+/* .main-btns {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+} */
+
+/* .plus{
+    
+    color: grey;
+    height: 1.5rem;
+}
+.minus {
+    
+    color: grey;
+    height: 1.5rem;
+} */
+
+.main-number {
+    height: 3rem;
+    width: 5rem;
+    text-align: center;
+    border: 1px solid #6E5522;
+    background-color: #E6DECA;
+    border-radius: 2rem;
 }
 
 .article-link{
     display: flex;
+    width: 50%;
     height: 100%;
 }
 
@@ -155,17 +248,33 @@ button {
 
 .art-info{
     position: relative;
-    left: 10px;
+    right: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    gap: 0.3rem;
     font-size: 20px;
-    width: 100%;
+    width: 50%;
     height: 100%;
     color: black;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 42px;
+}
+
+.modify-art{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border: 1px solid black;
+    width: 22px;
+    height: 19px;
+    cursor: pointer;
+    background: none;
+}
+
+.modify-img{
+    height: 80%;
 }
 
 .art-stock{
@@ -228,7 +337,7 @@ button {
 }
 
 .cart-img{
-    width: 60px;
+    width: 80px;
 }
 
 .cart-art-info{
@@ -252,10 +361,23 @@ button {
     transform: rotate(-7deg);
 }
 
-/* .footer{
-
+.quantity-item{
+    display: flex;
+}
+/* .art-button-moins{
+    font-size: 20px;
+    width: 25px;
 }
 
-.img-flamme{
+.art-button-plus{
+    font-size: 20px;
+    width: 25px;
 
 } */
+
+.art-button{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 19px;
+    width: 65px;
+}
+
