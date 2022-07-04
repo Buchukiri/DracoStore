@@ -146,28 +146,8 @@ function modifArticle(){
         modif.addEventListener("click", modifArticle);
     }
     
-    // finalCart
-
      finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             event.target.parentElement.parentElement.remove()
         }
      })
-
-
-
-
-    // finalCart.addEventListener("click", function(event) {
-    //     if (document.querySelectorAll(".cross-button"))
-    //         console.log(event.target)
-    //        finalCart.remove(".articleCart");
-    //      console.log(querySelectorAll(".button"));           
-    // })
-        
-
-    // let finalCartUl = document.querySelector(".final-cart-ul");
-    // finalCart.addEventListener("click", function(event) {
-    //     document.querySelectorAll(".cross-button").addEventListener('click', function(event) {
-    //         console.log(document.querySelectorAll(".articleCart >.cross-button"))
-    //         finalCartUl.remove("target.articleCart");
-    //             })})
