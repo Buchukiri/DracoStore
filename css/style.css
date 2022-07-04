@@ -230,6 +230,8 @@ button {
     border: 1px solid #6E5522;
     background-color: #E6DECA;
     border-radius: 2rem;
+    font-family: 'East Sea Dokdo',cursive;
+    font-size: 19px;
 }
 
 .article-link{

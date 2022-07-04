@@ -90,9 +90,9 @@ imgLinks.forEach(btn => {
 // add bucket
 function addCart(event) {
     // compteur d'articles INPUT MAIN
-        const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value
-        console.log(mainInputArt);
-     
+        const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+
+        mainInputArt  
 
         const li = document.createElement("li");
         li.classList.add("articleCart");
@@ -100,7 +100,7 @@ function addCart(event) {
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'></div>";
+        "<input class='art-button' type='number' value='"+mainInputArt+"' data-input='"+this.dataset.name+"'></div>";
         // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
