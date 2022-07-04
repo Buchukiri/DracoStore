@@ -63,7 +63,7 @@ let display = "";
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
         "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class ='main-number' id='main-number' type='number'></div></li>";
+        "<input class ='main-number' type='number' min='1' max='10' value='1' data-name='"+art+"'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
@@ -93,6 +93,11 @@ let priceWithoutTaxe = 0;
 
 // add bucket
 function addCart(event) {
+    // compteur d'articles INPUT MAIN
+        const mainInputArt = document.querySelector("[data-name]")
+        console.log(mainInputArt);
+     
+
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
