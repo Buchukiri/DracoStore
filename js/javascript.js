@@ -142,19 +142,19 @@ function addCart(event) {
         }*/
         // articlesCounter()
         this.removeEventListener("click",addCart);
-        UpdateTotal();
+        // UpdateTotal();
     }
     
 /* Update Price on Quantity change */
 
-finalCart.addEventListener('click', function(evt) {
-    if(evt.target && evt.target.className == 'art-button') {
-        let currentValue = evt.target.value;
-        let currentPrice = evt.target.dataset.prix;
-        let currentTotal = currentValue * currentPrice;
-        UpdateTotal();
-    }
-});
+// finalCart.addEventListener('click', function(evt) {
+//     if(evt.target && evt.target.className == 'art-button') {
+//         let currentValue = evt.target.value;
+//         let currentPrice = evt.target.dataset.prix;
+//         let currentTotal = currentValue * currentPrice;
+//         UpdateTotal();
+//     }
+// });
 
 function UpdateTotal() {
     let articles = document.getElementsByClassName('articleCart');
