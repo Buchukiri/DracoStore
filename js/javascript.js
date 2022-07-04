@@ -93,15 +93,14 @@ function addCart(event) {
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"
+        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'></div>";
+        // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
-        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'>";
-        // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
-        finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart) 
     }
