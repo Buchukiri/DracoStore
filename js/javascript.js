@@ -74,9 +74,8 @@ admin.addEventListener("click", clickAdmin);
 
 
 const articlesName = Object.keys(articlesObj);
-// console.log(articlesName);
-
 const articles = document.getElementById("article-list");
+let priceWithoutTaxe = 0;
 
 
 function displayArticles(){
@@ -98,7 +97,7 @@ let display = "";
 
 
 // compteur d'articles
-const articleCount = document.getElementById("articles-count");
+// const articleCount = document.getElementById("articles-count");
 
 // function articlesCounter() {
 //   articleCount.innerText = finalCart.childElementCount; 
@@ -114,29 +113,78 @@ imgLinks.forEach(btn => {
 });
 
 
-let priceWithoutTaxe = 0;
-let stock =document.getElementsByClassName("art-stock")
-// console.log(art-stock);
 // add bucket
 function addCart(event) {
+    let currentValue = this.nextSibling.lastChild.value;
+    if(currentValue == '') {
+        currentValue = 1;
+    }
         const li = document.createElement("li");
         li.classList.add("articleCart");
+        li.setAttribute('data-total', currentValue * articlesObj[this.dataset.name].prix);
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
-        "<input class='art-button' type='number' min='1' max="+articlesObj[this.dataset.name].stock+">";
-        priceWithoutTaxe += articlesObj[this.dataset.name].prix;
+        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+        "<input class='art-button' type='number' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
+        // "<button class='art-button-plus'>+</button></div></div>";
+        li.getElementsByClassName('art-button')[0].value = currentValue;
+        priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
+        
         if (priceWithoutTaxe >= 100){
-            "<img class='gift' src='img/gift.png'>"
+           
         }
         finalCart.appendChild(li);
         // articlesCounter()
-        this.removeEventListener("click",addCart)
+        this.removeEventListener("click",addCart);
+        UpdateTotal();
     }
     
+/* Update Price on Quantity change */
+
+finalCart.addEventListener('click', function(evt) {
+    if(evt.target && evt.target.className == 'art-button') {
+        let currentValue = evt.target.value;
+        let currentPrice = evt.target.dataset.prix;
+        let currentTotal = currentValue * currentPrice;
+        UpdateTotal();
+    }
+});
+
+function UpdateTotal() {
+    let articles = document.getElementsByClassName('articleCart');
+    let total = 0;
+    // articles.forEach(article => {
+    //     total += article.dataset.total;
+
+    // });
+    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
+    console.log(total)
+}
+
+    /* MODIFY STOCK AFTER SELLING */
+function validateCart(){
+    if(confirm("Voulez vous valider la transaction ?")){
+        const qttList = document.querySelectorAll(".articleCart input");
+        for(const qtt of qttList){
+            // console.log(articlesObj[qtt.dataset.input].stock);
+            console.log(qtt.value);
+            articlesObj[qtt.dataset.input].stock -= qtt.value;
+            // console.log(articlesObj[qtt.dataset.input].stock);
+        }
+        finalCart.innerHTML = "";
+        document.getElementById("final-price").innerHTML = "";
+        priceWithoutTaxe=0;
+        displayArticles();
+    }
+    this.removeEventListener("click",validateCart);
+}
+
+document.getElementById("validate").addEventListener("click", validateCart);
 
     
+
 function createModal() {
     const modal = document.createElement("div");
     modal.className = "modal";
