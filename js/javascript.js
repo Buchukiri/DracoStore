@@ -48,8 +48,6 @@ const articlesObj = {
 
 
 const articlesName = Object.keys(articlesObj);
-// console.log(articlesName);
-
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
 
@@ -70,8 +68,7 @@ let display = "";
     }
     articles.innerHTML = display;
 
-
-
+    
 
 // compteur d'articles
 // const articleCount = document.getElementById("articles-count");
@@ -98,7 +95,7 @@ function addCart(event) {
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button'type='number'>";
+        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
@@ -107,7 +104,29 @@ function addCart(event) {
         this.removeEventListener("click",addCart)
     }
 
+
+    /* MODIFY STOCK AFTER SELLING */
+function validateCart(){
+    if(confirm("Voulez vous valider la transaction ?")){
+        const qttList = document.querySelectorAll(".articleCart input");
+        for(const qtt of qttList){
+            // console.log(articlesObj[qtt.dataset.input].stock);
+            console.log(qtt.value);
+            articlesObj[qtt.dataset.input].stock -= qtt.value;
+            // console.log(articlesObj[qtt.dataset.input].stock);
+        }
+        finalCart.innerHTML = "";
+        document.getElementById("final-price").innerHTML = "";
+        priceWithoutTaxe=0;
+        displayArticles();
+    }
+    this.removeEventListener("click",validateCart);
+}
+
+document.getElementById("validate").addEventListener("click", validateCart);
+
     
+
 function createModal() {
     const modal = document.createElement("div");
     modal.className = "modal";
