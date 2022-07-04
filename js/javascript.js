@@ -122,8 +122,8 @@ function validateCart(){
         document.getElementById("final-price").innerHTML = "";
         priceWithoutTaxe=0;
         displayArticles();
+        this.removeEventListener("click",validateCart);
     }
-    this.removeEventListener("click",validateCart);
 }
 
 document.getElementById("validate").addEventListener("click", validateCart);
