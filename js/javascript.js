@@ -62,7 +62,7 @@ let display = "";
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
         "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class ='main-number' id='main-number' type='number'></div></li>";
+        "<input class='main-number' type='number' min='1' max='"+articlesObj[art].stock+"' data-qtty='"+art+"'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
@@ -89,13 +89,18 @@ imgLinks.forEach(btn => {
 
 // add bucket
 function addCart(event) {
+    // compteur d'articles INPUT MAIN
+        const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+
+        mainInputArt  
+
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'></div>";
+        "<input class='art-button' type='number' value='"+mainInputArt+"' data-input='"+this.dataset.name+"'></div>";
         // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
