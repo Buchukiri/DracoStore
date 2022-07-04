@@ -129,6 +129,9 @@ function addCart(event) {
         // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += articlesObj[this.dataset.name].prix;
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
+        if (priceWithoutTaxe >= 100){
+            alert(Gift)
+        }
         finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart)
