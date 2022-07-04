@@ -62,7 +62,7 @@ let display = "";
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
         "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class ='main-number' type='number' min='1' max='10' value='1' data-name='"+art+"'></div></li>";
+        "<input class='main-number' type='number' min='1' max='"+articlesObj[art].stock+"' data-qtty='"+art+"'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
@@ -90,7 +90,7 @@ imgLinks.forEach(btn => {
 // add bucket
 function addCart(event) {
     // compteur d'articles INPUT MAIN
-        const mainInputArt = document.querySelector("[data-name]")
+        const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value
         console.log(mainInputArt);
      
 
@@ -100,11 +100,7 @@ function addCart(event) {
         li.innerHTML += "<div class='cart-art-info'><p>"+this.dataset.name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-<<<<<<< HEAD
-        "<input id='art-button' class='art-button' type='number'>";
-=======
         "<input class='art-button' type='number' data-input='"+this.dataset.name+"'>";
->>>>>>> master
         // "<button class='art-button-plus'>+</button></div></div>";
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
