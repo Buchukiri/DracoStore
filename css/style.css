@@ -348,6 +348,15 @@ button {
     font-size: 25px;
 }
 
+.articleCart button{
+    padding-bottom: 58px;
+    border:none
+}
+
+.cross-button{
+    height: 17px;
+}
+
 .final-price{
     position: relative;
     z-index: 100;
