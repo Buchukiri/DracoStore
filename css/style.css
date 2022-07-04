@@ -57,7 +57,7 @@ button {
 /* BODY */
 
 .body{
-    background-image: url("/img/background.jpg");
+    background-image: url("../img/background.jpg");
     background-size: cover;
 }
 
@@ -70,7 +70,7 @@ button {
     align-items: center;
     height: 8rem;
     width: 100%;
-    background-image: url("/img/background-wood.png");
+    background-image: url("../img/background-wood.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -200,7 +200,7 @@ button {
 
 .article-item{
     display: flex;
-    background-image: url("/img/livre2.png");
+    background-image: url("../img/livre2.png");
     background-size: cover;
     height: 250px;
 }
@@ -288,7 +288,7 @@ button {
 }
 
 .cart-section {
-    background-image: url("/img/parch-panier-test.png");
+    background-image: url("../img/parch-panier-test.png");
     background-size: 380px;
     background-position: top 10px center;
     background-repeat: no-repeat;
@@ -330,7 +330,7 @@ button {
     position: absolute;
     right: 25px;
     bottom: 0px;
-    width: 380px;
+    width: 360px;
     overflow: hidden;
 }
 
@@ -340,10 +340,11 @@ button {
     margin: auto;
     width: 65%;
     border-bottom: black 1px solid;
+    padding-bottom: 5px;
 }
 
 .cart-img{
-    width: 80px;
+    width: 90px;
 }
 
 .cart-art-info{
@@ -365,8 +366,8 @@ button {
 .final-price{
     position: relative;
     z-index: 100;
-    right: 110px;
-    /* top: 10px; */
+    right: 92px;
+    top: 10px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2.5rem;
     transform: rotate(-7deg);
@@ -390,7 +391,7 @@ button {
     font-family: 'East Sea Dokdo', cursive;
     font-size: 25px;
     width: 65px;
-    height: 3rem;
+    height: 2.5rem;
     width: 5rem;
     text-align: center;
     border: 1px solid #3b301a;

@@ -224,6 +224,7 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         displayArticles();
         modalContent.parentElement.remove();
+        document.getElementById("validate").removeEventListener("click", validateCart);
     });
 
     document.getElementById("modal-close").addEventListener("click", function() {
