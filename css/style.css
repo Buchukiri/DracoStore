@@ -48,6 +48,7 @@ a {
     text-decoration: none;
 }
 
+
 button {
     /* border: none; */
     background: none;
@@ -159,6 +160,7 @@ button {
     bottom: 1rem;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.9);
+    color: beige;
 }
 
 .modal-close {
@@ -169,6 +171,23 @@ button {
     right: 2rem;
     font-size: 2rem;
     color: gray;
+    cursor: pointer;
+}
+
+.modif-content{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.form{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 50px;
+}
+
+.form input{
+    font-size: 20px;
 }
 
 .article-list{
@@ -176,15 +195,16 @@ button {
     grid-template-columns: repeat(3, 25%);
     justify-content: center;
     /* gap: 2px; */
-    padding: 50px 10px;
+    padding: 35px 10px;
 }
 
 .article-item{
     display: flex;
-    background-image: url("/img/livre.png");
+    background-image: url("/img/livre2.png");
     background-size: cover;
     height: 250px;
 }
+
 /* Bottons in display */
 /* .main-btns {
     display: flex;
@@ -202,8 +222,9 @@ button {
     color: grey;
     height: 1.5rem;
 } */
+
 .main-number {
-    height: 3rem;
+    height: 2.5rem;
     width: 5rem;
     text-align: center;
     border: 1px solid #6E5522;
@@ -228,6 +249,7 @@ button {
 .art-info{
     position: relative;
     right: 10px;
+    bottom: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -239,6 +261,21 @@ button {
     color: black;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 42px;
+}
+
+.modify-art{
+    position: absolute;
+    top: 33px;
+    right: 25px;
+    border: 1px solid black;
+    width: 22px;
+    height: 19px;
+    cursor: pointer;
+    background: none;
+}
+
+.modify-img{
+    height: 80%;
 }
 
 .art-stock{
@@ -341,10 +378,3 @@ button {
     width: 65px;
 }
 
-/* .footer{
-
-}
-
-.img-flamme{
-
-} */
