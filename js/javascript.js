@@ -1,37 +1,46 @@
 const articlesObj = {
     potion : {
+        name : "potion",
         prix : 2,
         stock : 10,
     },
     elixir : {
+        name : "elixir",
         prix : 3,
         stock : 10
     },
     dague : {
+        name : "dague",
         prix : 12,
         stock : 10
     },
     fleche : {
+        name : "fleche",
         prix : 1,
         stock : 10
     },
     pantalon : {
+        name : "pantalon",
         prix : 8,
         stock : 10
     },
     gants : {
+        name : "gants",
         prix : 4,
         stock : 10
     },
     marteau : {
+        name : "marteau",
         prix : 16,
         stock : 10
     },
     epee : {
+        name : "epee",
         prix : 22,
         stock : 10
     },
     casque : {
+        name : "casque",
         prix : 18,
         stock : 10
     },
@@ -39,9 +48,8 @@ const articlesObj = {
 
 
 const articlesName = Object.keys(articlesObj);
-// console.log(articlesName);
-
 const articles = document.getElementById("article-list");
+let priceWithoutTaxe = 0;
 
 
 function displayArticles(){
@@ -51,7 +59,7 @@ let display = "";
         "<img class='article-img' src='img/"+art+".png' alt='"+art+"' ></a>"+
         "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
         "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
-        "<p class='art-name'>"+art+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
+        "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
         "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class ='main-number' id='main-number' type='number'></div></li>";
@@ -59,12 +67,11 @@ let display = "";
     
     }
     articles.innerHTML = display;
-}
 
-displayArticles();
+    
 
 // compteur d'articles
-const articleCount = document.getElementById("articles-count");
+// const articleCount = document.getElementById("articles-count");
 
 // function articlesCounter() {
 //   articleCount.innerText = finalCart.childElementCount; 
@@ -79,7 +86,6 @@ imgLinks.forEach(btn => {
     
 });
 
-let priceWithoutTaxe = 0;
 
 // add bucket
 function addCart(event) {
@@ -91,16 +97,38 @@ function addCart(event) {
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button'type='number'>";
+        "<input class='art-button' type='number' data-input='"+this.dataset.name+"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
-        priceWithoutTaxe += articlesObj[this.dataset.name].prix;
+        priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         finalCart.appendChild(li);
         // articlesCounter()
         this.removeEventListener("click",addCart) 
     }
 
+
+    /* MODIFY STOCK AFTER SELLING */
+function validateCart(){
+    if(confirm("Voulez vous valider la transaction ?")){
+        const qttList = document.querySelectorAll(".articleCart input");
+        for(const qtt of qttList){
+            // console.log(articlesObj[qtt.dataset.input].stock);
+            console.log(qtt.value);
+            articlesObj[qtt.dataset.input].stock -= qtt.value;
+            // console.log(articlesObj[qtt.dataset.input].stock);
+        }
+        finalCart.innerHTML = "";
+        document.getElementById("final-price").innerHTML = "";
+        priceWithoutTaxe=0;
+        displayArticles();
+    }
+    this.removeEventListener("click",validateCart);
+}
+
+document.getElementById("validate").addEventListener("click", validateCart);
+
     
+
 function createModal() {
     const modal = document.createElement("div");
     modal.className = "modal";
@@ -114,11 +142,12 @@ function createModal() {
 
 function modifArticle(){
     const article = this.dataset.article;
+    console.log(article);
     const modalContent = createModal();
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+article+"' </div>"+
     "<div><form class='form' method='post'>"+
-    "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+article+"' size='5'><br>"+
+    "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
     "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
@@ -126,8 +155,8 @@ function modifArticle(){
 
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
-        console.log(article);
-        // articlesObj[article].name = document.getElementById(article+"-name").value;
+        console.log(document.getElementById(article+"-name").value);
+        articlesObj[article].name = document.getElementById(article+"-name").value;
         articlesObj[article].prix = document.getElementById(article+"-price").value;
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         displayArticles();
@@ -151,3 +180,5 @@ function modifArticle(){
             event.target.parentElement.parentElement.remove()
         }
      })
+}
+    displayArticles();
