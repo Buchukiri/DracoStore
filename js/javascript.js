@@ -47,6 +47,32 @@ const articlesObj = {
 }
 
 
+const admin = document.getElementById("admin");
+
+function createModal() {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modal.appendChild(modalContent);
+    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    modalContent.addEventListener("click", function() {
+        this.remove();
+        admin.addEventListener("click", clickAdmin);
+    });
+    return modalContent;
+}
+
+function clickAdmin(){
+    const modalContent = createModal();
+    modalContent.innerHTML = '<button class="modal-close">x</button>';
+    this.removeEventListener("click", clickAdmin)
+}
+
+admin.addEventListener("click", clickAdmin);
+
+
+
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
@@ -54,6 +80,7 @@ let priceWithoutTaxe = 0;
 
 function displayArticles(){
 let display = "";
+
     for(const art of articlesName){
         display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
         "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
@@ -68,7 +95,6 @@ let display = "";
     }
     articles.innerHTML = display;
 
-    
 
 // compteur d'articles
 // const articleCount = document.getElementById("articles-count");
@@ -89,27 +115,57 @@ imgLinks.forEach(btn => {
 
 // add bucket
 function addCart(event) {
+    let currentValue = this.nextSibling.lastChild.value;
+    if(currentValue == '') {
+        currentValue = 1;
+    }
     // compteur d'articles INPUT MAIN
         const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
-
-        mainInputArt  
-
         const li = document.createElement("li");
         li.classList.add("articleCart");
+        li.setAttribute('data-total', currentValue * articlesObj[this.dataset.name].prix);
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' value='"+mainInputArt+"' data-input='"+this.dataset.name+"'></div>";
+
+        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
+        li.getElementsByClassName('art-button')[0].value = currentValue;
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
+        
+        /*if (priceWithoutTaxe >= 100){
+           
+        }*/
         // articlesCounter()
-        this.removeEventListener("click",addCart) 
+        this.removeEventListener("click",addCart);
+        UpdateTotal();
     }
+    
+/* Update Price on Quantity change */
 
+finalCart.addEventListener('click', function(evt) {
+    if(evt.target && evt.target.className == 'art-button') {
+        let currentValue = evt.target.value;
+        let currentPrice = evt.target.dataset.prix;
+        let currentTotal = currentValue * currentPrice;
+        UpdateTotal();
+    }
+});
+
+function UpdateTotal() {
+    let articles = document.getElementsByClassName('articleCart');
+    let total = 0;
+    // articles.forEach(article => {
+    //     total += article.dataset.total;
+
+    // });
+    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
+    console.log(total)
+}
 
     /* MODIFY STOCK AFTER SELLING */
 function validateCart(){
