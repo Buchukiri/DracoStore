@@ -375,12 +375,19 @@ button {
     top:35px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2rem;
+    color: darkblue;
     transform: rotate(-7deg);
 }
 
 .quantity-item{
     display: flex;
 }
+
+.span-price{
+    color: black;
+    font-weight: bold;
+}
+
 /* .art-button-moins{
     font-size: 20px;
     width: 25px;
