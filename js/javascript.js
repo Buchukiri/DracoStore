@@ -1,4 +1,4 @@
-const articlesObj = {
+let articlesObj = {
     id1 : {
         name : "potion",
         prix : 2,
@@ -46,6 +46,9 @@ const articlesObj = {
     },
 }
 
+if(localStorage.getItem("articles") !== null){
+    articlesObj = JSON.parse(localStorage.getItem("articles"));
+}
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
@@ -74,13 +77,10 @@ function clickAdmin(){
     this.removeEventListener("click", clickAdmin)
 }
 
-admin.addEventListener("click", clickAdmin);
-
-
-
-
+// admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
+    
 let display = "";
 
     for(const art of articlesName){
@@ -166,6 +166,7 @@ function validateCart(){
         displayArticles();
         this.removeEventListener("click",validateCart);
     }
+    localStorage.setItem("articles", JSON.stringify(articlesObj));
 }
 
 document.getElementById("validate").addEventListener("click", validateCart);
