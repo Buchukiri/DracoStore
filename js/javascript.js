@@ -71,12 +71,13 @@ function createModal() {
     return modalContent;
 }
 
+    admin.addEventListener("click", clickAdmin);
 function clickAdmin(){
     const modalContent = createModal();
     modalContent.innerHTML = '<button class="modal-close">x</button>';
-    modalContent.innerHTML +=  "<img class='modify-img' src='img/logo-white.png' alt='logo-white'>" ;
-    modalContent.innerHTML += "<label>Taux de taxe : </label> <input type='text' value='10' size='5'>";
-    this.removeEventListener("click", clickAdmin)
+    modalContent.innerHTML +=  "<img class='modify-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form' label>Taux de taxe : </label> <input type='text' value='13' id='modalTaxe'size='5' method='post'>";
+    // this.removeEventListener("click", clickAdmin)
 }
 
 // admin.addEventListener("click", clickAdmin);

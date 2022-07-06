@@ -404,3 +404,16 @@ button {
     border-radius: 2rem;
 }
 
+#whiteLogo {
+    display: flex;
+    justify-items: center;
+    text-align: center;
+    justify-self: center;
+    margin-left: 40%;
+    width: 100px;
+    height: auto;
+}
+
+#modalTaxe {
+    font-size: 15px;
+}
