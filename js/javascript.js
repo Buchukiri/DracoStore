@@ -126,26 +126,34 @@ function addCart(event) {
         li.setAttribute('data-total', currentValue * articlesObj[this.dataset.name].prix);
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        "<p>"+addPriceArticles(this) + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
+        
+        "<input class='art-button'  type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
-        li.getElementsByClassName('art-button')[0].value = currentValue;
+        // li.getElementsByClassName('art-button')[0].value = currentValue;s
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
+        
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         
-        /*if (priceWithoutTaxe >= 100){
-           
-        }*/
+        if (priceWithoutTaxe >= 100){
+            alert(Gift)
+        }
         // articlesCounter()
         this.removeEventListener("click",addCart);
         // UpdateTotal();
     }
     
 /* Update Price on Quantity change */
+function addPriceArticles(link) {
+    let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
+        let total = artNbr *= articlesObj[link.dataset.name].prix ;
+        return(total)
+}
+
+
 
 // finalCart.addEventListener('click', function(evt) {
 //     if(evt.target && evt.target.className == 'art-button') {
@@ -156,16 +164,16 @@ function addCart(event) {
 //     }
 // });
 
-function UpdateTotal() {
-    let articles = document.getElementsByClassName('articleCart');
-    let total = 0;
-    // articles.forEach(article => {
-    //     total += article.dataset.total;
+// function UpdateTotal() {
+//     let articles = document.getElementsByClassName('articleCart');
+//     let total = 0;
+//     // articles.forEach(article => {
+//     //     total += article.dataset.total;
 
-    // });
-    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
-    console.log(total)
-}
+//     // });
+//     document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
+//     console.log(total)
+// }
 
     /* MODIFY STOCK AFTER SELLING */
 function validateCart(){
