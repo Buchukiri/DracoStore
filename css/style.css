@@ -405,11 +405,7 @@ button {
 }
 
 #whiteLogo {
-    display: flex;
-    justify-items: center;
-    text-align: center;
-    justify-self: center;
-    margin-left: 40%;
+    margin-top: 40%;
     width: 100px;
     height: auto;
 }
