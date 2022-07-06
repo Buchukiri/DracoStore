@@ -49,13 +49,14 @@ let articlesObj = {
 if(localStorage.getItem("articles") !== null){
     articlesObj = JSON.parse(localStorage.getItem("articles"));
 }
+
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 13
-let taxe = (pourcentTaxe/100)
-
+let pourcentTaxe = 13;
+let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
+const finalCart = document.getElementById("final-cart-ul");
 
 function createModal() {
     const modal = document.createElement("div");
@@ -71,17 +72,17 @@ function createModal() {
     return modalContent;
 }
 
-function clickAdmin(){
-    const modalContent = createModal();
-    modalContent.innerHTML = '<button class="modal-close">x</button>';
-    this.removeEventListener("click", clickAdmin)
-}
+// function clickAdmin(){
+//     const modalContent = createModal();
+//     modalContent.innerHTML = '<button class="modal-close">x</button>';
+//     this.removeEventListener("click", clickAdmin);
+// }
 
 // admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
     
-let display = "";
+    let display = "";
 
     for(const art of articlesName){
         display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
@@ -95,31 +96,37 @@ let display = "";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
+
     articles.innerHTML = display;
 
+    const imgLinks = document.querySelectorAll(".article-link")
 
-// compteur d'articles
-// const articleCount = document.getElementById("articles-count");
+    // click image
+    imgLinks.forEach(btn => {
+            btn.addEventListener('click', addCart);
+    });
 
-// function articlesCounter() {
-//   articleCount.innerText = finalCart.childElementCount; 
-// }
+    document.getElementById("validate").addEventListener("click", validateCart);
+        
+    const modifList = document.querySelectorAll(".modify-art");
 
-const finalCart = document.getElementById("final-cart-ul")
-const imgLinks = document.querySelectorAll(".article-link")
+    for(const modif of modifList){
+        modif.addEventListener("click", modifArticle);
+    }
+        
+    finalCart.addEventListener("click", function(event) {
+        if (event.target.classList.contains("cross-button")){
+            event.target.parentElement.parentElement.remove()
+        }
+    });
 
-// click image
-imgLinks.forEach(btn => {
-        btn.addEventListener('click', addCart);
-    
-});
+}
 
+displayArticles();
 
 // add bucket
-function addCart(event) {
-    
+function addCart() {
     if (articlesObj[this.dataset.name].stock !== 0) {
-        
         // compteur d'articles INPUT MAIN
         let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
         const li = document.createElement("li");
@@ -151,7 +158,7 @@ function addCart(event) {
     }
 }
 
-    /* MODIFY STOCK AFTER SELLING */
+/* MODIFY STOCK AFTER SELLING */
 function validateCart(){
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
@@ -167,15 +174,11 @@ function validateCart(){
         finalCart.innerHTML = "";
         document.getElementById("final-price").innerHTML = "";
         priceWithoutTaxe=0;
-        displayArticles();
         this.removeEventListener("click",validateCart);
+        localStorage.setItem("articles", JSON.stringify(articlesObj));
+        displayArticles();
     }
-    localStorage.setItem("articles", JSON.stringify(articlesObj));
 }
-
-document.getElementById("validate").addEventListener("click", validateCart);
-
-    
 
 function createModal() {
     const modal = document.createElement("div");
@@ -184,7 +187,6 @@ function createModal() {
     modalContent.className = "modal-content";
     modal.appendChild(modalContent);
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-
     return modalContent;
 }
 
@@ -215,19 +217,4 @@ function modifArticle(){
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-
 }
-    
-    const modifList = document.querySelectorAll(".modify-art");
-    
-    for(const modif of modifList){
-        modif.addEventListener("click", modifArticle);
-    }
-    
-     finalCart.addEventListener("click", function(event) {
-        if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
-        }
-     })
-}
-    displayArticles();
