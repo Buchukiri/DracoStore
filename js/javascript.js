@@ -128,13 +128,10 @@ function addCart(event) {
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+addPriceArticles(this) + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        
         "<input class='art-button'  type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
-        // li.getElementsByClassName('art-button')[0].value = currentValue;s
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
-        
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
         
@@ -143,37 +140,23 @@ function addCart(event) {
         }
         // articlesCounter()
         this.removeEventListener("click",addCart);
-        // UpdateTotal();
+        
     }
     
 /* Update Price on Quantity change */
 function addPriceArticles(link) {
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
-        let total = artNbr *= articlesObj[link.dataset.name].prix ;
+        let total = artNbr * articlesObj[link.dataset.name].prix ;
         return(total)
+}
+function changePrice(link) {
+    let noIdea = parseInt(document.querySelector("[data-prix="+articlesOb+link.dataset.name.prix+"]").value);
+   console.log(noIdea);
+    return(noIdeoTotal)
 }
 
 
 
-// finalCart.addEventListener('click', function(evt) {
-//     if(evt.target && evt.target.className == 'art-button') {
-//         let currentValue = evt.target.value;
-//         let currentPrice = evt.target.dataset.prix;
-//         let currentTotal = currentValue * currentPrice;
-//         UpdateTotal();
-//     }
-// });
-
-// function UpdateTotal() {
-//     let articles = document.getElementsByClassName('articleCart');
-//     let total = 0;
-//     // articles.forEach(article => {
-//     //     total += article.dataset.total;
-
-//     // });
-//     document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
-//     console.log(total)
-// }
 
     /* MODIFY STOCK AFTER SELLING */
 function validateCart(){
