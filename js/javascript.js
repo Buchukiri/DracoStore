@@ -46,8 +46,13 @@ const articlesObj = {
     },
 }
 
+const articlesName = Object.keys(articlesObj);
+const articles = document.getElementById("article-list");
+let priceWithoutTaxe = 0;
 let pourcentTaxe = 18
 let taxe = (pourcentTaxe/100)
+let priceTTC = (priceWithoutTaxe*taxe)
+console.log(priceTTC);
 
 const admin = document.getElementById("admin");
 
@@ -75,9 +80,6 @@ admin.addEventListener("click", clickAdmin);
 
 
 
-const articlesName = Object.keys(articlesObj);
-const articles = document.getElementById("article-list");
-let priceWithoutTaxe = 0;
 
 
 function displayArticles(){
@@ -137,7 +139,9 @@ function addCart(event) {
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
-        document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO";
+        document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO" + "<br>";
+        document.getElementById("final-price").innerHTML += "Taxe : " + pourcentTaxe + "%" + "<br>";
+        document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" + "<br>";
         
         /*if (priceWithoutTaxe >= 100){
            
