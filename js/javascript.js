@@ -133,17 +133,16 @@ function addCart(event) {
         // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
-        priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
+        priceWithoutTaxe = parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO" + "<br>";
         let totalTaxe = parseFloat((taxe*priceWithoutTaxe).toFixed(2));
         document.getElementById("final-price").innerHTML += "Taxe : " + totalTaxe + " PO" + "<br>";
         let priceTTC = (priceWithoutTaxe + totalTaxe);
         document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" ;
 
-        finalCart.addEventListener('click' ,updateValue);
+        finalCart.addEventListener('change' ,updateValue);
         function updateValue(event) {
             if(event.target.hasAttribute("data-input")){
-                console.log("fnjfbjklrf!kbjds")
                 modifPriceArcticle(event.target)
             }
         }
@@ -166,6 +165,10 @@ function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
         let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
         document.querySelector("[data-name-info-cart="+input.dataset.input+"] p:nth-child(2)").innerHTML = totalPriceArt+" PO";
+}
+
+function modifTotalPrice(){
+
 }
 // fonction récup prix.
 // function addPrice()
