@@ -51,9 +51,6 @@ const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
 let pourcentTaxe = 13
 let taxe = (pourcentTaxe/100)
-// let totalTaxe = (taxe*priceWithoutTaxe)
-// let priceTTC = (priceWithoutTaxe*taxe)
-// console.log(priceTTC);
 
 const admin = document.getElementById("admin");
 
