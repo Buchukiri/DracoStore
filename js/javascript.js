@@ -58,20 +58,6 @@ let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 
-// function createModal() {
-//     const modal = document.createElement("div");
-//     modal.className = "modal";
-//     const modalContent = document.createElement("div");
-//     modalContent.className = "modal-content";
-//     modal.appendChild(modalContent);
-//     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-//     modalContent.addEventListener("click", function() {
-//         this.remove();
-//         admin.addEventListener("click", clickAdmin);
-//     });
-//     return modalContent;
-// }
-
 
 function clickAdmin(){
     const modalContent = createModal();
