@@ -89,9 +89,9 @@ let display = "";
         "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
         "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
-        "<p class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
+        "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class='main-number' type='number' min='1' max='"+articlesObj[art].stock+"' data-qtty='"+art+"'></div></li>";
+        "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
@@ -117,23 +117,19 @@ imgLinks.forEach(btn => {
 
 // add bucket
 function addCart(event) {
-    let currentValue = this.nextSibling.lastChild.value;
-    if(currentValue == '') {
-        currentValue = 1;
-    }
-    // compteur d'articles INPUT MAIN
-        const mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+    
+    if (articlesObj[this.dataset.name].stock !== 0) {
+        
+        // compteur d'articles INPUT MAIN
+        let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
         const li = document.createElement("li");
         li.classList.add("articleCart");
-        li.setAttribute('data-total', currentValue * articlesObj[this.dataset.name].prix);
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
         li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
         "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
+        "<input class='art-button' type='number' value='"+mainInputArt+"' min='0' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
-        li.getElementsByClassName('art-button')[0].value = currentValue;
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
@@ -148,29 +144,7 @@ function addCart(event) {
         }*/
         // articlesCounter()
         this.removeEventListener("click",addCart);
-        // UpdateTotal();
     }
-    
-/* Update Price on Quantity change */
-
-// finalCart.addEventListener('click', function(evt) {
-//     if(evt.target && evt.target.className == 'art-button') {
-//         let currentValue = evt.target.value;
-//         let currentPrice = evt.target.dataset.prix;
-//         let currentTotal = currentValue * currentPrice;
-//         UpdateTotal();
-//     }
-// });
-
-function UpdateTotal() {
-    let articles = document.getElementsByClassName('articleCart');
-    let total = 0;
-    // articles.forEach(article => {
-    //     total += article.dataset.total;
-
-    // });
-    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO" + "<br>";
-    console.log(total)
 }
 
     /* MODIFY STOCK AFTER SELLING */
@@ -179,7 +153,7 @@ function validateCart(){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
             // console.log(articlesObj[qtt.dataset.input].stock);
-            console.log(qtt.value);
+            // console.log(qtt.value);
             articlesObj[qtt.dataset.input].stock -= qtt.value;
             if(articlesObj[qtt.dataset.input].stock <= 0){
                 alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
@@ -211,7 +185,7 @@ function createModal() {
 
 function modifArticle(){
     const article = this.dataset.article;
-    console.log(article);
+    // console.log(article);
     const modalContent = createModal();
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
