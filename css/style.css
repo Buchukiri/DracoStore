@@ -363,19 +363,19 @@ button {
     height: 17px;
 }
 
-.final-price{
-    position: absolute;
-    z-index: 100;
-    left: -68px;
-    top:35px;
-    font-family: 'East Sea Dokdo', cursive;
-    font-size: 2.5rem;
-    transform: rotate(-7deg);
-}
-
 .price{
     position: relative;
     height: 41%;
+}
+
+.final-price{
+    position: absolute;
+    z-index: 100;
+    left: -60px;
+    top:35px;
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 2rem;
+    transform: rotate(-7deg);
 }
 
 .quantity-item{
