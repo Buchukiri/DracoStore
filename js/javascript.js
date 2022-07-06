@@ -125,10 +125,11 @@ function addCart(event) {
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p class='price-article' data-price= "+addPriceArticles(this) + " PO</p>"+
+        li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
+        "<p class='price-article'> "+addPriceArticles(this)+" PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button'  type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
+        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
+        
         // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
@@ -138,12 +139,13 @@ function addCart(event) {
         document.getElementById("final-price").innerHTML += "Taxe : " + totalTaxe + " PO" + "<br>";
         let priceTTC = (priceWithoutTaxe + totalTaxe);
         document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" ;
-        const inputCart = document.querySelectorAll("data-input");
-        inputCart.forEach(input => {
-            input.addEventListener('change' ,updateValue);
-        })
+
+        finalCart.addEventListener('click' ,updateValue);
         function updateValue(event) {
-            document.querySelector("")
+            if(event.target.hasAttribute("data-input")){
+                console.log("fnjfbjklrf!kbjds")
+                modifPriceArcticle(event.target)
+            }
         }
         
         if (priceTTC >= 100){
@@ -152,86 +154,99 @@ function addCart(event) {
         // articlesCounter()
         this.removeEventListener("click",addCart);      
     }
+}
 
 /* Update Price on Quantity change */
-function addPriceArticles(link) {
+function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
         let total = artNbr * articlesObj[link.dataset.name].prix ;
         return(total)
     }
-
+function modifPriceArcticle(input){
+    let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
+        let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
+        document.querySelector("[data-name-info-cart="+input.dataset.input+"] p:nth-child(2)").innerHTML = totalPriceArt+" PO";
 }
+// fonction récup prix.
+// function addPrice()
+
+// fonction récup quantité d'un article dans le panier
+// fonction de calcul panier / prix
+// fonction affichage du prix total en po dans le panier 
+// fonction gestion de l'event sur le input
 
 
 
-    
-    
+
+
+
+
 
     /* MODIFY STOCK AFTER SELLING */
-function validateCart(){
-    if(confirm("Voulez vous valider la transaction ?")){
-        const qttList = document.querySelectorAll(".articleCart input");
-        for(const qtt of qttList){
-            // console.log(articlesObj[qtt.dataset.input].stock);
-            // console.log(qtt.value);
-            articlesObj[qtt.dataset.input].stock -= qtt.value;
-            if(articlesObj[qtt.dataset.input].stock <= 0){
-                alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
+    function validateCart(){
+        if(confirm("Voulez vous valider la transaction ?")){
+            const qttList = document.querySelectorAll(".articleCart input");
+            for(const qtt of qttList){
+                // console.log(articlesObj[qtt.dataset.input].stock);
+                // console.log(qtt.value);
+                articlesObj[qtt.dataset.input].stock -= qtt.value;
+                if(articlesObj[qtt.dataset.input].stock <= 0){
+                    alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
+                }
+                // console.log(articlesObj[qtt.dataset.input].stock);
             }
-            // console.log(articlesObj[qtt.dataset.input].stock);
+            finalCart.innerHTML = "";
+            document.getElementById("final-price").innerHTML = "";
+            priceWithoutTaxe=0;
+            displayArticles();
+            this.removeEventListener("click",validateCart);
         }
-        finalCart.innerHTML = "";
-        document.getElementById("final-price").innerHTML = "";
-        priceWithoutTaxe=0;
-        displayArticles();
-        this.removeEventListener("click",validateCart);
     }
-}
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
     
 
-function createModal() {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-    modal.appendChild(modalContent);
-    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    function createModal() {
+        const modal = document.createElement("div");
+        modal.className = "modal";
+        const modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
+        modal.appendChild(modalContent);
+        document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
 
-    return modalContent;
-}
+        return modalContent;
+    }
 
-function modifArticle(){
-    const article = this.dataset.article;
-    // console.log(article);
-    const modalContent = createModal();
-    modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
-    modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
-    "<div><form class='form' method='post'>"+
-    "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
-    "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
-    "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
-    "<input type='submit' value='valider' id='submit'>"+
-    "</form></div></div>";
+    function modifArticle(){
+        const article = this.dataset.article;
+        // console.log(article);
+        const modalContent = createModal();
+        modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
+        modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
+        "<div><form class='form' method='post'>"+
+        "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
+        "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
+        "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
+        "<input type='submit' value='valider' id='submit'>"+
+        "</form></div></div>";
 
-    document.getElementById("submit").addEventListener("click", function(e){
-        e.preventDefault();
-        console.log(document.getElementById(article+"-name").value);
-        articlesObj[article].name = document.getElementById(article+"-name").value;
-        articlesObj[article].prix = document.getElementById(article+"-price").value;
-        articlesObj[article].stock = document.getElementById(article+"-stock").value;
-        displayArticles();
-        modalContent.parentElement.remove();
-        document.getElementById("validate").removeEventListener("click", validateCart);
-    });
+        document.getElementById("submit").addEventListener("click", function(e){
+            e.preventDefault();
+            console.log(document.getElementById(article+"-name").value);
+            articlesObj[article].name = document.getElementById(article+"-name").value;
+            articlesObj[article].prix = document.getElementById(article+"-price").value;
+            articlesObj[article].stock = document.getElementById(article+"-stock").value;
+            displayArticles();
+            modalContent.parentElement.remove();
+            document.getElementById("validate").removeEventListener("click", validateCart);
+        });
 
-    document.getElementById("modal-close").addEventListener("click", function() {
-        modalContent.parentElement.remove();
-    });
+        document.getElementById("modal-close").addEventListener("click", function() {
+            modalContent.parentElement.remove();
+        });
 
-}
+    }
     
     const modifList = document.querySelectorAll(".modify-art");
     
