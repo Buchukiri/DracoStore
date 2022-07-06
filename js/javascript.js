@@ -133,11 +133,15 @@ function addCart(event) {
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
-        document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO" + "<br>";
-        let totalTaxe = parseFloat((taxe*priceWithoutTaxe).toFixed(2));
-        document.getElementById("final-price").innerHTML += "Taxe : " + totalTaxe + " PO" + "<br>";
-        let priceTTC = (priceWithoutTaxe + totalTaxe);
-        document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" ;
+        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span>" + priceWithoutTaxe + " PO" + "</p>";
+        const totalTaxe = parseFloat((taxe*priceWithoutTaxe));
+        const silverTaxe = (totalTaxe % 1).toFixed(1).substring(2);
+        const goldTaxe = parseInt(totalTaxe);
+        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span>" + goldTaxe + " PO, " + silverTaxe + " PA</p>";
+        const priceTTC = (priceWithoutTaxe + totalTaxe);
+        const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
+        const goldTotalPrice = parseInt(priceTTC);
+        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
         
         /*if (priceWithoutTaxe >= 100){
            
