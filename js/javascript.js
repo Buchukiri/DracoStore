@@ -141,7 +141,7 @@ function addCart(event) {
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO" + "<br>";
-        let totalTaxe = (taxe*priceWithoutTaxe) //.toFixed(2);
+        let totalTaxe = parseFloat((taxe*priceWithoutTaxe).toFixed(2))
         document.getElementById("final-price").innerHTML += "Taxe : " + totalTaxe + " PO" + "<br>";
         let priceTTC = (priceWithoutTaxe + totalTaxe);
         document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" + "<br>";
