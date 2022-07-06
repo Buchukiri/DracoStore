@@ -69,6 +69,10 @@ function clickAdmin(){
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
+    const confirmButtonTax = document.getElementById("confirmButton")
+    confirmButtonTax.addEventListener("click", function (event) {
+        console.log(confirmButtonTax);
+    })
 }
 
 admin.addEventListener("click", clickAdmin);
