@@ -61,8 +61,9 @@ const finalCart = document.getElementById("final-cart-ul");
 
 function clickAdmin(){
     const modalContent = createModal();
-    modalContent.innerHTML +=  "<img class='modify-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
-    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ pourcentTaxe +"' id='modalTaxe' size='1'></form>";
+    modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ pourcentTaxe +"' id='modalTaxe' class='modal-taxe' size='1'><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();

@@ -430,12 +430,19 @@ button {
     border-radius: 2rem;
 }
 
-#whiteLogo {
+.logo-white-img {
     margin-top: 20%;
     width: 100px;
     height: auto;
 }
 
-#modalTaxe {
+.modal-taxe {
     font-size: 15px;
+}
+
+.confirm-img {
+    width: 4%;
+    filter: invert(100%);
+    margin-left: 25px;
+    margin-top: 15px;
 }
