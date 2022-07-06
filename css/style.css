@@ -306,6 +306,18 @@ button {
     font-size: 3rem;
     width: 100%;
 }
+.delete-btn {
+    font-size: 22px;
+    font-family: 'East Sea Dokdo',cursive;
+    margin-left: 25px;
+    width: 40px;
+    border: 1px solid #3b301a;
+    border-radius: 15px;
+}
+.delete-btn:hover {
+    cursor: pointer;
+}
+
 
 .final-cart-ul{
     display: flex;

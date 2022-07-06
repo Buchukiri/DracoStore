@@ -111,7 +111,6 @@ const imgLinks = document.querySelectorAll(".article-link")
 // click image
 imgLinks.forEach(btn => {
         btn.addEventListener('click', addCart);
-    
 });
 
 
@@ -146,6 +145,16 @@ function addCart(event) {
         this.removeEventListener("click",addCart);
     }
 }
+
+
+    const deleteBtn = document.getElementById("delete-btn");
+    deleteBtn.addEventListener("click", function(event) {
+        // document.getElementById("final-cart-ul").removeChild("li");
+        // document.getElementById("final-cart-ul").remove();
+        document.getElementById("final-cart-ul").innerHTML = "";
+        document.getElementById("final-price").innerHTML = ""
+    });
+
 
     /* MODIFY STOCK AFTER SELLING */
 function validateCart(){
