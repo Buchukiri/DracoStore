@@ -49,10 +49,11 @@ const articlesObj = {
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 18
+let pourcentTaxe = 13
 let taxe = (pourcentTaxe/100)
-let priceTTC = (priceWithoutTaxe*taxe)
-console.log(priceTTC);
+// let totalTaxe = (taxe*priceWithoutTaxe)
+// let priceTTC = (priceWithoutTaxe*taxe)
+// console.log(priceTTC);
 
 const admin = document.getElementById("admin");
 
@@ -140,7 +141,9 @@ function addCart(event) {
         finalCart.appendChild(li);
         priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
         document.getElementById("final-price").innerHTML = "Prix HT : " + priceWithoutTaxe + " PO" + "<br>";
-        document.getElementById("final-price").innerHTML += "Taxe : " + pourcentTaxe + "%" + "<br>";
+        let totalTaxe = (taxe*priceWithoutTaxe) //.toFixed(2);
+        document.getElementById("final-price").innerHTML += "Taxe : " + totalTaxe + " PO" + "<br>";
+        let priceTTC = (priceWithoutTaxe + totalTaxe);
         document.getElementById("final-price").innerHTML += "Prix TTC : " + priceTTC + " PO" + "<br>";
         
         /*if (priceWithoutTaxe >= 100){
