@@ -297,6 +297,11 @@ button {
     height:calc(100vh - 8rem);
 }
 
+.cart-header{
+    display: flex;
+    justify-content: center;
+}
+
 .cart-ttl {
     position: relative;
     bottom: 8px;
@@ -304,13 +309,15 @@ button {
     font-family: 'East Sea Dokdo', cursive;
     text-align: center;
     font-size: 3rem;
-    width: 100%;
+    width: 25%;
 }
 .delete-btn {
     font-size: 22px;
     font-family: 'East Sea Dokdo',cursive;
     margin-left: 25px;
+    margin-top: 2rem;
     width: 40px;
+    height: 30px;
     border: 1px solid #3b301a;
     border-radius: 15px;
 }
