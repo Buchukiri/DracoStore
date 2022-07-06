@@ -46,6 +46,8 @@ const articlesObj = {
     },
 }
 
+let pourcentTaxe = 18
+let taxe = (pourcentTaxe/100)
 
 const admin = document.getElementById("admin");
 
@@ -163,7 +165,7 @@ function UpdateTotal() {
     //     total += article.dataset.total;
 
     // });
-    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO";
+    document.getElementById("final-price").innerHTML = "Prix HT : " + total + " PO" + "<br>";
     console.log(total)
 }
 
