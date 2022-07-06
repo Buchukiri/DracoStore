@@ -328,7 +328,7 @@ button {
 
 .img-draco{
     position: absolute;
-    right: 25px;
+    left: -87px;
     bottom: 0px;
     width: 360px;
     overflow: hidden;
@@ -364,13 +364,18 @@ button {
 }
 
 .final-price{
-    position: relative;
+    position: absolute;
     z-index: 100;
-    right: 92px;
-    top:25px;
+    left: -68px;
+    top:35px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2.5rem;
     transform: rotate(-7deg);
+}
+
+.price{
+    position: relative;
+    height: 41%;
 }
 
 .quantity-item{
