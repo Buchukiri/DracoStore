@@ -58,27 +58,28 @@ let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 
-function createModal() {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-    modal.appendChild(modalContent);
-    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-    modalContent.addEventListener("click", function() {
-        this.remove();
+
+function clickAdmin(){
+    const modalContent = createModal();
+    modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
+    this.removeEventListener("click", clickAdmin);
+    document.getElementById("modal-close").addEventListener("click", function() {
+        modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
-    return modalContent;
+    const confirmButtonTax = document.getElementById("confirmButton")
+    confirmButtonTax.addEventListener("click", function (event) {
+        console.log(confirmButtonTax);
+        pourcentTaxe = document.getElementById("modalTaxe").value;
+        taxe = (pourcentTaxe/100);
+        modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
+    })
 }
 
-// function clickAdmin(){
-//     const modalContent = createModal();
-//     modalContent.innerHTML = '<button class="modal-close">x</button>';
-//     this.removeEventListener("click", clickAdmin);
-// }
-
-// admin.addEventListener("click", clickAdmin);
+admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
     
@@ -116,7 +117,8 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
+            event.target.parentElement.parentElement.remove();
+            modifTotalPrice();
         }
     });
 }
@@ -126,42 +128,80 @@ displayArticles();
 // add bucket
 function addCart() {
     if (articlesObj[this.dataset.name].stock !== 0) {
-        // compteur d'articles INPUT MAIN
         let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
         const li = document.createElement("li");
         li.classList.add("articleCart");
         li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p>"+articlesObj[this.dataset.name].prix + " PO</p>"+
+        li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
+        "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
         // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='0' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix +"'>";
+        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
         // "<button class='art-button-plus'>+</button></div></div>";
         li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
         finalCart.appendChild(li);
-        priceWithoutTaxe += parseInt(articlesObj[this.dataset.name].prix);
-        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span>" + priceWithoutTaxe + " PO" + "</p>";
-        const totalTaxe = parseFloat((taxe*priceWithoutTaxe));
-        const silverTaxe = (totalTaxe % 1).toFixed(1).substring(2);
-        const goldTaxe = parseInt(totalTaxe);
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span>" + goldTaxe + " PO, " + silverTaxe + " PA</p>";
-        const priceTTC = (priceWithoutTaxe + totalTaxe);
-        const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
-        const goldTotalPrice = parseInt(priceTTC);
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
+        finalCart.addEventListener('change' ,updateValue);
+        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
+        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
+        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
+        modifTotalPrice();
         
-        /*if (priceWithoutTaxe >= 100){
-           
-        }*/
-        // articlesCounter()
-        this.removeEventListener("click",addCart);
+        // if (priceTTC >= 100){
+        //     alert(Gift)
+        // }
+        this.removeEventListener("click",addCart);      
     }
 }
 
-    const deleteBtn = document.getElementById("delete-btn");
-    deleteBtn.addEventListener("click", function(event) {
-    document.getElementById("final-cart-ul").innerHTML = "";
-    document.getElementById("final-price").innerHTML = ""
-    });
+function updateValue(event) {
+    if(event.target.hasAttribute("data-input")){
+        modifPriceArcticle(event.target)
+    }
+}
+
+/* Update Price on Quantity change */
+function addPriceArticles(link){
+    let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
+    let total = artNbr * articlesObj[link.dataset.name].prix ;
+    return(total)
+    }
+function modifPriceArcticle(input){
+    let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
+    let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
+    document.querySelector("[data-name-info-cart="+input.dataset.input+"] p:nth-child(2)").innerHTML = "<span class='price-article'>"+totalPriceArt+"</span> PO";
+    priceWithoutTaxe = modifTotalPrice();
+}
+
+function modifTotalPrice(){
+    const priceArticles = document.querySelectorAll(".price-article");
+    let totalPrice=0;
+    let goldTaxe, silverTaxe, goldTotalPrice, silverTotalPrice;
+    let totalTaxe, priceTTC;
+    for(const price of priceArticles){
+        console.log(price.textContent);
+        totalPrice += parseInt(price.textContent);
+        totalTaxe = parseFloat((taxe*totalPrice));
+        silverTaxe = (totalTaxe % 1).toFixed(1).substring(2);
+        goldTaxe = parseInt(totalTaxe);
+        priceTTC = (totalPrice + totalTaxe);
+        silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
+        goldTotalPrice = parseInt(priceTTC);
+    }
+    document.getElementById("price-without-taxe").innerHTML = totalPrice;
+    document.getElementById("gold-taxe").innerHTML = silverTaxe;
+    document.getElementById("silver-taxe").innerHTML = goldTaxe;
+    document.getElementById("gold-total-price").innerHTML = goldTotalPrice;
+    document.getElementById("silver-total-price").innerHTML = silverTotalPrice;
+    return totalPrice;
+}
+
+
+const deleteBtn = document.getElementById("delete-btn");
+deleteBtn.addEventListener("click", function(event) {
+document.getElementById("final-cart-ul").innerHTML = "";
+document.getElementById("final-price").innerHTML = ""
+displayArticles();
+});
+
 
 /* MODIFY STOCK AFTER SELLING */
 
@@ -169,38 +209,42 @@ function validateCart(){
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
-            // console.log(articlesObj[qtt.dataset.input].stock);
-            // console.log(qtt.value);
             articlesObj[qtt.dataset.input].stock -= qtt.value;
             if(articlesObj[qtt.dataset.input].stock <= 0){
                 alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
             }
-            // console.log(articlesObj[qtt.dataset.input].stock);
-        }
-        finalCart.innerHTML = "";
-        document.getElementById("final-price").innerHTML = "";
-        priceWithoutTaxe=0;
-        this.removeEventListener("click",validateCart);
-        localStorage.setItem("articles", JSON.stringify(articlesObj));
-        displayArticles();
+            finalCart.innerHTML = "";
+            document.getElementById("final-price").innerHTML = "";
+            priceWithoutTaxe=0;
+            this.removeEventListener("click",validateCart);
+            localStorage.setItem("articles", JSON.stringify(articlesObj));
+            displayArticles();
+        }   
     }
 }
+
+
+document.getElementById("validate").addEventListener("click", validateCart);
 
 function createModal() {
     const modal = document.createElement("div");
     modal.className = "modal";
     const modalContent = document.createElement("div");
     modalContent.className = "modal-content";
+    modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modal.appendChild(modalContent);
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    // document.getElementById("modal-close").addEventListener("click", function() {
+    //     console.log("test");
+    //     modalContent.parentElement.remove();
+    // });
     return modalContent;
 }
 
+
 function modifArticle(){
     const article = this.dataset.article;
-    // console.log(article);
     const modalContent = createModal();
-    modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
     "<div><form class='form' method='post'>"+
     "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
@@ -209,18 +253,25 @@ function modifArticle(){
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
 
+
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
         articlesObj[article].name = document.getElementById(article+"-name").value;
         articlesObj[article].prix = document.getElementById(article+"-price").value;
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
-        displayArticles();
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
+        displayArticles();
     });
 
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
+
 }
+    
+
+
+
+
