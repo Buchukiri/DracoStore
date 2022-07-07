@@ -126,6 +126,9 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
+            if(this.childElementCount === 1){
+                document.getElementById("final-price").innerHTML = "";
+            }
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
@@ -206,7 +209,7 @@ function modifTotalPrice(){
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = ""
+document.getElementById("final-price").innerHTML = "";
 displayArticles();
 });
 
