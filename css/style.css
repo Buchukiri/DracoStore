@@ -442,8 +442,7 @@ button {
 }
 
 .confirm-img {
-    width: 4%;
+    width: 6%;
     filter: invert(100%);
-    margin-left: 25px;
     margin-top: 15px;
 }
