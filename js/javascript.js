@@ -57,7 +57,7 @@ let pourcentTaxe = 13;
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
-
+addOpcacityIfNoneStock();
 
 // function clickAdmin(){
 //     const modalContent = createModal();
@@ -81,32 +81,34 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-    
+        
     }
-
+    
     articles.innerHTML = display;
-
+    
     const imgLinks = document.querySelectorAll(".article-link")
-
+    
     // click image
     imgLinks.forEach(btn => {
-            btn.addEventListener('click', addCart);
+        btn.addEventListener('click', addCart);
     });
-
+    
     document.getElementById("validate").addEventListener("click", validateCart);
-        
+    
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-        
+    
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             event.target.parentElement.parentElement.remove();
             displayArticles();
         }
+       
     });
+    addOpcacityIfNoneStock();
 }
 
 displayArticles();
@@ -142,12 +144,23 @@ function addCart() {
         const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
         const goldTotalPrice = parseInt(priceTTC);
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
-        
+    
         if (priceTTC >= 100){
             alert(Gift)
         }
-        this.removeEventListener("click",addCart);      
+        this.removeEventListener("click",addCart);   
     }
+}
+function addOpcacityIfNoneStock() {
+    document.querySelectorAll("[data-stock]").forEach(p => {
+        if (p.dataset.stock == 0){
+            p.parentElement.parentElement.classList.add("opacity")
+   }if (p.dataset.stock > 0) {
+    p.parentElement.parentElement.classList.remove("opacity")
+}
+});
+
+    
 }
 
 
@@ -168,6 +181,7 @@ deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = ""
 displayArticles();
+addOpcacityIfNoneStock()
 });
 
 
@@ -187,6 +201,7 @@ function validateCart(){
             this.removeEventListener("click",validateCart);
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
+            addOpcacityIfNoneStock();
         }   
     }
 }
