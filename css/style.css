@@ -118,7 +118,7 @@ button {
 }
 
 .admin{
-    color: rgba(43, 214, 226, 0.74);
+    color: rgba(64, 189, 116, 0.74);
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
 }
@@ -211,6 +211,9 @@ button {
     background-image: url("../img/livre2.png");
     background-size: cover;
     height: 250px;
+}
+.opacity {
+    opacity: 0.5;
 }
 
 /* Bottons in display */

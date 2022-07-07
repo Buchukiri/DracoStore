@@ -59,8 +59,10 @@ const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 let priceTTC;
 let totalCaisse=0;
+let giftValue = 100;
 
 
+addOpcacityIfNoneStock();
 
 function clickAdmin(){
     let basket;
@@ -107,26 +109,26 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-    
+        
     }
-
+    
     articles.innerHTML = display;
-
+    
     const imgLinks = document.querySelectorAll(".article-link")
-
+    
     // click image
     imgLinks.forEach(btn => {
-            btn.addEventListener('click', addCart);
+        btn.addEventListener('click', addCart);
     });
-
+    
     document.getElementById("validate").addEventListener("click", validateCart);
-        
+    
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-        
+    
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             if(this.childElementCount === 1){
@@ -136,6 +138,7 @@ function displayArticles(){
             modifTotalPrice();
         }
     });
+    addOpcacityIfNoneStock();
 }
 
 displayArticles();
@@ -159,12 +162,19 @@ function addCart() {
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
         modifTotalPrice();
-        
-        // if (priceTTC >= 100){
-        //     alert(Gift)
-        // }
         this.removeEventListener("click",addCart);      
     }
+}
+
+function addOpcacityIfNoneStock() {
+    document.querySelectorAll("[data-stock]").forEach(p => {
+        if (p.dataset.stock == 0) {
+            p.parentElement.parentElement.classList.add("opacity")
+        }
+        if (p.dataset.stock > 0) {
+            p.parentElement.parentElement.classList.remove("opacity")
+        }
+    });
 }
 
 function updateValue(event) {
@@ -178,7 +188,8 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-    }
+}
+
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -239,9 +250,9 @@ function validateCart(){
         const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", infoCaisse);
+        giftThreshold(priceTTC);
     }
 }
-
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
@@ -260,6 +271,11 @@ function createModal() {
     return modalContent;
 }
 
+function giftThreshold(priceTTC) {
+    if (priceTTC >= giftValue) {
+        alert("Gift")
+    }
+}
 
 function modifArticle(){
     const article = this.dataset.article;
@@ -271,8 +287,7 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-
-
+    
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
@@ -283,16 +298,9 @@ function modifArticle(){
         document.getElementById("validate").removeEventListener("click", validateCart);
         localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
-    });
-
+        });
+    
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-
-
 }
-    
-
-
-
-
