@@ -57,15 +57,22 @@ let pourcentTaxe = 13;
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
+let priceTTC;
+let totalCaisse=0;
 let giftValue = 100;
-let priceTTC ;
+
 
 addOpcacityIfNoneStock();
-
 function clickAdmin(){
+    let basket;
     const modalContent = createModal();
-    modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
-    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>";
+    modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    if(localStorage.getItem("caisse") !== null){
+        basket = localStorage.getItem("caisse");
+    }
+    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : "+ (basket === undefined ? 0 : basket) +"</p>"
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -74,12 +81,13 @@ function clickAdmin(){
     });
     const confirmButtonTax = document.getElementById("confirmButton")
     confirmButtonTax.addEventListener("click", function (event) {
-        console.log(confirmButtonTax);
         pourcentTaxe = document.getElementById("modalTaxe").value;
         taxe = (pourcentTaxe/100);
+        giftValue = document.getElementById('modalThreshold').value;
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
-    })
+    });
+
 }
 
 admin.addEventListener("click", clickAdmin);
@@ -98,32 +106,34 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-        
+    
     }
-    
+
     articles.innerHTML = display;
-    
+
     const imgLinks = document.querySelectorAll(".article-link")
-    
+
     // click image
     imgLinks.forEach(btn => {
-        btn.addEventListener('click', addCart);
+            btn.addEventListener('click', addCart);
     });
-    
+
     document.getElementById("validate").addEventListener("click", validateCart);
-    
+        
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-    
+        
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
+            if(this.childElementCount === 1){
+                document.getElementById("final-price").innerHTML = "";
+            }
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
-       
     });
     addOpcacityIfNoneStock();
 }
@@ -162,7 +172,6 @@ function addOpcacityIfNoneStock() {
   }
 });   
 }
-
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
         modifPriceArcticle(event.target)
@@ -174,7 +183,7 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-}
+    }
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -208,10 +217,9 @@ function modifTotalPrice(){
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = ""
+document.getElementById("final-price").innerHTML = "";
 displayArticles();
 //addOpcacityIfNoneStock()
-
 });
 
 
@@ -231,9 +239,15 @@ function validateCart(){
             this.removeEventListener("click",validateCart);
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
+        }
+        totalCaisse += priceTTC;
+        const caissePO = parseInt(totalCaisse);
+        const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+        const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+        localStorage.setItem("caisse", infoCaisse);
             //addOpcacityIfNoneStock();
-            giftThreshold(priceTTC);
         }   
+        giftThreshold(priceTTC);
     }
 }
 
@@ -258,9 +272,10 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Gift")
+        alert("Félicitation, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
     }
 }
+
 
 function modifArticle(){
     const article = this.dataset.article;
@@ -272,7 +287,7 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-    
+
 
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
@@ -283,11 +298,15 @@ function modifArticle(){
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
         displayArticles();
-        });
-    
+    });
+
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-    
 
 }
+    
+
+
+
+
