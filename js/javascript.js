@@ -103,7 +103,8 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
+            event.target.parentElement.parentElement.remove();
+            displayArticles();
         }
     });
 }
@@ -166,7 +167,9 @@ const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = ""
+displayArticles();
 });
+
 
 /* MODIFY STOCK AFTER SELLING */
 
