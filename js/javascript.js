@@ -59,14 +59,13 @@ const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 let giftValue = 100;
 let priceTTC ;
-let totalPrice ;
 
 addOpcacityIfNoneStock();
 function clickAdmin(){
     const modalContent = createModal();
     modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
     modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br></form>";
-    modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -233,8 +232,8 @@ function validateCart(){
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
             //addOpcacityIfNoneStock();
-             giftThreshold(priceTTC);
         }   
+        giftThreshold(priceTTC);
     }
 }
 
