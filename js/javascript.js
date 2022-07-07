@@ -60,8 +60,7 @@ const finalCart = document.getElementById("final-cart-ul");
 let giftValue = 100;
 let priceTTC ;
 
-
-
+addOpcacityIfNoneStock();
 
 function clickAdmin(){
     const modalContent = createModal();
@@ -99,32 +98,34 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-    
+        
     }
-
+    
     articles.innerHTML = display;
-
+    
     const imgLinks = document.querySelectorAll(".article-link")
-
+    
     // click image
     imgLinks.forEach(btn => {
-            btn.addEventListener('click', addCart);
+        btn.addEventListener('click', addCart);
     });
-
+    
     document.getElementById("validate").addEventListener("click", validateCart);
-        
+    
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-        
+    
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
+       
     });
+    addOpcacityIfNoneStock();
 }
 
 displayArticles();
@@ -148,15 +149,20 @@ function addCart() {
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
         modifTotalPrice();
-        
-        // if (priceTTC >= 100){
-        //     alert(Gift)
-        // }
         this.removeEventListener("click",addCart);      
     }
 }
 
-
+function addOpcacityIfNoneStock() {
+    document.querySelectorAll("[data-stock]").forEach(p => {
+    if (p.dataset.stock == 0){
+        p.parentElement.parentElement.classList.add("opacity")
+   }
+   if (p.dataset.stock > 0) {
+    p.parentElement.parentElement.classList.remove("opacity")
+  }
+});   
+}
 
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
@@ -203,9 +209,11 @@ function modifTotalPrice(){
 
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
-    document.getElementById("final-cart-ul").innerHTML = "";
-    document.getElementById("final-price").innerHTML = ""
-    displayArticles();
+document.getElementById("final-cart-ul").innerHTML = "";
+document.getElementById("final-price").innerHTML = ""
+displayArticles();
+//addOpcacityIfNoneStock()
+
 });
 
 
@@ -225,8 +233,8 @@ function validateCart(){
             this.removeEventListener("click",validateCart);
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
+            //addOpcacityIfNoneStock();
             giftThreshold(priceTTC);
-
         }   
     }
 }
