@@ -287,7 +287,7 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Félicitation, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
+        alert("Félicitations, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
     }
 }
 

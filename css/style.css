@@ -401,7 +401,7 @@ button {
     position: absolute;
     z-index: 100;
     left: -60px;
-    top:35px;
+    bottom: 190px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2rem;
     color: darkblue;
