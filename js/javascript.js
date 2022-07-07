@@ -57,15 +57,22 @@ let pourcentTaxe = 13;
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
+let priceTTC;
+let totalCaisse=0;
 let giftValue = 100;
-let priceTTC ;
+
 
 addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
+    let basket;
     const modalContent = createModal();
-    modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
-    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br></form>";
-    modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>";
+    modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    if(localStorage.getItem("caisse") !== null){
+        basket = localStorage.getItem("caisse");
+    }
+    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : "+ (basket === undefined ? 0 : basket) +"</p>"
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -74,18 +81,21 @@ function clickAdmin(){
     });
     const confirmButtonTax = document.getElementById("confirmButton")
     confirmButtonTax.addEventListener("click", function (event) {
-        console.log(confirmButtonTax);
         pourcentTaxe = document.getElementById("modalTaxe").value;
         taxe = (pourcentTaxe/100);
         giftValue = document.getElementById('modalThreshold').value;
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
-    })
+    });
+
 }
 
 admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
+    if(localStorage.getItem("articles") !== null){
+        articlesObj = JSON.parse(localStorage.getItem("articles"));
+    }
     
     let display = "";
 
@@ -121,6 +131,9 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
+            if(this.childElementCount === 1){
+                document.getElementById("final-price").innerHTML = "";
+            }
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
@@ -132,36 +145,35 @@ displayArticles();
 
 // add bucket
 function addCart() {
-    if (articlesObj[this.dataset.name].stock !== 0) {
-        let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
-        const li = document.createElement("li");
-        li.classList.add("articleCart");
-        li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
-        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
-        // "<button class='art-button-plus'>+</button></div></div>";
-        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
-        finalCart.appendChild(li);
-        finalCart.addEventListener('change' ,updateValue);
-        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
-        modifTotalPrice();
-
-        this.removeEventListener("click",addCart);      
-    }
+    let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+    if(articlesObj[this.dataset.name].stock === 0 || mainInputArt == 0) return
+    const li = document.createElement("li");
+    li.classList.add("articleCart");
+    li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
+    li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
+    "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
+    // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+    "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
+    // "<button class='art-button-plus'>+</button></div></div>";
+    li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+    finalCart.appendChild(li);
+    finalCart.addEventListener('change' ,updateValue);
+    document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
+    modifTotalPrice();
+    this.removeEventListener("click",addCart);
 }
+
 function addOpcacityIfNoneStock() {
     document.querySelectorAll("[data-stock]").forEach(p => {
-    if (p.dataset.stock == 0){
-        p.parentElement.parentElement.classList.add("opacity")
-   }
-   if (p.dataset.stock > 0) {
-    p.parentElement.parentElement.classList.remove("opacity")
-  }
-});   
+        if (p.dataset.stock == 0) {
+            p.parentElement.parentElement.classList.add("opacity")
+        }
+        if (p.dataset.stock > 0) {
+            p.parentElement.parentElement.classList.remove("opacity")
+        }
+    });
 }
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
@@ -174,7 +186,8 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-    }
+}
+
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -188,7 +201,6 @@ function modifTotalPrice(){
     let goldTaxe, silverTaxe, goldTotalPrice, silverTotalPrice;
     let totalTaxe;
     for(const price of priceArticles){
-        console.log(price.textContent);
         totalPrice += parseInt(price.textContent);
         totalTaxe = parseFloat((taxe*totalPrice));
         silverTaxe = (totalTaxe % 1).toFixed(1).substring(2);
@@ -209,9 +221,8 @@ function modifTotalPrice(){
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = ""
+document.getElementById("final-price").innerHTML = "";
 displayArticles();
-//addOpcacityIfNoneStock()
 });
 
 
@@ -231,12 +242,15 @@ function validateCart(){
             this.removeEventListener("click",validateCart);
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
-            //addOpcacityIfNoneStock();
-        }   
+        }
+        totalCaisse += priceTTC;
+        const caissePO = parseInt(totalCaisse);
+        const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+        const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+        localStorage.setItem("caisse", infoCaisse);
         giftThreshold(priceTTC);
     }
 }
-
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
@@ -254,7 +268,6 @@ function createModal() {
     // });
     return modalContent;
 }
-// goldTotalPrice
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
@@ -273,8 +286,6 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-
-
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
@@ -283,16 +294,12 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
+        localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
     });
 
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-
 }
-    
-
-
-
 
