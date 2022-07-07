@@ -116,7 +116,8 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
+            event.target.parentElement.parentElement.remove();
+            displayArticles();
         }
     });
 }
@@ -148,19 +149,20 @@ function addCart() {
         const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
         const goldTotalPrice = parseInt(priceTTC);
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
-        
+        console.log(this);
         /*if (priceWithoutTaxe >= 100){
            
         }*/
         // articlesCounter()
         this.removeEventListener("click",addCart);
+        
     }
 }
-
     const deleteBtn = document.getElementById("delete-btn");
     deleteBtn.addEventListener("click", function(event) {
     document.getElementById("final-cart-ul").innerHTML = "";
-    document.getElementById("final-price").innerHTML = ""
+    document.getElementById("final-price").innerHTML = "";
+    displayArticles();
     });
 
 /* MODIFY STOCK AFTER SELLING */
