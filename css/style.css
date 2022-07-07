@@ -212,6 +212,9 @@ button {
     background-size: cover;
     height: 250px;
 }
+.opacity {
+    opacity: 0.5;
+}
 
 /* Bottons in display */
 /* .main-btns {
