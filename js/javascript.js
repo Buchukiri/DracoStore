@@ -63,7 +63,6 @@ let giftValue = 100;
 
 
 addOpcacityIfNoneStock();
-
 function clickAdmin(){
     let basket;
     const modalContent = createModal();
@@ -84,6 +83,7 @@ function clickAdmin(){
     confirmButtonTax.addEventListener("click", function (event) {
         pourcentTaxe = document.getElementById("modalTaxe").value;
         taxe = (pourcentTaxe/100);
+        giftValue = document.getElementById('modalThreshold').value;
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
@@ -109,26 +109,26 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-        
+    
     }
-    
+
     articles.innerHTML = display;
-    
+
     const imgLinks = document.querySelectorAll(".article-link")
-    
+
     // click image
     imgLinks.forEach(btn => {
-        btn.addEventListener('click', addCart);
+            btn.addEventListener('click', addCart);
     });
-    
+
     document.getElementById("validate").addEventListener("click", validateCart);
-    
+        
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-    
+        
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             if(this.childElementCount === 1){
@@ -145,25 +145,24 @@ displayArticles();
 
 // add bucket
 function addCart() {
-    if (articlesObj[this.dataset.name].stock !== 0) {
-        let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
-        const li = document.createElement("li");
-        li.classList.add("articleCart");
-        li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
-        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
-        // "<button class='art-button-plus'>+</button></div></div>";
-        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
-        finalCart.appendChild(li);
-        finalCart.addEventListener('change' ,updateValue);
-        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
-        modifTotalPrice();
-        this.removeEventListener("click",addCart);      
-    }
+    let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+    if(articlesObj[this.dataset.name].stock === 0 || mainInputArt == 0) return
+    const li = document.createElement("li");
+    li.classList.add("articleCart");
+    li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
+    li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
+    "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
+    // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+    "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
+    // "<button class='art-button-plus'>+</button></div></div>";
+    li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+    finalCart.appendChild(li);
+    finalCart.addEventListener('change' ,updateValue);
+    document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
+    modifTotalPrice();
+    this.removeEventListener("click",addCart);
 }
 
 function addOpcacityIfNoneStock() {
@@ -176,7 +175,6 @@ function addOpcacityIfNoneStock() {
         }
     });
 }
-
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
         modifPriceArcticle(event.target)
@@ -273,9 +271,10 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Gift")
+        alert("Félicitation, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
     }
 }
+
 
 function modifArticle(){
     const article = this.dataset.article;
@@ -287,7 +286,6 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-    
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
@@ -298,9 +296,10 @@ function modifArticle(){
         document.getElementById("validate").removeEventListener("click", validateCart);
         localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
-        });
-    
+    });
+
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
 }
+
