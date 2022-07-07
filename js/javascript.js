@@ -93,6 +93,9 @@ function clickAdmin(){
 admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
+    if(localStorage.getItem("articles") !== null){
+        articlesObj = JSON.parse(localStorage.getItem("articles"));
+    }
     
     let display = "";
 
@@ -164,13 +167,13 @@ function addCart() {
 
 function addOpcacityIfNoneStock() {
     document.querySelectorAll("[data-stock]").forEach(p => {
-    if (p.dataset.stock == 0){
-        p.parentElement.parentElement.classList.add("opacity")
-   }
-   if (p.dataset.stock > 0) {
-    p.parentElement.parentElement.classList.remove("opacity")
-  }
-});   
+        if (p.dataset.stock == 0) {
+            p.parentElement.parentElement.classList.add("opacity")
+        }
+        if (p.dataset.stock > 0) {
+            p.parentElement.parentElement.classList.remove("opacity")
+        }
+    });
 }
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
@@ -183,7 +186,8 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-    }
+}
+
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -219,7 +223,6 @@ deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = "";
 displayArticles();
-//addOpcacityIfNoneStock()
 });
 
 
@@ -245,12 +248,9 @@ function validateCart(){
         const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", infoCaisse);
-            //addOpcacityIfNoneStock();
-        }   
         giftThreshold(priceTTC);
     }
 }
-
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
@@ -268,7 +268,6 @@ function createModal() {
     // });
     return modalContent;
 }
-// goldTotalPrice
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
@@ -287,8 +286,6 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-
-
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
@@ -297,16 +294,12 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
+        localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
     });
 
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-
 }
-    
-
-
-
 
