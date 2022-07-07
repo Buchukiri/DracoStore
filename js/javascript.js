@@ -59,6 +59,7 @@ const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 let giftValue = 100;
 let priceTTC ;
+let totalPrice ;
 
 addOpcacityIfNoneStock();
 function clickAdmin(){
@@ -77,6 +78,7 @@ function clickAdmin(){
         console.log(confirmButtonTax);
         pourcentTaxe = document.getElementById("modalTaxe").value;
         taxe = (pourcentTaxe/100);
+        giftValue = document.getElementById('modalThreshold').value;
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     })
@@ -257,7 +259,7 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Gift")
+        alert("Félicitation, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
     }
 }
 
