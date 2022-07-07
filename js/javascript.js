@@ -103,7 +103,8 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
+            event.target.parentElement.parentElement.remove();
+            modifTotalPrice();
         }
     });
 }
