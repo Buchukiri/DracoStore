@@ -58,19 +58,6 @@ let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 
-function createModal() {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    const modalContent = document.createElement("div");
-    modalContent.className = "modal-content";
-    modal.appendChild(modalContent);
-    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-    modalContent.addEventListener("click", function() {
-        this.remove();
-        admin.addEventListener("click", clickAdmin);
-    });
-    return modalContent;
-}
 
 // function clickAdmin(){
 //     const modalContent = createModal();
@@ -126,7 +113,6 @@ displayArticles();
 // add bucket
 function addCart() {
     if (articlesObj[this.dataset.name].stock !== 0) {
-        // compteur d'articles INPUT MAIN
         let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
         const li = document.createElement("li");
         li.classList.add("articleCart");
@@ -159,7 +145,6 @@ function addCart() {
         if (priceTTC >= 100){
             alert(Gift)
         }
-        // articlesCounter()
         this.removeEventListener("click",addCart);      
     }
 }
@@ -168,20 +153,20 @@ function addCart() {
 /* Update Price on Quantity change */
 function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
-        let total = artNbr * articlesObj[link.dataset.name].prix ;
-        return(total)
+    let total = artNbr * articlesObj[link.dataset.name].prix ;
+    return(total)
     }
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
-        let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
-        document.querySelector("[data-name-info-cart="+input.dataset.input+"] p:nth-child(2)").innerHTML = totalPriceArt+" PO";
+    let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
+    document.querySelector("[data-name-info-cart="+input.dataset.input+"] p:nth-child(2)").innerHTML = totalPriceArt+" PO";
 }
 
-    const deleteBtn = document.getElementById("delete-btn");
-    deleteBtn.addEventListener("click", function(event) {
-    document.getElementById("final-cart-ul").innerHTML = "";
-    document.getElementById("final-price").innerHTML = ""
-    });
+const deleteBtn = document.getElementById("delete-btn");
+deleteBtn.addEventListener("click", function(event) {
+document.getElementById("final-cart-ul").innerHTML = "";
+document.getElementById("final-price").innerHTML = ""
+});
 
 /* MODIFY STOCK AFTER SELLING */
 
@@ -189,78 +174,65 @@ function validateCart(){
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
-            // console.log(articlesObj[qtt.dataset.input].stock);
-            // console.log(qtt.value);
             articlesObj[qtt.dataset.input].stock -= qtt.value;
             if(articlesObj[qtt.dataset.input].stock <= 0){
                 alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
             }
-        finalCart.innerHTML = "";
-        document.getElementById("final-price").innerHTML = "";
-        priceWithoutTaxe=0;
-        this.removeEventListener("click",validateCart);
-        localStorage.setItem("articles", JSON.stringify(articlesObj));
-        displayArticles();
-     }
-  }
+            finalCart.innerHTML = "";
+            document.getElementById("final-price").innerHTML = "";
+            priceWithoutTaxe=0;
+            this.removeEventListener("click",validateCart);
+            localStorage.setItem("articles", JSON.stringify(articlesObj));
+            displayArticles();
+        }   
+    }
+}
 
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
-    function createModal() {
-        const modal = document.createElement("div");
-        modal.className = "modal";
-        const modalContent = document.createElement("div");
-        modalContent.className = "modal-content";
-        modal.appendChild(modalContent);
-        document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-
-        return modalContent;
-    }
-
-
-    function modifArticle(){
-        const article = this.dataset.article;
-        // console.log(article);
-        const modalContent = createModal();
-        modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
-        modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
-        "<div><form class='form' method='post'>"+
-        "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
-        "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
-        "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
-        "<input type='submit' value='valider' id='submit'>"+
-        "</form></div></div>";
-
-
-        document.getElementById("submit").addEventListener("click", function(e){
-            e.preventDefault();
-            console.log(document.getElementById(article+"-name").value);
-            articlesObj[article].name = document.getElementById(article+"-name").value;
-            articlesObj[article].prix = document.getElementById(article+"-price").value;
-            articlesObj[article].stock = document.getElementById(article+"-stock").value;
-            displayArticles();
-            modalContent.parentElement.remove();
-            document.getElementById("validate").removeEventListener("click", validateCart);
-        });
-
-        document.getElementById("modal-close").addEventListener("click", function() {
-            modalContent.parentElement.remove();
-        });
-
-    }
-    
-    const modifList = document.querySelectorAll(".modify-art");
-    
-    for(const modif of modifList){
-        modif.addEventListener("click", modifArticle);
-    }
-    
-     finalCart.addEventListener("click", function(event) {
-        if (event.target.classList.contains("cross-button")){
-            event.target.parentElement.parentElement.remove()
-        }
-     })
+function createModal() {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
+    modal.appendChild(modalContent);
+    document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    return modalContent;
 }
-    displayArticles();
+
+
+function modifArticle(){
+    const article = this.dataset.article;
+    const modalContent = createModal();
+    modalContent.innerHTML += "<div class='modif-content'><div><img src='img/"+article+".png' alt='"+articlesObj[article].name+"' </div>"+
+    "<div><form class='form' method='post'>"+
+    "<label>Nom de l'article : </label><input id='"+article+"-name' type='text' value='"+articlesObj[article].name+"' size='5'><br>"+
+    "<label>Prix de l'article : </label><input id='"+article+"-price' type='text' value='"+articlesObj[article].prix+"' size='5'><br>"+
+    "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
+    "<input type='submit' value='valider' id='submit'>"+
+    "</form></div></div>";
+
+
+    document.getElementById("submit").addEventListener("click", function(e){
+        e.preventDefault();
+        console.log(document.getElementById(article+"-name").value);
+        articlesObj[article].name = document.getElementById(article+"-name").value;
+        articlesObj[article].prix = document.getElementById(article+"-price").value;
+        articlesObj[article].stock = document.getElementById(article+"-stock").value;
+        modalContent.parentElement.remove();
+        document.getElementById("validate").removeEventListener("click", validateCart);
+        displayArticles();
+    });
+
+    document.getElementById("modal-close").addEventListener("click", function() {
+        modalContent.parentElement.remove();
+    });
+
+}
+    
+
+
+
 
