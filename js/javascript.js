@@ -156,7 +156,7 @@ function addCart() {
     // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
     "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
     // "<button class='art-button-plus'>+</button></div></div>";
-    li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+    li.innerHTML += "<button><img class='cross-button' src=img/cross-button.png></button>"
     finalCart.appendChild(li);
     finalCart.addEventListener('change' ,updateValue);
     document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
