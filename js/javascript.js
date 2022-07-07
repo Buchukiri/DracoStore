@@ -75,8 +75,8 @@ function clickAdmin(){
         pourcentTaxe = document.getElementById("modalTaxe").value;
         taxe = (pourcentTaxe/100);
         modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
     })
-    admin.addEventListener("click", clickAdmin);
 }
 
 admin.addEventListener("click", clickAdmin);
