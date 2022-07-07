@@ -91,6 +91,9 @@ function clickAdmin(){
 admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
+    if(localStorage.getItem("articles") !== null){
+        articlesObj = JSON.parse(localStorage.getItem("articles"));
+    }
     
     let display = "";
 
@@ -278,12 +281,14 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
+        localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
     });
 
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
+
 
 }
     
