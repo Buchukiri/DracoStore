@@ -149,7 +149,7 @@ function addCart() {
         const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
         const goldTotalPrice = parseInt(priceTTC);
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
-        console.log(this);
+
         /*if (priceWithoutTaxe >= 100){
            
         }*/
