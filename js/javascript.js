@@ -61,11 +61,11 @@ let giftValue = 100;
 let priceTTC ;
 
 addOpcacityIfNoneStock();
-
 function clickAdmin(){
     const modalContent = createModal();
     modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
-    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br></form>";
+    modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -98,32 +98,31 @@ function displayArticles(){
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
         "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-        
+    
     }
-    
+
     articles.innerHTML = display;
-    
+
     const imgLinks = document.querySelectorAll(".article-link")
-    
+
     // click image
     imgLinks.forEach(btn => {
-        btn.addEventListener('click', addCart);
+            btn.addEventListener('click', addCart);
     });
-    
+
     document.getElementById("validate").addEventListener("click", validateCart);
-    
+        
     const modifList = document.querySelectorAll(".modify-art");
 
     for(const modif of modifList){
         modif.addEventListener("click", modifArticle);
     }
-    
+        
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
-       
     });
     addOpcacityIfNoneStock();
 }
@@ -149,10 +148,10 @@ function addCart() {
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
         modifTotalPrice();
+
         this.removeEventListener("click",addCart);      
     }
 }
-
 function addOpcacityIfNoneStock() {
     document.querySelectorAll("[data-stock]").forEach(p => {
     if (p.dataset.stock == 0){
@@ -163,7 +162,6 @@ function addOpcacityIfNoneStock() {
   }
 });   
 }
-
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
         modifPriceArcticle(event.target)
@@ -175,7 +173,7 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-}
+    }
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -213,7 +211,6 @@ document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = ""
 displayArticles();
 //addOpcacityIfNoneStock()
-
 });
 
 
@@ -234,7 +231,7 @@ function validateCart(){
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
             //addOpcacityIfNoneStock();
-            giftThreshold(priceTTC);
+             giftThreshold(priceTTC);
         }   
     }
 }
@@ -264,6 +261,7 @@ function giftThreshold(priceTTC) {
     }
 }
 
+
 function modifArticle(){
     const article = this.dataset.article;
     const modalContent = createModal();
@@ -274,7 +272,7 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-    
+
 
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
@@ -285,11 +283,15 @@ function modifArticle(){
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
         displayArticles();
-        });
-    
+    });
+
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-    
 
 }
+    
+
+
+
+
