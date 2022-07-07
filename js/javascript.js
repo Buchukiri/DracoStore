@@ -134,7 +134,6 @@ function displayArticles(){
             event.target.parentElement.parentElement.remove();
             modifTotalPrice();
         }
-       
     });
     addOpcacityIfNoneStock();
 }
@@ -166,13 +165,13 @@ function addCart() {
 
 function addOpcacityIfNoneStock() {
     document.querySelectorAll("[data-stock]").forEach(p => {
-    if (p.dataset.stock == 0){
-        p.parentElement.parentElement.classList.add("opacity")
-   }
-   if (p.dataset.stock > 0) {
-    p.parentElement.parentElement.classList.remove("opacity")
-  }
-});   
+        if (p.dataset.stock == 0) {
+            p.parentElement.parentElement.classList.add("opacity")
+        }
+        if (p.dataset.stock > 0) {
+            p.parentElement.parentElement.classList.remove("opacity")
+        }
+    });
 }
 
 function updateValue(event) {
@@ -187,6 +186,7 @@ function addPriceArticles(link){
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
 }
+
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -222,8 +222,6 @@ deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = "";
 displayArticles();
-//addOpcacityIfNoneStock()
-
 });
 
 
@@ -249,12 +247,9 @@ function validateCart(){
         const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", infoCaisse);
-            //addOpcacityIfNoneStock();
-            giftThreshold(priceTTC);
-        }   
+        giftThreshold(priceTTC);
     }
 }
-
 
 document.getElementById("validate").addEventListener("click", validateCart);
 
@@ -272,7 +267,6 @@ function createModal() {
     // });
     return modalContent;
 }
-// goldTotalPrice
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
@@ -291,7 +285,6 @@ function modifArticle(){
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
     
-
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
         console.log(document.getElementById(article+"-name").value);
@@ -306,6 +299,4 @@ function modifArticle(){
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-    
-
 }
