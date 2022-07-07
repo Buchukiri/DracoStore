@@ -298,6 +298,11 @@ button {
     height:calc(100vh - 8rem);
 }
 
+.cart-header{
+    display: flex;
+    justify-content: center;
+}
+
 .cart-ttl {
     position: relative;
     bottom: 8px;
@@ -305,8 +310,22 @@ button {
     font-family: 'East Sea Dokdo', cursive;
     text-align: center;
     font-size: 3rem;
-    width: 100%;
+    width: 25%;
 }
+.delete-btn {
+    font-size: 22px;
+    font-family: 'East Sea Dokdo',cursive;
+    margin-left: 25px;
+    margin-top: 2rem;
+    width: 40px;
+    height: 30px;
+    border: 1px solid #3b301a;
+    border-radius: 15px;
+}
+.delete-btn:hover {
+    cursor: pointer;
+}
+
 
 .final-cart-ul{
     display: flex;
@@ -329,7 +348,7 @@ button {
 
 .img-draco{
     position: absolute;
-    right: 25px;
+    left: -87px;
     bottom: 0px;
     width: 360px;
     overflow: hidden;
@@ -364,19 +383,31 @@ button {
     height: 17px;
 }
 
-.final-price{
+.price{
     position: relative;
+    height: 41%;
+}
+
+.final-price{
+    position: absolute;
     z-index: 100;
-    right: 92px;
-    top:25px;
+    left: -60px;
+    top:35px;
     font-family: 'East Sea Dokdo', cursive;
-    font-size: 2.5rem;
+    font-size: 2rem;
+    color: darkblue;
     transform: rotate(-7deg);
 }
 
 .quantity-item{
     display: flex;
 }
+
+.span-price{
+    color: black;
+    font-weight: bold;
+}
+
 /* .art-button-moins{
     font-size: 20px;
     width: 25px;
