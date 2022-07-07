@@ -132,25 +132,24 @@ displayArticles();
 
 // add bucket
 function addCart() {
-    if (articlesObj[this.dataset.name].stock !== 0) {
-        let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
-        const li = document.createElement("li");
-        li.classList.add("articleCart");
-        li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
-        li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
-        "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
-        // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
-        "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
-        // "<button class='art-button-plus'>+</button></div></div>";
-        li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
-        finalCart.appendChild(li);
-        finalCart.addEventListener('change' ,updateValue);
-        document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
-        document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
-        modifTotalPrice();
-        this.removeEventListener("click",addCart);      
-    }
+    let mainInputArt = document.querySelector("[data-qtty='"+this.dataset.name+"']").value;
+    if(articlesObj[this.dataset.name].stock === 0 || mainInputArt == 0) return
+    const li = document.createElement("li");
+    li.classList.add("articleCart");
+    li.innerHTML = "<img class='cart-img' src='"+this.firstElementChild.src+"'>";
+    li.innerHTML += "<div class='cart-art-info' data-name-info-cart= '"+this.dataset.name+"'><p>"+articlesObj[this.dataset.name].name+"</p>"+
+    "<p> <span class='price-article'>"+addPriceArticles(this)+"</span> PO</p>"+
+    // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
+    "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
+    // "<button class='art-button-plus'>+</button></div></div>";
+    li.innerHTML += "<button><img class='cross-button' src=../img/cross-button.png></button>"
+    finalCart.appendChild(li);
+    finalCart.addEventListener('change' ,updateValue);
+    document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Taxe : </span><span id='gold-taxe'>" +/* goldTaxe + */"</span> PO, <span id='silver-taxe'>" +/* silverTaxe + */"</span> PA</p>";
+    document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br><span id='gold-total-price'>" +/* goldTotalPrice + */"</span> PO, <span id='silver-total-price'>" +/* silverTotalPrice + */"</span> PA<p>" ;
+    modifTotalPrice();
+    this.removeEventListener("click",addCart);
 }
 
 function addOpcacityIfNoneStock() {
@@ -189,7 +188,6 @@ function modifTotalPrice(){
     let goldTaxe, silverTaxe, goldTotalPrice, silverTotalPrice;
     let totalTaxe;
     for(const price of priceArticles){
-        console.log(price.textContent);
         totalPrice += parseInt(price.textContent);
         totalTaxe = parseFloat((taxe*totalPrice));
         silverTaxe = (totalTaxe % 1).toFixed(1).substring(2);
