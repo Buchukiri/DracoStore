@@ -57,6 +57,7 @@ let pourcentTaxe = 13;
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
+let giftValue = 5
 
 
 // function clickAdmin(){
@@ -142,13 +143,11 @@ function addCart() {
         const silverTotalPrice = (priceTTC % 1).toFixed(1).substring(2);
         const goldTotalPrice = parseInt(priceTTC);
         document.getElementById("final-price").innerHTML += "<p><span class='span-price'>Prix TTC : </span><br>" + goldTotalPrice + " PO, " + silverTotalPrice + " PA<p>" ;
-        
-        if (priceTTC >= 100){
-            alert(Gift)
         }
         this.removeEventListener("click",addCart);      
     }
-}
+
+
 
 
 /* Update Price on Quantity change */
@@ -156,7 +155,7 @@ function addPriceArticles(link){
     let artNbr = parseInt(document.querySelector("[data-qtty="+link.dataset.name+"]").value);
     let total = artNbr * articlesObj[link.dataset.name].prix ;
     return(total)
-    }
+}
 function modifPriceArcticle(input){
     let artNbrCart = parseInt(document.querySelector("[data-input="+input.dataset.input+"]").value);
     let totalPriceArt = artNbrCart * articlesObj[input.dataset.input].prix ;
@@ -165,9 +164,9 @@ function modifPriceArcticle(input){
 
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
-document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = ""
-displayArticles();
+    document.getElementById("final-cart-ul").innerHTML = "";
+    document.getElementById("final-price").innerHTML = ""
+    displayArticles();
 });
 
 
@@ -204,7 +203,13 @@ function createModal() {
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
     return modalContent;
 }
+// goldTotalPrice
 
+function giftThreshold(priceTTC) {
+    if (priceTTC >= giftValue) {
+        return alert("Gift")
+    }
+}
 
 function modifArticle(){
     const article = this.dataset.article;
@@ -216,7 +221,7 @@ function modifArticle(){
     "<label>Stock de l'article : </label><input id='"+article+"-stock' type='text' value='"+articlesObj[article].stock+"' size='5'><br>"+
     "<input type='submit' value='valider' id='submit'>"+
     "</form></div></div>";
-
+    
 
     document.getElementById("submit").addEventListener("click", function(e){
         e.preventDefault();
@@ -226,16 +231,13 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
+        giftThreshold(priceTTC);
         displayArticles();
-    });
-
+        });
+    
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
     });
-
-}
     
 
-
-
-
+}
