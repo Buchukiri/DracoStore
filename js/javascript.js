@@ -57,7 +57,10 @@ let pourcentTaxe = 13;
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
-let giftValue = 5
+let giftValue = 100;
+let priceTTC ;
+
+
 
 
 function clickAdmin(){
@@ -151,6 +154,7 @@ function addCart() {
         // }
         this.removeEventListener("click",addCart);      
     }
+}
 
 
 
@@ -177,7 +181,7 @@ function modifTotalPrice(){
     const priceArticles = document.querySelectorAll(".price-article");
     let totalPrice=0;
     let goldTaxe, silverTaxe, goldTotalPrice, silverTotalPrice;
-    let totalTaxe, priceTTC;
+    let totalTaxe;
     for(const price of priceArticles){
         console.log(price.textContent);
         totalPrice += parseInt(price.textContent);
@@ -221,6 +225,8 @@ function validateCart(){
             this.removeEventListener("click",validateCart);
             localStorage.setItem("articles", JSON.stringify(articlesObj));
             displayArticles();
+            giftThreshold(priceTTC);
+
         }   
     }
 }
@@ -246,7 +252,7 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        return alert("Gift")
+        alert("Gift")
     }
 }
 
@@ -270,7 +276,6 @@ function modifArticle(){
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
         document.getElementById("validate").removeEventListener("click", validateCart);
-        giftThreshold(priceTTC);
         displayArticles();
         });
     
