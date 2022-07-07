@@ -50,6 +50,7 @@ if(localStorage.getItem("articles") !== null){
     articlesObj = JSON.parse(localStorage.getItem("articles"));
 }
 
+let imgLinks;
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
@@ -115,12 +116,9 @@ function displayArticles(){
 
     articles.innerHTML = display;
 
-    const imgLinks = document.querySelectorAll(".article-link")
+    imgLinks = document.querySelectorAll(".article-link")
 
-    // click image
-    imgLinks.forEach(btn => {
-            btn.addEventListener('click', addCart);
-    });
+    addEventOnImages(imgLinks);
 
     document.getElementById("validate").addEventListener("click", validateCart);
         
@@ -132,17 +130,33 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
+            console.log(this.childElementCount);
             if(this.childElementCount === 1){
                 document.getElementById("final-price").innerHTML = "";
+                document.querySelector("[data-name="+event.target.dataset.id+"]").addEventListener("click", addCart);
+                // event.target.addEventListener("click", addCart);
+                event.target.parentElement.parentElement.remove();
             }
-            event.target.parentElement.parentElement.remove();
-            modifTotalPrice();
+            else{
+                document.querySelector("[data-name="+event.target.dataset.id+"]").addEventListener("click", addCart);
+                // event.target.addEventListener("click", addCart);
+                event.target.parentElement.parentElement.remove();
+                modifTotalPrice();
+            }
         }
     });
+
     addOpcacityIfNoneStock();
 }
 
 displayArticles();
+
+// click image
+function addEventOnImages(imgList){
+    imgList.forEach(btn => {
+            btn.addEventListener('click', addCart);
+    });
+}
 
 // add bucket
 function addCart() {
@@ -156,7 +170,7 @@ function addCart() {
     // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
     "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
     // "<button class='art-button-plus'>+</button></div></div>";
-    li.innerHTML += "<button><img class='cross-button' src=img/cross-button.png></button>"
+    li.innerHTML += "<button><img data-id='"+this.dataset.name+"' class='cross-button' src=img/cross-button.png></button>"
     finalCart.appendChild(li);
     finalCart.addEventListener('change' ,updateValue);
     document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
@@ -176,6 +190,7 @@ function addOpcacityIfNoneStock() {
         }
     });
 }
+
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
         modifPriceArcticle(event.target)
@@ -221,9 +236,9 @@ function modifTotalPrice(){
 
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
-document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = "";
-displayArticles();
+    document.getElementById("final-cart-ul").innerHTML = "";
+    document.getElementById("final-price").innerHTML = "";
+    addEventOnImages(imgLinks);
 });
 
 
