@@ -185,7 +185,9 @@ const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = ""
+displayArticles();
 });
+
 
 /* MODIFY STOCK AFTER SELLING */
 
