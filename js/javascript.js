@@ -187,8 +187,8 @@ function modifTotalPrice(){
         goldTotalPrice = parseInt(priceTTC);
     }
     document.getElementById("price-without-taxe").innerHTML = totalPrice;
-    document.getElementById("gold-taxe").innerHTML = silverTaxe;
-    document.getElementById("silver-taxe").innerHTML = goldTaxe;
+    document.getElementById("gold-taxe").innerHTML = goldTaxe;
+    document.getElementById("silver-taxe").innerHTML = silverTaxe;
     document.getElementById("gold-total-price").innerHTML = goldTotalPrice;
     document.getElementById("silver-total-price").innerHTML = silverTotalPrice;
     return totalPrice;
