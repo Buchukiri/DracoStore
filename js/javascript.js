@@ -60,7 +60,7 @@ const finalCart = document.getElementById("final-cart-ul");
 let giftValue = 100;
 let priceTTC ;
 
-addOpcacityIfNoneStock();
+addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
     const modalContent = createModal();
     modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
