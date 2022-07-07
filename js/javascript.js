@@ -59,13 +59,27 @@ const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 
 
-// function clickAdmin(){
-//     const modalContent = createModal();
-//     modalContent.innerHTML = '<button class="modal-close">x</button>';
-//     this.removeEventListener("click", clickAdmin);
-// }
+function clickAdmin(){
+    const modalContent = createModal();
+    modalContent.innerHTML +=  "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br><img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
+    // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
+    this.removeEventListener("click", clickAdmin);
+    document.getElementById("modal-close").addEventListener("click", function() {
+        modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
+    });
+    const confirmButtonTax = document.getElementById("confirmButton")
+    confirmButtonTax.addEventListener("click", function (event) {
+        console.log(confirmButtonTax);
+        pourcentTaxe = document.getElementById("modalTaxe").value;
+        taxe = (pourcentTaxe/100);
+        modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
+    })
+}
 
-// admin.addEventListener("click", clickAdmin);
+admin.addEventListener("click", clickAdmin);
 
 function displayArticles(){
     
@@ -185,7 +199,9 @@ const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
 document.getElementById("final-cart-ul").innerHTML = "";
 document.getElementById("final-price").innerHTML = ""
+displayArticles();
 });
+
 
 /* MODIFY STOCK AFTER SELLING */
 
@@ -218,6 +234,10 @@ function createModal() {
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modal.appendChild(modalContent);
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
+    // document.getElementById("modal-close").addEventListener("click", function() {
+    //     console.log("test");
+    //     modalContent.parentElement.remove();
+    // });
     return modalContent;
 }
 
