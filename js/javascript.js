@@ -71,8 +71,8 @@ function clickAdmin(){
     });
     const confirmButtonTax = document.getElementById("confirmButton")
     confirmButtonTax.addEventListener("click", function (event) {
-        input.value == pourcentTaxe
         console.log(confirmButtonTax);
+        pourcentTaxe = document.getElementById("modalTaxe").value;
     })
 }
 
