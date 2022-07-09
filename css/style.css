@@ -173,6 +173,8 @@ button {
     font-size: 2rem;
     color: gray;
     cursor: pointer;
+    border: none;
+    background: none;
 }
 
 .modif-content{

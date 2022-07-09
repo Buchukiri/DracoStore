@@ -46,9 +46,6 @@ let articlesObj = {
     },
 }
 
-if(localStorage.getItem("articles") !== null){
-    articlesObj = JSON.parse(localStorage.getItem("articles"));
-}
 
 let imgLinks;
 const articlesName = Object.keys(articlesObj);
@@ -62,19 +59,33 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 
+if(localStorage.getItem("articles") !== null){
+    articlesObj = JSON.parse(localStorage.getItem("articles"));
+}
+if(localStorage.getItem("caisse") !== null){
+    totalCaisse = JSON.parse(localStorage.getItem("caisse"));
+}
+
+console.log();
+
 
 addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
-    let basket;
+    // let basket;
     const modalContent = createModal();
     modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
     modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>";
     modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br>";
     modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
-    if(localStorage.getItem("caisse") !== null){
-        basket = localStorage.getItem("caisse");
-    }
-    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : "+ (basket === undefined ? 0 : basket) +"</p>"
+    // if(localStorage.getItem("caisse") !== null){
+    //     basket = localStorage.getItem("caisse");
+    // }
+    const caissePO = parseInt(totalCaisse);
+    const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+    const infoCaisse = caissePO + " PO et " + caissePA + " PA.</p>";
+    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : " + infoCaisse;
+    // modalContent.innerHTML += infoCaisse;
+    // (basket === undefined ? 0 : basket) +"</p>"
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -260,10 +271,10 @@ function validateCart(){
             displayArticles();
         }
         totalCaisse += priceTTC;
-        const caissePO = parseInt(totalCaisse);
-        const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
-        const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
-        localStorage.setItem("caisse", infoCaisse);
+        // const caissePO = parseInt(totalCaisse);
+        // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+        // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+        localStorage.setItem("caisse", totalCaisse);
         giftThreshold(priceTTC);
     }
 }
