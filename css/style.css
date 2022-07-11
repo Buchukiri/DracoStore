@@ -255,6 +255,11 @@ button {
     position: relative;
     bottom: 5px;
     height: 25px;
+    width: 60px;
+}
+
+.modal-caisse input:invalid {
+    background-color: red;
 }
 
 .pull-submit{

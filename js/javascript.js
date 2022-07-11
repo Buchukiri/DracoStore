@@ -79,8 +79,8 @@ function clickAdmin(){
     const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
     const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
     modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : " + infoCaisse + "<br>"+
-                                "Retirer de la caisse : <input type='text' size='1' id='pull-po' ><label> PO   </label>"+
-                                "<input type='text' size='1' id='pull-pa' ><label> PA</label>"+
+                                "Retirer de la caisse : <input type='number' id='pull-po' min='0' max='"+caissePO+"' ><label> PO   </label>"+
+                                "<input type='number' id='pull-pa' min='0' max='"+caissePA+"' ><label> PA</label>"+
                                 "<button class='pull-submit' id='pull-submit' >Valider</button></p>"
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -96,10 +96,20 @@ function clickAdmin(){
         admin.addEventListener("click", clickAdmin);
     });
 
+    if(parseInt(document.getElementById("pull-po").value) > caissePO){
+        alert("haaaaaaaa");
+        document.getElementById("pull-submit").setAttribute("disabled");
+    }
+
     document.getElementById("pull-submit").addEventListener("click", function(e){
         console.log("j\'ai retiré des sous !!!");
         const pullPO = parseInt(document.getElementById("pull-po").value);
         const pullPA = parseInt(document.getElementById("pull-pa").value);
+        if(pullPO > caissePO){
+            alert("Vous ne pouvez retirer plus d'argent qu'il n'y en a dans la caisse !");
+            document.getElementById("pull-submit").setAttribute("disabled");
+            return;
+        }
         console.log(pullPO, pullPA);
         const pullTotal = pullPO + parseFloat("0."+pullPA);
         console.log(pullTotal);
