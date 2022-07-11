@@ -135,6 +135,22 @@ button {
     top: 160px;
 }
 
+.article-main{
+    position: relative;
+}
+
+.add-article{
+    position: absolute;
+    right: 25px;
+    top: 60px;
+    background-color: bisque;
+    font-size: 22px;
+    font-family: 'East Sea Dokdo', cursive;
+    border-radius: 10px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
 .art-title{
     text-align: center;
     font-size: 30px;
