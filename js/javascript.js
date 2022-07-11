@@ -44,11 +44,6 @@ let articlesObj = {
         prix : 18,
         stock : 10
     },
-    // id10 : {
-    //     name : "arc",
-    //     prix : 10,
-    //     stock : 10
-    // },
 }
 
 
@@ -76,23 +71,20 @@ if(localStorage.getItem("pourcentTaxe") !== null){
 }
 
 addOpcacityIfNoneStock();
+
 function clickAdmin(){
-    // let basket;
     const modalContent = createModal();
     modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
-    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>";
-    modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br>";
-    modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
-    // if(localStorage.getItem("caisse") !== null){
-    //     basket = localStorage.getItem("caisse");
-    // }
+    modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>"+
+                                "<label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br>"+
+                                "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
     const caissePO = parseInt(totalCaisse);
     const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
-    const infoCaisse = caissePO + " PO et " + caissePA + " PA.</p>";
-    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : " + infoCaisse;
-    // modalContent.innerHTML += infoCaisse;
-    // (basket === undefined ? 0 : basket) +"</p>"
-    // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
+    const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : " + infoCaisse + "<br>"+
+                                "Retirer de la caisse : <input type='text' size='1' id='pull-po' ><label> PO   </label>"+
+                                "<input type='text' size='1' id='pull-pa' ><label> PA</label>"+
+                                "<button class='pull-submit' id='pull-submit' >Valider</button></p>"
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
@@ -109,6 +101,18 @@ function clickAdmin(){
         admin.addEventListener("click", clickAdmin);
     });
 
+    document.getElementById("pull-submit").addEventListener("click", function(e){
+        console.log("j\'ai retiré des sous !!!");
+        const pullPO = parseInt(document.getElementById("pull-po").value);
+        const pullPA = parseInt(document.getElementById("pull-pa").value);
+        console.log(pullPO, pullPA);
+        const pullTotal = pullPO + parseFloat("0."+pullPA);
+        console.log(pullTotal);
+        totalCaisse -= pullTotal;
+        localStorage.setItem("caisse", totalCaisse);
+        modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
+    });
 }
 
 admin.addEventListener("click", clickAdmin);
@@ -299,7 +303,6 @@ function createModal() {
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modal.appendChild(modalContent);
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-    // console.log(document.getElementById("modal-close"));
     // document.getElementById("modal-close").addEventListener("click", function(e) {
     //     console.log("test");
     //     modalContent.parentElement.remove();

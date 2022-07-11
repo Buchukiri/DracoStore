@@ -248,6 +248,24 @@ button {
     bottom: 30px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
+    text-align: left;
+}
+
+.modal-caisse input{
+    position: relative;
+    bottom: 5px;
+    height: 25px;
+}
+
+.pull-submit{
+    font-family: 'East Sea Dokdo', cursive;
+    background-color: white;
+    width: 80px;
+    font-size: 25px;
+    position: relative;
+    bottom: 4px;
+    margin-left: 15px;
+    border-radius: 10px;
 }
 
 .article-list{
@@ -493,7 +511,7 @@ button {
 }
 
 .logo-white-img {
-    margin-top: 20%;
+    margin-top: 10%;
     width: 200px;
     height: auto;
 }
