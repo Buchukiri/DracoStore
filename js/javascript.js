@@ -52,7 +52,6 @@ let articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
 let pourcentTaxe = 0; 
-let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 let priceTTC;
@@ -69,7 +68,7 @@ if(localStorage.getItem("caisse") !== null){
 if(localStorage.getItem("pourcentTaxe") !== null){
     pourcentTaxe = localStorage.getItem("pourcentTaxe");
 }
-
+let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
 
 function clickAdmin(){
