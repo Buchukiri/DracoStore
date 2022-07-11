@@ -269,6 +269,7 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
+    const name = prompt("Veillez saisir le nom");
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
