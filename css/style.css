@@ -525,3 +525,36 @@ button {
     filter: invert(100%);
     margin-top: 15px;
 }
+
+
+.validate-cart-ttl {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 4rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+.nom,
+.prenom {
+    font-size: 3rem;
+    margin-left: 2rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+
+
+.detail-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+.final-list-to-validate{
+    margin-top: 3rem;
+    height: 40rem;
+    background-color: rgba(255, 0, 0, 0.138);
+}
+
+.confirm-btn {
+    background-color: white;
+    height: 2rem;
+}

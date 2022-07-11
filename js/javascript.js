@@ -133,7 +133,7 @@ function displayArticles(){
         "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
         "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
         // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+        "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='1'></div></li>";
         // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     
     }
@@ -269,6 +269,7 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
+    const name = prompt("Veillez saisir le nom");
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
@@ -343,6 +344,34 @@ function modifArticle(){
     });
 }
 
+// MODAL DE CONFIRMATION DE COMANDE AVEC INPUTS
+
+// function purchaseDetailsModal() {
+//     const createModalOfDetails = createModal();
+//     createModalOfDetails.innerHTML +=
+//     `<div class="detail-modal">
+//         <div class="detail-header">
+//             <h4 class="validate-cart-ttl">Pannier</h4>
+//             <div class="detail-name">
+//             <label class="nom">Nom:</label><input id ="nom" class="nom" type='text' placeholder="Entrez le Nom"<br>
+//             <label class="prenom">Prenom:</label><input id ="prenom" class="prenom" type='text' placeholder="Entrez le Prenom"<br>
+//             </div>
+//         </div>
+//         <ul class ="final-list-to-validate" id="final-list-to-validate">
+           
+
+//         </ul>
+//         <section class="confirma-or-not" id ="confirm-or-not">
+//             <img src="img/confirmButton.png" class="confirm-btn"  id ="confirm-btn">
+//             <img src="img/confirmButton.png" class="cancel-btn"  id ="cancel-btn">
+//         </section>
+//     </div>`
+//     // document.getElementById("final-list-to-validate").add(finalCart);
+
+//     document.getElementById("modal-close").addEventListener("click", function() {
+//         createModalOfDetails.parentElement.remove();
+   
+// })}
 addArticle.addEventListener("click", addAnArticle);
 
 function addAnArticle(){
