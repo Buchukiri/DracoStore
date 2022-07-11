@@ -49,14 +49,15 @@ let articlesObj = {
 
 let imgLinks;
 let articlesName = Object.keys(articlesObj);
-const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 0; 
-const admin = document.getElementById("admin");
-const finalCart = document.getElementById("final-cart-ul");
+let pourcentTaxe = 13; 
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
+const sellList = [];
+const admin = document.getElementById("admin");
+const finalCart = document.getElementById("final-cart-ul");
+const articles = document.getElementById("article-list");
 const addArticle = document.getElementById("add-article");
 
 if(localStorage.getItem("articles") !== null){
@@ -279,7 +280,7 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
-    const name = prompt("Veillez saisir le nom");
+    const nameC = prompt("Veuillez saisir le nom");
     if(confirm("Voulez vous valider la transaction ?")){
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
@@ -299,6 +300,13 @@ function validateCart(){
         // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", totalCaisse);
+        sellList.push({
+            date : new Date(),
+            name : nameC,
+            price : priceTTC
+        });
+        console.log(sellList);
+        localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
     }
 }
