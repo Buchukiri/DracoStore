@@ -312,7 +312,9 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Félicitations, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
+        const modalContent = createModal();
+    modalContent.innerHTML += "<img class='gift-img' src='img/chest.jpg' alt='imggift' id='imgGift'>" ;
+    modalContent.innerHTML += "<form class='modal-gift'  method='post'> <label> Le client obtient le cadeau spécial ! </label></form>";
     }
 }
 

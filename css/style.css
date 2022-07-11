@@ -520,6 +520,16 @@ button {
     font-size: 15px;
 }
 
+.gift-img {
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+
+.modal-gift {
+    font-size: 50px;
+}
+
+
 .confirm-img {
     width: 6%;
     filter: invert(100%);
