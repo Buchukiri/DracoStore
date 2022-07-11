@@ -44,11 +44,16 @@ let articlesObj = {
         prix : 18,
         stock : 10
     },
+    // id10 : {
+    //     name : "arc",
+    //     prix : 10,
+    //     stock : 10
+    // },
 }
 
 
 let imgLinks;
-const articlesName = Object.keys(articlesObj);
+let articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
 let pourcentTaxe = 13;
@@ -58,6 +63,7 @@ const finalCart = document.getElementById("final-cart-ul");
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
+const addArticle = document.getElementById("add-article");
 
 if(localStorage.getItem("articles") !== null){
     articlesObj = JSON.parse(localStorage.getItem("articles"));
@@ -109,6 +115,8 @@ function displayArticles(){
     if(localStorage.getItem("articles") !== null){
         articlesObj = JSON.parse(localStorage.getItem("articles"));
     }
+    console.log(articlesObj);
+    articlesName = Object.keys(articlesObj);
     
     let display = "";
 
@@ -289,7 +297,8 @@ function createModal() {
     modalContent.innerHTML = '<button class="modal-close" id="modal-close">x</button>';
     modal.appendChild(modalContent);
     document.getElementById("articles").insertBefore(modal, document.getElementById("article-main"));
-    // document.getElementById("modal-close").addEventListener("click", function() {
+    // console.log(document.getElementById("modal-close"));
+    // document.getElementById("modal-close").addEventListener("click", function(e) {
     //     console.log("test");
     //     modalContent.parentElement.remove();
     // });
@@ -330,3 +339,36 @@ function modifArticle(){
     });
 }
 
+addArticle.addEventListener("click", addAnArticle);
+
+function addAnArticle(){
+    const modalContent = createModal();
+    modalContent.innerHTML += "<form class='add-art-modal'><div><label>Id de l'article : </label><input type='text' id='add-id' value=''></div>"+
+    "<div><label>Nom de l'article : </label><input type='text' id='add-name' value=''></div>"+
+    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'></div>"+
+    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'></div>"+
+    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'></div>"+
+    "<button class='submit-add' id='submit-add'>Valider</button></form>";
+
+    document.getElementById("submit-add").addEventListener("click", function(e){
+        const addId = document.getElementById("add-id").value;
+        const addName = document.getElementById("add-name").value;
+        const addPrice = document.getElementById("add-price").value;
+        const addStock = document.getElementById("add-stock").value;
+        const addCategory = document.getElementById("add-category").value;
+
+        console.log("id"+addId);
+        articlesObj["id"+addId] = {};
+        articlesObj["id"+addId].name = addName;
+        articlesObj["id"+addId].prix = addPrice;
+        articlesObj["id"+addId].stock = addStock;
+        articlesObj["id"+addId].categorie = addCategory;
+        modalContent.parentElement.remove();
+        localStorage.setItem("articles", JSON.stringify(articlesObj));
+        displayArticles();
+    });
+
+    document.getElementById("modal-close").addEventListener("click", function() {
+        modalContent.parentElement.remove();
+    });
+}
