@@ -96,6 +96,18 @@ function clickAdmin(){
         admin.addEventListener("click", clickAdmin);
     });
 
+    document.getElementById("pull-submit").addEventListener("click", function(e){
+        console.log("j\'ai retiré des sous !!!");
+        const pullPO = parseInt(document.getElementById("pull-po").value);
+        const pullPA = parseInt(document.getElementById("pull-pa").value);
+        console.log(pullPO, pullPA);
+        const pullTotal = pullPO + parseFloat("0."+pullPA);
+        console.log(pullTotal);
+        totalCaisse -= pullTotal;
+        localStorage.setItem("caisse", totalCaisse);
+        modalContent.parentElement.remove();
+        admin.addEventListener("click", clickAdmin);
+    });
 }
 
 admin.addEventListener("click", clickAdmin);
