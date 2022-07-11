@@ -46,10 +46,8 @@ let articlesObj = {
     },
 }
 
-if(localStorage.getItem("articles") !== null){
-    articlesObj = JSON.parse(localStorage.getItem("articles"));
-}
 
+let imgLinks;
 const articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
@@ -61,19 +59,33 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 
+if(localStorage.getItem("articles") !== null){
+    articlesObj = JSON.parse(localStorage.getItem("articles"));
+}
+if(localStorage.getItem("caisse") !== null){
+    totalCaisse = JSON.parse(localStorage.getItem("caisse"));
+}
+
+console.log();
+
 
 addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
-    let basket;
+    // let basket;
     const modalContent = createModal();
     modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
     modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>";
     modalContent.innerHTML += "<form class='form' method='post'> <label>Montant cadeau : </label> <input type='text' value='"+ (giftValue) + "' id='modalThreshold' class='modal-threshold' size='2'<br><br>";
     modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
-    if(localStorage.getItem("caisse") !== null){
-        basket = localStorage.getItem("caisse");
-    }
-    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : "+ (basket === undefined ? 0 : basket) +"</p>"
+    // if(localStorage.getItem("caisse") !== null){
+    //     basket = localStorage.getItem("caisse");
+    // }
+    const caissePO = parseInt(totalCaisse);
+    const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+    const infoCaisse = caissePO + " PO et " + caissePA + " PA.</p>";
+    modalContent.innerHTML += "<p class='modal-caisse'>Montant total en caisse : " + infoCaisse;
+    // modalContent.innerHTML += infoCaisse;
+    // (basket === undefined ? 0 : basket) +"</p>"
     // modalContent.innerHTML +=  "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'>" ;
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
@@ -115,12 +127,9 @@ function displayArticles(){
 
     articles.innerHTML = display;
 
-    const imgLinks = document.querySelectorAll(".article-link")
+    imgLinks = document.querySelectorAll(".article-link")
 
-    // click image
-    imgLinks.forEach(btn => {
-            btn.addEventListener('click', addCart);
-    });
+    addEventOnImages(imgLinks);
 
     document.getElementById("validate").addEventListener("click", validateCart);
         
@@ -132,17 +141,33 @@ function displayArticles(){
         
     finalCart.addEventListener("click", function(event) {
         if (event.target.classList.contains("cross-button")){
+            console.log(this.childElementCount);
             if(this.childElementCount === 1){
                 document.getElementById("final-price").innerHTML = "";
+                document.querySelector("[data-name="+event.target.dataset.id+"]").addEventListener("click", addCart);
+                // event.target.addEventListener("click", addCart);
+                event.target.parentElement.parentElement.remove();
             }
-            event.target.parentElement.parentElement.remove();
-            modifTotalPrice();
+            else{
+                document.querySelector("[data-name="+event.target.dataset.id+"]").addEventListener("click", addCart);
+                // event.target.addEventListener("click", addCart);
+                event.target.parentElement.parentElement.remove();
+                modifTotalPrice();
+            }
         }
     });
+
     addOpcacityIfNoneStock();
 }
 
 displayArticles();
+
+// click image
+function addEventOnImages(imgList){
+    imgList.forEach(btn => {
+            btn.addEventListener('click', addCart);
+    });
+}
 
 // add bucket
 function addCart() {
@@ -156,7 +181,7 @@ function addCart() {
     // "<div class='quantity-item'><button class='art-button-moins'>-</button>"+
     "<input class='art-button' type='number' value='"+mainInputArt+"' min='1' max="+articlesObj[this.dataset.name].stock+" data-input='"+this.dataset.name+"' data-prix='"+ articlesObj[this.dataset.name].prix+"'>";
     // "<button class='art-button-plus'>+</button></div></div>";
-    li.innerHTML += "<button><img class='cross-button' src=img/cross-button.png></button>"
+    li.innerHTML += "<button><img data-id='"+this.dataset.name+"' class='cross-button' src=img/cross-button.png></button>"
     finalCart.appendChild(li);
     finalCart.addEventListener('change' ,updateValue);
     document.getElementById("final-price").innerHTML = "<p><span class='span-price'>Prix HT : </span><span id='price-without-taxe'>"+/* + priceWithoutTaxe + */"</span> PO" + "</p>";
@@ -176,6 +201,7 @@ function addOpcacityIfNoneStock() {
         }
     });
 }
+
 function updateValue(event) {
     if(event.target.hasAttribute("data-input")){
         modifPriceArcticle(event.target)
@@ -221,9 +247,9 @@ function modifTotalPrice(){
 
 const deleteBtn = document.getElementById("delete-btn");
 deleteBtn.addEventListener("click", function(event) {
-document.getElementById("final-cart-ul").innerHTML = "";
-document.getElementById("final-price").innerHTML = "";
-displayArticles();
+    document.getElementById("final-cart-ul").innerHTML = "";
+    document.getElementById("final-price").innerHTML = "";
+    addEventOnImages(imgLinks);
 });
 
 
@@ -245,10 +271,10 @@ function validateCart(){
             displayArticles();
         }
         totalCaisse += priceTTC;
-        const caissePO = parseInt(totalCaisse);
-        const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
-        const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
-        localStorage.setItem("caisse", infoCaisse);
+        // const caissePO = parseInt(totalCaisse);
+        // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+        // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+        localStorage.setItem("caisse", totalCaisse);
         giftThreshold(priceTTC);
     }
 }
@@ -272,7 +298,7 @@ function createModal() {
 
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Félicitation, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
+        alert("Félicitations, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
     }
 }
 
