@@ -51,7 +51,7 @@ let imgLinks;
 let articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 13;
+let pourcentTaxe = 0; 
 let taxe = (pourcentTaxe/100);
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
@@ -65,6 +65,9 @@ if(localStorage.getItem("articles") !== null){
 }
 if(localStorage.getItem("caisse") !== null){
     totalCaisse = JSON.parse(localStorage.getItem("caisse"));
+}
+if(localStorage.getItem("pourcentTaxe") !== null){
+    pourcentTaxe = localStorage.getItem("pourcentTaxe");
 }
 
 addOpcacityIfNoneStock();
@@ -90,6 +93,8 @@ function clickAdmin(){
     const confirmButtonTax = document.getElementById("confirmButton")
     confirmButtonTax.addEventListener("click", function (event) {
         pourcentTaxe = document.getElementById("modalTaxe").value;
+        console.log(pourcentTaxe);
+        localStorage.setItem("pourcentTaxe", pourcentTaxe);
         taxe = (pourcentTaxe/100);
         giftValue = document.getElementById('modalThreshold').value;
         modalContent.parentElement.remove();
