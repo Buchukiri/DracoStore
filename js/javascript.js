@@ -64,7 +64,7 @@ let pourcentTaxe = 13;
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
-const sellList = [];
+let sellList = [];
 const articles = document.getElementById("article-list");
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
@@ -78,8 +78,12 @@ if(localStorage.getItem("caisse") !== null){
     totalCaisse = JSON.parse(localStorage.getItem("caisse"));
 }
 if(localStorage.getItem("pourcentTaxe") !== null){
-    pourcentTaxe = localStorage.getItem("pourcentTaxe");
+    pourcentTaxe = JSON.parse(localStorage.getItem("pourcentTaxe"));
 }
+if(localStorage.getItem("dates") !== null){
+    sellList = JSON.parse(localStorage.getItem("dates"));
+}
+
 let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
 
@@ -315,8 +319,11 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
-    const nameC = prompt("Veillez saisir le nom");
-    if(confirm("Voulez vous valider la transaction ?")){
+    let nameC = document.getElementById("client-input-name");
+    if(nameC.value === ''){
+        alert("Veuillez entrer le nom du client");
+    }
+    else{
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
             articlesObj[qtt.dataset.input].stock -= qtt.value;
@@ -337,12 +344,13 @@ function validateCart(){
         localStorage.setItem("caisse", totalCaisse);
         sellList.push({
             date : new Date(),
-            name : nameC,
+            name : nameC.value,
             price : priceTTC
         });
         console.log(sellList);
         localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
+        nameC.value = '';
     }
 }
 
