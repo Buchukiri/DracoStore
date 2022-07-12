@@ -9,6 +9,7 @@
 
     /* Special colors */
     --hoverText: #014e0e;
+    --hoverText2: #643601;
   
 }
 
@@ -144,6 +145,11 @@ button {
     font-size: 50px;
     display: flex;
     flex-direction: column;
+    text-shadow: 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText);
     
 }
 
@@ -158,11 +164,7 @@ button {
 
 .admin :hover{
     color: rgba(30, 218, 108, 0.74);
-    text-shadow: 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
-    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
-    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
-    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
-    0 0 2px var(--hoverText);
+    transition: 500ms;
 }
 
 .admin-img{
@@ -189,13 +191,27 @@ button {
 }
 .title-arme, .title-armure, .title-conso, .title-reset {
     font-family: 'East Sea Dokdo', cursive;
-    color: #e2e2e2;
+    color: #ffce74;
     font-size: 76px;
     position: relative;
     top: 65px;
     left: 54px;
     z-index: 10;  
+    text-shadow: 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2);
 }
+.title-reset{
+    color: #e6ae47;
+}
+
+.title-arme:hover, .title-armure:hover, .title-conso:hover, .title-reset:hover {
+    color: #fcc839;
+    transition: 500ms;
+}
+
 
 .title-armure{
     font-size: 64px;
