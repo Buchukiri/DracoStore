@@ -65,6 +65,7 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 let sellList = [];
+let total = 0;
 const articles = document.getElementById("article-list");
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
@@ -338,6 +339,8 @@ function validateCart(){
             displayArticles();
         }
         totalCaisse += priceTTC;
+        let addGold;
+        addGold += priceTTC;
         // const caissePO = parseInt(totalCaisse);
         // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
@@ -345,7 +348,8 @@ function validateCart(){
         sellList.push({
             date : new Date(),
             name : nameC.value,
-            price : priceTTC
+            price : priceTTC,
+            total : addGold,
         });
         console.log(sellList);
         localStorage.setItem("dates", JSON.stringify(sellList));
