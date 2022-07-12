@@ -423,20 +423,28 @@ addArticle.addEventListener("click", addAnArticle);
 function addAnArticle(){
     const modalContent = createModal();
     modalContent.innerHTML += "<form class='add-art-modal'><div><label>Id de l'article : </label><input type='text' id='add-id' value=''></div>"+
-    "<div><label>Nom de l'article : </label><input type='text' id='add-name' value=''></div>"+
-    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'></div>"+
-    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'></div>"+
-    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'></div>"+
+    "<div><label>Nom de l'article : </label><input type='text' id='add-name'  value=''></div>"+
+    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'  value=''></div>"+
+    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'  value=''></div>"+
+    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'  value=''></div>"+
     "<button class='submit-add' id='submit-add'>Valider</button></form>";
-
     document.getElementById("submit-add").addEventListener("click", function(e){
+        console.log(document.getElementById("add-id").value === ''); 
+        const inputList = document.querySelectorAll(".add-art-modal input");
+        for(const input of inputList){
+            if(input.value === ''){
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+        }
+
         const addId = document.getElementById("add-id").value;
         const addName = document.getElementById("add-name").value;
         const addPrice = document.getElementById("add-price").value;
         const addStock = document.getElementById("add-stock").value;
         const addCategory = document.getElementById("add-category").value;
 
-        console.log("id"+addId);
+        // console.log("id"+addId);
         articlesObj["id"+addId] = {};
         articlesObj["id"+addId].name = addName;
         articlesObj["id"+addId].prix = addPrice;
