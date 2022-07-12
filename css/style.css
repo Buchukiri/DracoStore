@@ -204,7 +204,7 @@ button {
     font-size: 76px;
     position: relative;
     top: 65px;
-    left: 54px;
+    left: 60px;
     z-index: 10;  
     text-shadow: 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
     0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
@@ -233,7 +233,7 @@ button {
 
 .title-armure{
     font-size: 64px;
-    left: 42px;
+    left: 50px;
     top: 75px;
 }
 
@@ -275,7 +275,7 @@ background-size: 130px;
 background-repeat: no-repeat;
 position: relative;
 bottom: 43px;
-left: 64px;
+left: 75px;
 }
 .title-reset{
     font-size: 60px;
