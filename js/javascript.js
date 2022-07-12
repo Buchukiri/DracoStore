@@ -59,14 +59,15 @@ let articlesObj = {
 
 let imgLinks;
 let articlesName = Object.keys(articlesObj);
-const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 0; 
-const admin = document.getElementById("admin");
-const finalCart = document.getElementById("final-cart-ul");
+let pourcentTaxe = 13; 
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
+let sellList = [];
+const articles = document.getElementById("article-list");
+const admin = document.getElementById("admin");
+const finalCart = document.getElementById("final-cart-ul");
 
 const addArticle = document.getElementById("add-article");
 
@@ -77,8 +78,12 @@ if(localStorage.getItem("caisse") !== null){
     totalCaisse = JSON.parse(localStorage.getItem("caisse"));
 }
 if(localStorage.getItem("pourcentTaxe") !== null){
-    pourcentTaxe = localStorage.getItem("pourcentTaxe");
+    pourcentTaxe = JSON.parse(localStorage.getItem("pourcentTaxe"));
 }
+if(localStorage.getItem("dates") !== null){
+    sellList = JSON.parse(localStorage.getItem("dates"));
+}
+
 let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
 
@@ -140,9 +145,8 @@ function createArticleItemList(artId) {
     "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
     "<p class='art-name'>"+articlesObj[artId].name+"</p><p class='art-price'>"+articlesObj[artId].prix+" PO</p>"+
     "<p data-stock='"+articlesObj[artId].stock+"' class='art-stock'>En Stock : "+articlesObj[artId].stock+"</p>"+
-    ""
     // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-    "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+    "<input class='main-number' type='number' min='0' max='"+articlesObj[artId].stock+"' data-qtty='"+artId+"' value='1'></div></li>";
     // "<div><img class='plus' id='plus' src='img/plus.png'></div>
 }
 
@@ -177,7 +181,7 @@ function displayArticles(type = null){
 
     addEventOnImages(imgLinks);
 
-    document.getElementById("validate").addEventListener("click", validateCart);
+    document.getElementById("buy-btn").addEventListener("click", validateCart);
         
     const modifList = document.querySelectorAll(".modify-art");
 
@@ -319,8 +323,11 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
-    const name = prompt("Veillez saisir le nom");
-    if(confirm("Voulez vous valider la transaction ?")){
+    let nameC = document.getElementById("client-input-name");
+    if(nameC.value === ''){
+        alert("Veuillez entrer le nom du client");
+    }
+    else{
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
             articlesObj[qtt.dataset.input].stock -= qtt.value;
@@ -339,11 +346,19 @@ function validateCart(){
         // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
         // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", totalCaisse);
+        sellList.push({
+            date : new Date(),
+            name : nameC.value,
+            price : priceTTC
+        });
+        console.log(sellList);
+        localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
+        nameC.value = '';
     }
 }
 
-document.getElementById("validate").addEventListener("click", validateCart);
+document.getElementById("buy-btn").addEventListener("click", validateCart);
 
 function createModal() {
     const modal = document.createElement("div");
@@ -360,12 +375,23 @@ function createModal() {
     return modalContent;
 }
 
+function removeModal() {
+    this.parentElement.parentElement.remove();
+     }
+
 function giftThreshold(priceTTC) {
     if (priceTTC >= giftValue) {
-        alert("Félicitations, vous avez le droit à une petite statuette de St Guillaume, le seigneur de notre royaume !")
-    }
-}
+        const modalContent = createModal();
+        modalContent.innerHTML += "<img class='gift-img' src='img/chest.jpg' alt='imggift' id='imgGift'>" ;
+        modalContent.innerHTML += "<form class='modal-gift'  method='post'> <label> Le client obtient le cadeau spécial ! </label></form>";
+        modalContent.innerHTML += '<button class="modal-close" id="modal-close2">x</button>';
+        modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
 
+        document.getElementById("modal-close2").addEventListener("click", removeModal)
+        document.getElementById("confirmButton").addEventListener("click", removeModal)
+    }
+    
+}
 
 function modifArticle(){
     const article = this.dataset.article;
@@ -384,7 +410,7 @@ function modifArticle(){
         articlesObj[article].prix = document.getElementById(article+"-price").value;
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
-        document.getElementById("validate").removeEventListener("click", validateCart);
+        document.getElementById("buy-btn").removeEventListener("click", validateCart);
         localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
     });
@@ -428,20 +454,28 @@ addArticle.addEventListener("click", addAnArticle);
 function addAnArticle(){
     const modalContent = createModal();
     modalContent.innerHTML += "<form class='add-art-modal'><div><label>Id de l'article : </label><input type='text' id='add-id' value=''></div>"+
-    "<div><label>Nom de l'article : </label><input type='text' id='add-name' value=''></div>"+
-    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'></div>"+
-    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'></div>"+
-    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'></div>"+
+    "<div><label>Nom de l'article : </label><input type='text' id='add-name'  value=''></div>"+
+    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'  value=''></div>"+
+    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'  value=''></div>"+
+    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'  value=''></div>"+
     "<button class='submit-add' id='submit-add'>Valider</button></form>";
-
     document.getElementById("submit-add").addEventListener("click", function(e){
+        console.log(document.getElementById("add-id").value === ''); 
+        const inputList = document.querySelectorAll(".add-art-modal input");
+        for(const input of inputList){
+            if(input.value === ''){
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+        }
+
         const addId = document.getElementById("add-id").value;
         const addName = document.getElementById("add-name").value;
         const addPrice = document.getElementById("add-price").value;
         const addStock = document.getElementById("add-stock").value;
         const addCategory = document.getElementById("add-category").value;
 
-        console.log("id"+addId);
+        // console.log("id"+addId);
         articlesObj["id"+addId] = {};
         articlesObj["id"+addId].name = addName;
         articlesObj["id"+addId].prix = addPrice;

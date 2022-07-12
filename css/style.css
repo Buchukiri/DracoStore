@@ -103,6 +103,23 @@ button {
     height: 9rem;
 }
 
+.client-label {
+    position: relative;
+    left: 42rem;
+    font-size: 2rem;
+}
+.client-input {
+    position: absolute;
+    bottom: -5px;
+    right: -120px;
+    height: 2.8rem;
+    width: 110px;
+    font-size: 18px;
+    border-radius: 1rem;
+    border: none;
+    padding: 5px;
+}
+
 
 /* MAIN DIV */
 
@@ -336,6 +353,11 @@ left: 64px;
     position: relative;
     bottom: 5px;
     height: 25px;
+    width: 60px;
+}
+
+.modal-caisse input:invalid {
+    background-color: red;
 }
 
 .pull-submit{
@@ -514,6 +536,21 @@ left: 64px;
     width: 360px;
     overflow: hidden;
 }
+.validate {
+    cursor: default;
+}
+.buy-btn {
+    position: absolute;
+    z-index: 1000;
+    height: 5.9rem;
+    top: 19rem;
+    left: 7.5rem;
+}
+.buy-btn:hover {
+    cursor: pointer;
+    height: 6.2rem;
+}
+
 
 .articleCart{
     display: flex;
@@ -553,7 +590,7 @@ left: 64px;
     position: absolute;
     z-index: 100;
     left: -60px;
-    bottom: 190px;
+    bottom: 200px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 2rem;
     color: darkblue;
@@ -601,6 +638,16 @@ left: 64px;
 .modal-taxe {
     font-size: 15px;
 }
+
+.gift-img {
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+
+.modal-gift {
+    font-size: 50px;
+}
+
 
 .confirm-img {
     width: 6%;
