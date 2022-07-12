@@ -176,7 +176,7 @@ function displayArticles(type = null){
 
     addEventOnImages(imgLinks);
 
-    document.getElementById("validate").addEventListener("click", validateCart);
+    document.getElementById("buy-btn").addEventListener("click", validateCart);
         
     const modifList = document.querySelectorAll(".modify-art");
 
@@ -338,7 +338,7 @@ function validateCart(){
     }
 }
 
-document.getElementById("validate").addEventListener("click", validateCart);
+document.getElementById("buy-btn").addEventListener("click", validateCart);
 
 function createModal() {
     const modal = document.createElement("div");
@@ -379,7 +379,7 @@ function modifArticle(){
         articlesObj[article].prix = document.getElementById(article+"-price").value;
         articlesObj[article].stock = document.getElementById(article+"-stock").value;
         modalContent.parentElement.remove();
-        document.getElementById("validate").removeEventListener("click", validateCart);
+        document.getElementById("buy-btn").removeEventListener("click", validateCart);
         localStorage.setItem("articles", JSON.stringify(articlesObj));
         displayArticles();
     });
