@@ -537,6 +537,7 @@ left: 64px;
 .modify-img:hover{
     height: 120%;
     filter:brightness(60%);
+    transition: 500ms;
 }
 
 .art-stock{
