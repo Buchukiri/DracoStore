@@ -33,7 +33,7 @@ let articlesObj = {
         name : "gants",
         prix : 4,
         stock : 10,
-        categorie : "arme , armure"
+        categorie : "armure"
     },
     id7 : {
         name : "marteau",
@@ -65,7 +65,7 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 let sellList = [];
-const buyerList = [];
+let buyerList = [];
 let monthSixMonthAgo;
 let dateSixMonthAgo;
 let totalPriceClient = 0;
@@ -89,6 +89,9 @@ if(localStorage.getItem("dates") !== null){
 }
 if(localStorage.getItem("clients") !== null){
     document.getElementById("dropdown-content").innerHTML = JSON.parse(localStorage.getItem("clients"));
+}
+if(localStorage.getItem("buyers") !== null){
+    buyerList = JSON.parse(localStorage.getItem("buyers"));
 }
 
 
@@ -376,8 +379,8 @@ function validateCart(){
         localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
         nameC.value = '';
-
         localStorage.setItem("clients", JSON.stringify(listOfBuyers.innerHTML));        
+        localStorage.setItem("buyers", JSON.stringify(buyerList));        
     }
 }
 

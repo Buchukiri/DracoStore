@@ -311,10 +311,10 @@ left: 75px;
     cursor: pointer;
 }
 .dropbtn {
-    position: absolute;
+    /* position: absolute; */
     width: 12rem;
-    top: 10rem;
-    left: 100rem;
+    /* top: 10rem;
+    left: 100rem; */
     background-color: bisque;
     font-size: 22px;
     font-family: 'East Sea Dokdo', cursive;
@@ -334,16 +334,22 @@ left: 75px;
 
 .dropdown {
     position: absolute;
-    top: 0rem;
-    left: 0.7rem;
+    top: 110px;
+    right: 21px;
     display: inline-block;
-    
+}
+
+.dropbtn:hover{
+    background-color: rgb(255, 201, 134);
+    transition: 500ms;
+    font-size: 22.2px;
+    border: yellow 1px solid;
 }
 
 .dropdown-content {
     display: none;
     background-color: #f6f6f6;
-    min-width: 170px;
+    /* min-width: 170px; */
     overflow: auto;
     border: 1px solid #ddd;
     z-index: 1;
@@ -352,7 +358,7 @@ left: 75px;
 
 
 
-.dropdown li:hover {
+.li:hover {
     background-color: rgb(199, 186, 186);
     cursor: pointer;
 }  
@@ -361,9 +367,9 @@ left: 75px;
     border-radius: 1rem;
     display: block;
     max-height: 30rem;
-    position: relative;
+    /* position: relative;
     top: 12.7rem;
-    left: 99rem;
+    left: 99rem; */
     background-color:bisque;
     text-align: center;
     font-family: 'East Sea Dokdo', cursive;
@@ -681,7 +687,7 @@ left: 75px;
     position: absolute;
     z-index: 1000;
     height: 5.9rem;
-    top: 18rem;
+    bottom : 6rem;
     left: 7.5rem;
 }
 .buy-btn:hover {
