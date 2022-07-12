@@ -65,6 +65,7 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 let sellList = [];
+const buyerList = [];
 const articles = document.getElementById("article-list");
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
@@ -83,6 +84,10 @@ if(localStorage.getItem("pourcentTaxe") !== null){
 if(localStorage.getItem("dates") !== null){
     sellList = JSON.parse(localStorage.getItem("dates"));
 }
+if(localStorage.getItem("clients") !== null){
+    document.getElementById("dropdown-content").innerHTML = JSON.parse(localStorage.getItem("clients"));
+}
+
 
 let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
@@ -209,6 +214,7 @@ function displayArticles(type = null){
 
     addOpcacityIfNoneStock();
 }
+toggleBuyersList();
 
 document.getElementById("title-arme").addEventListener('click', function(){
     articles.innerHTML = "";
@@ -324,10 +330,19 @@ deleteBtn.addEventListener("click", function(event) {
 
 function validateCart(){
     let nameC = document.getElementById("client-input-name");
+    
+    let listOfBuyers = document.getElementById("dropdown-content")
+    let nameOfBuyer = nameC.value;
+    
     if(nameC.value === ''){
         alert("Veuillez entrer le nom du client");
     }
     else{
+        if(!buyerList.includes(nameC.value)){
+            listOfBuyers.innerHTML += `<li class='li'>${nameOfBuyer}</li>`
+            buyerList.push(nameC.value);
+            console.log(buyerList);
+        }
         const qttList = document.querySelectorAll(".articleCart input");
         for(const qtt of qttList){
             articlesObj[qtt.dataset.input].stock -= qtt.value;
@@ -355,6 +370,8 @@ function validateCart(){
         localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
         nameC.value = '';
+
+        localStorage.setItem("clients", JSON.stringify(listOfBuyers.innerHTML));        
     }
 }
 
@@ -490,3 +507,34 @@ function addAnArticle(){
         modalContent.parentElement.remove();
     });
 }
+
+function toggleBuyersList() {
+    document.getElementById("dropbtn").addEventListener("click", function (event) {
+        document.getElementById("dropdown-content").classList.toggle("show");
+    })
+  
+}
+
+document.getElementById("dropdown-content").addEventListener("click", function(event){
+    if(event.target.className === "li"){
+        console.log(event.target.innerText);
+        document.getElementById("client-input-name").value =  event.target.innerText;
+    }
+});
+
+// Ne Marche Pas trie dans bar de recherche
+// function filterFunction() {
+//   let input, filter, ul, li, a, i;
+//   input = document.getElementById("input-list-search");
+//   filter = input.value.toUpperCase();
+//   div = document.getElementById("dropdown");
+//   a = div.getElementsByTagName("li");
+//   for (i = 0; i < a.length; i++) {
+//     txtValue = a[i].textContent || a[i].innerText;
+//     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//       a[i].style.display = "";
+//     } else {
+//       a[i].style.display = "none";
+//     }
+//   }
+// }
