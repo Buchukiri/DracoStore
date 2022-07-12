@@ -105,14 +105,19 @@ button {
 
 .client-label {
     position: relative;
-    top: -3rem;
-    left: 46rem;
+    left: 42rem;
     font-size: 2rem;
 }
 .client-input {
+    position: absolute;
+    bottom: -5px;
+    right: -120px;
     height: 2.8rem;
+    width: 110px;
+    font-size: 18px;
     border-radius: 1rem;
     border: none;
+    padding: 5px;
 }
 
 
