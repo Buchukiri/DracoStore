@@ -10,6 +10,7 @@
     /* Special colors */
     --hoverText: #014e0e;
     --hoverText2: #643601;
+    --hoverText3: #4d2900;
   
 }
 
@@ -165,6 +166,12 @@ button {
 .admin :hover{
     color: rgba(30, 218, 108, 0.74);
     transition: 500ms;
+    font-size: 82px;
+    text-shadow: 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText);
 }
 
 .admin-img{
@@ -210,6 +217,15 @@ button {
 .title-arme:hover, .title-armure:hover, .title-conso:hover, .title-reset:hover {
     color: #fcc839;
     transition: 500ms;
+    text-shadow: 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3);
+}
+
+.title-arme:hover{
+    font-size: 79px;
 }
 
 
@@ -218,6 +234,10 @@ button {
     left: 42px;
     top: 75px;
 }
+
+.title-armure:hover{
+    font-size: 67px;
+}   
 .armure-container{
     height: 178px;
     background-image: url(/img/panneau-price.png);
@@ -242,6 +262,9 @@ button {
     bottom: 205px;
     left: 71px;
 }
+.title-conso:hover{
+    font-size: 84px;
+}
 
 .reset-container{
     height: 137px;
@@ -257,6 +280,11 @@ left: 64px;
     left: 12px;
     top: 50px;
 }
+
+.title-reset:hover{
+    font-size: 64px;
+}
+
 .articles{
     position: relative;
     width: 100%;
