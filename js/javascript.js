@@ -140,9 +140,8 @@ function createArticleItemList(artId) {
     "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
     "<p class='art-name'>"+articlesObj[artId].name+"</p><p class='art-price'>"+articlesObj[artId].prix+" PO</p>"+
     "<p data-stock='"+articlesObj[artId].stock+"' class='art-stock'>En Stock : "+articlesObj[artId].stock+"</p>"+
-    ""
     // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-    "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+    "<input class='main-number' type='number' min='0' max='"+articlesObj[artId].stock+"' data-qtty='"+artId+"' value='1'></div></li>";
     // "<div><img class='plus' id='plus' src='img/plus.png'></div>
 }
 
