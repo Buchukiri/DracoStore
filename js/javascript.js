@@ -3,60 +3,72 @@ let articlesObj = {
         name : "potion",
         prix : 2,
         stock : 10,
+        categorie : "consommable"
     },
     id2 : {
         name : "elixir",
         prix : 3,
-        stock : 10
+        stock : 10,
+        categorie : "consommable"
     },
     id3 : {
         name : "dague",
         prix : 12,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id4 : {
         name : "fleche",
         prix : 1,
-        stock : 10
+        stock : 10,
+        categorie : "consommable"
     },
     id5 : {
         name : "pantalon",
         prix : 8,
-        stock : 10
+        stock : 10,
+        categorie : "armure"
     },
     id6 : {
         name : "gants",
         prix : 4,
-        stock : 10
+        stock : 10,
+        categorie : "arme , armure"
     },
     id7 : {
         name : "marteau",
         prix : 16,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id8 : {
         name : "epee",
         prix : 22,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id9 : {
         name : "casque",
         prix : 18,
-        stock : 10
+        stock : 10,
+        categorie : "armure"
     },
 }
 
 
+
 let imgLinks;
 let articlesName = Object.keys(articlesObj);
-const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 0; 
-const admin = document.getElementById("admin");
-const finalCart = document.getElementById("final-cart-ul");
+let pourcentTaxe = 13; 
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
+const sellList = [];
+const articles = document.getElementById("article-list");
+const admin = document.getElementById("admin");
+const finalCart = document.getElementById("final-cart-ul");
+
 const addArticle = document.getElementById("add-article");
 
 if(localStorage.getItem("articles") !== null){
@@ -71,7 +83,9 @@ if(localStorage.getItem("pourcentTaxe") !== null){
 let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
 
+addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
+    // let basket;
     const modalContent = createModal();
     modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
     modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>"+
@@ -84,6 +98,7 @@ function clickAdmin(){
                                 "Retirer de la caisse : <input type='text' size='1' id='pull-po' ><label> PO   </label>"+
                                 "<input type='text' size='1' id='pull-pa' ><label> PA</label>"+
                                 "<button class='pull-submit' id='pull-submit' >Valider</button></p>"
+
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
@@ -96,6 +111,7 @@ function clickAdmin(){
         localStorage.setItem("pourcentTaxe", pourcentTaxe);
         taxe = (pourcentTaxe/100);
         giftValue = document.getElementById('modalThreshold').value;
+
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
@@ -112,32 +128,49 @@ function clickAdmin(){
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
+
 }
 
 admin.addEventListener("click", clickAdmin);
 
-function displayArticles(){
+
+function createArticleItemList(artId) {
+    return "<li class='article-item'><a data-name='"+artId+"' class='article-link' id='"+artId+"' href='#' >"+
+    "<img class='article-img' src='img/"+artId+".png' alt='"+articlesObj[artId].name+"' ></a>"+
+    "<div class='art-info'><button data-article='"+artId+"' class='modify-art'>"+
+    "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
+    "<p class='art-name'>"+articlesObj[artId].name+"</p><p class='art-price'>"+articlesObj[artId].prix+" PO</p>"+
+    "<p data-stock='"+articlesObj[artId].stock+"' class='art-stock'>En Stock : "+articlesObj[artId].stock+"</p>"+
+    // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+    "<input class='main-number' type='number' min='0' max='"+articlesObj[artId].stock+"' data-qtty='"+artId+"' value='1'></div></li>";
+    // "<div><img class='plus' id='plus' src='img/plus.png'></div>
+}
+
+function displayArticles(type = null){
     if(localStorage.getItem("articles") !== null){
         articlesObj = JSON.parse(localStorage.getItem("articles"));
     }
-    console.log(articlesObj);
     articlesName = Object.keys(articlesObj);
-    
     let display = "";
 
     for(const art of articlesName){
-        display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
-        "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
-        "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
-        "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
-        "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
-        "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
-        // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='1'></div></li>";
-        // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-    
+        if(type != null && type == articlesObj[art].categorie) {
+            display += createArticleItemList(art);
+        } else if(type == null) {
+            display += createArticleItemList(art);
+        }
+        // display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
+        // "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
+        // "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
+        // "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
+        // "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
+        // "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
+        // ""
+        // // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+        // "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+        // // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     }
-
+    
     articles.innerHTML = display;
 
     imgLinks = document.querySelectorAll(".article-link")
@@ -172,6 +205,19 @@ function displayArticles(){
 
     addOpcacityIfNoneStock();
 }
+
+document.getElementById("panel-arme").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("arme");
+})
+document.getElementById("panel-armure").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("armure");
+})
+document.getElementById("panel-conso").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("consommable");
+})
 
 displayArticles();
 
@@ -269,20 +315,13 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
-    const name = prompt("Veillez saisir le nom");
-        if(confirm("Voulez vous valider la transaction ?")){
-            const qttList = document.querySelectorAll(".articleCart input");
-            for(const qtt of qttList){
-                articlesObj[qtt.dataset.input].stock -= qtt.value;
-                if(articlesObj[qtt.dataset.input].stock <= 0){
-                    alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
-                }
-                finalCart.innerHTML = "";
-                document.getElementById("final-price").innerHTML = "";
-                priceWithoutTaxe=0;
-                this.removeEventListener("click",validateCart);
-                localStorage.setItem("articles", JSON.stringify(articlesObj));
-                displayArticles();
+    const nameC = prompt("Veillez saisir le nom");
+    if(confirm("Voulez vous valider la transaction ?")){
+        const qttList = document.querySelectorAll(".articleCart input");
+        for(const qtt of qttList){
+            articlesObj[qtt.dataset.input].stock -= qtt.value;
+            if(articlesObj[qtt.dataset.input].stock <= 0){
+                alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
             }
             totalCaisse += priceTTC;
             // const caissePO = parseInt(totalCaisse);
@@ -291,12 +330,20 @@ function validateCart(){
             localStorage.setItem("caisse", totalCaisse);
             giftThreshold(priceTTC);
         }
-        document.getElementById("modal-close3").addEventListener("click", function() {
-            modalContent.parentElement.remove();
-             })
-            document.getElementById("confirmButton").addEventListener("click", function() {
-            modalContent.parentElement.remove();
-             });
+        totalCaisse += priceTTC;
+        // const caissePO = parseInt(totalCaisse);
+        // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+        // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+        localStorage.setItem("caisse", totalCaisse);
+        sellList.push({
+            date : new Date(),
+            name : nameC,
+            price : priceTTC
+        });
+        console.log(sellList);
+        localStorage.setItem("dates", JSON.stringify(sellList));
+        giftThreshold(priceTTC);
+    }
 }
 
 document.getElementById("validate").addEventListener("click", validateCart);
@@ -391,25 +438,34 @@ function modifArticle(){
 //         createModalOfDetails.parentElement.remove();
    
 // })}
+
 addArticle.addEventListener("click", addAnArticle);
 
 function addAnArticle(){
     const modalContent = createModal();
     modalContent.innerHTML += "<form class='add-art-modal'><div><label>Id de l'article : </label><input type='text' id='add-id' value=''></div>"+
-    "<div><label>Nom de l'article : </label><input type='text' id='add-name' value=''></div>"+
-    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'></div>"+
-    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'></div>"+
-    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'></div>"+
+    "<div><label>Nom de l'article : </label><input type='text' id='add-name'  value=''></div>"+
+    "<div><label>Prix de l'article en PO : </label><input type='text' id='add-price'  value=''></div>"+
+    "<div><label>Stock de l'article : </label><input type='text' id='add-stock'  value=''></div>"+
+    "<div><label>Categorie de l'article : </label><input type='text' id='add-category'  value=''></div>"+
     "<button class='submit-add' id='submit-add'>Valider</button></form>";
-
     document.getElementById("submit-add").addEventListener("click", function(e){
+        console.log(document.getElementById("add-id").value === ''); 
+        const inputList = document.querySelectorAll(".add-art-modal input");
+        for(const input of inputList){
+            if(input.value === ''){
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+        }
+
         const addId = document.getElementById("add-id").value;
         const addName = document.getElementById("add-name").value;
         const addPrice = document.getElementById("add-price").value;
         const addStock = document.getElementById("add-stock").value;
         const addCategory = document.getElementById("add-category").value;
 
-        console.log("id"+addId);
+        // console.log("id"+addId);
         articlesObj["id"+addId] = {};
         articlesObj["id"+addId].name = addName;
         articlesObj["id"+addId].prix = addPrice;
