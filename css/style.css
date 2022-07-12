@@ -5,7 +5,7 @@
     
 
     /* Colors */
-   
+
 
     /* Special colors */
    
@@ -112,15 +112,19 @@ button {
 }
 
 .menu{
-    position: relative;
-    /* width: 20%;
-    border: 1px solid gray; */
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid gray; */
 }
 
 .admin{
     color: rgba(64, 189, 116, 0.74);
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .admin-ttl{
@@ -134,6 +138,54 @@ button {
     position: relative;
     top: 160px;
 }
+
+
+.arme{
+    width: 280px;
+    position: relative;
+    top: 89px;
+}
+
+.title-arme{
+    font-family: 'East Sea Dokdo', cursive;
+    color: #e2e2e2;
+    font-size: 76px;
+    position: absolute; 
+    z-index: 10;
+    top: 343px;
+    left: 62px;
+}
+.armure{
+    width: 280px;
+    position: relative;
+    top: 19px;
+}
+
+.title-armure{
+    font-family: 'East Sea Dokdo', cursive;
+    color: #e2e2e2;
+    font-size: 66px;
+    position: absolute; 
+    z-index: 10;
+    top: 493px;
+    left: 49px;
+    }
+
+.consommable{
+    width: 280px;
+    position: relative;
+    bottom: 49px;
+}
+
+.title-conso{
+    font-family: 'East Sea Dokdo', cursive;
+    color: #e2e2e2;
+    font-size: 74px;
+    position: absolute; 
+    z-index: 10;
+    bottom: 133px;
+    left: 71px;
+    }
 
 .articles{
     position: relative;
@@ -248,6 +300,7 @@ button {
     bottom: 30px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
+
     text-align: left;
 }
 
@@ -271,6 +324,7 @@ button {
     bottom: 4px;
     margin-left: 15px;
     border-radius: 10px;
+
 }
 
 .article-list{
