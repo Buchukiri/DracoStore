@@ -316,15 +316,18 @@ function giftThreshold(priceTTC) {
     modalContent.innerHTML += "<img class='gift-img' src='img/chest.jpg' alt='imggift' id='imgGift'>" ;
     modalContent.innerHTML += "<form class='modal-gift'  method='post'> <label> Le client obtient le cadeau spécial ! </label></form>";
     modalContent.innerHTML += '<button class="modal-close" id="modal-close2">x</button>';
+    modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton'></form>";
 
     
         document.getElementById("modal-close2").addEventListener("click", function() {
         modalContent.parentElement.remove();
          })
-    };
+        document.getElementById("confirmButton").addEventListener("click", function() {
+        modalContent.parentElement.remove();
+         });
     
-};
-
+    };
+}
 
 
 function modifArticle(){
