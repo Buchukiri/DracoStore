@@ -308,6 +308,13 @@ left: 64px;
     border: 1px solid;
     cursor: pointer;
 }
+.add-article:hover{
+    background-color: rgb(255, 201, 134);
+    transition: 500ms;
+    font-size: 22.2px;
+    border:yellow 1px solid;
+}
+
 
 .art-title{
     text-align: center;
