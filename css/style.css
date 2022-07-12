@@ -107,16 +107,18 @@ button {
 
 .client-label {
     position: relative;
-    left: 42rem;
-    font-size: 2rem;
+    left: 41rem;
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 4rem;
 }
 .client-input {
     position: absolute;
-    bottom: -5px;
+    bottom: 13px;
     right: -120px;
     height: 2.8rem;
     width: 110px;
-    font-size: 18px;
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 30px;
     border-radius: 1rem;
     border: none;
     padding: 5px;
