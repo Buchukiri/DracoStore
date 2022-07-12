@@ -3,48 +3,58 @@ let articlesObj = {
         name : "potion",
         prix : 2,
         stock : 10,
+        categorie : "consommable"
     },
     id2 : {
         name : "elixir",
         prix : 3,
-        stock : 10
+        stock : 10,
+        categorie : "consommable"
     },
     id3 : {
         name : "dague",
         prix : 12,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id4 : {
         name : "fleche",
         prix : 1,
-        stock : 10
+        stock : 10,
+        categorie : "consommable"
     },
     id5 : {
         name : "pantalon",
         prix : 8,
-        stock : 10
+        stock : 10,
+        categorie : "armure"
     },
     id6 : {
         name : "gants",
         prix : 4,
-        stock : 10
+        stock : 10,
+        categorie : "arme , armure"
     },
     id7 : {
         name : "marteau",
         prix : 16,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id8 : {
         name : "epee",
         prix : 22,
-        stock : 10
+        stock : 10,
+        categorie : "arme"
     },
     id9 : {
         name : "casque",
         prix : 18,
-        stock : 10
+        stock : 10,
+        categorie : "armure"
     },
 }
+
 
 
 let imgLinks;
@@ -57,6 +67,7 @@ const finalCart = document.getElementById("final-cart-ul");
 let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
+
 const addArticle = document.getElementById("add-article");
 
 if(localStorage.getItem("articles") !== null){
@@ -71,7 +82,9 @@ if(localStorage.getItem("pourcentTaxe") !== null){
 let taxe = (pourcentTaxe/100);
 addOpcacityIfNoneStock();
 
+addOpcacityIfNoneStock(); //Benjamin est beau
 function clickAdmin(){
+    // let basket;
     const modalContent = createModal();
     modalContent.innerHTML += "<img class='logo-white-img' src='img/logo-white.png' alt='logo-white' id='whiteLogo'>" ;
     modalContent.innerHTML += "<form class='form'  method='post'> <label>Taux de la taxe : </label> <input type='text' value='"+ (pourcentTaxe) +"' id='modalTaxe' class='modal-taxe' size='1'><br>"+
@@ -84,6 +97,7 @@ function clickAdmin(){
                                 "Retirer de la caisse : <input type='text' size='1' id='pull-po' ><label> PO   </label>"+
                                 "<input type='text' size='1' id='pull-pa' ><label> PA</label>"+
                                 "<button class='pull-submit' id='pull-submit' >Valider</button></p>"
+
     this.removeEventListener("click", clickAdmin);
     document.getElementById("modal-close").addEventListener("click", function() {
         modalContent.parentElement.remove();
@@ -96,6 +110,7 @@ function clickAdmin(){
         localStorage.setItem("pourcentTaxe", pourcentTaxe);
         taxe = (pourcentTaxe/100);
         giftValue = document.getElementById('modalThreshold').value;
+
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
@@ -112,32 +127,50 @@ function clickAdmin(){
         modalContent.parentElement.remove();
         admin.addEventListener("click", clickAdmin);
     });
+
 }
 
 admin.addEventListener("click", clickAdmin);
+
+
+function createArticleItemList(artId) {
+    return "<li class='article-item'><a data-name='"+artId+"' class='article-link' id='"+artId+"' href='#' >"+
+    "<img class='article-img' src='img/"+artId+".png' alt='"+articlesObj[artId].name+"' ></a>"+
+    "<div class='art-info'><button data-article='"+artId+"' class='modify-art'>"+
+    "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
+    "<p class='art-name'>"+articlesObj[artId].name+"</p><p class='art-price'>"+articlesObj[artId].prix+" PO</p>"+
+    "<p data-stock='"+articlesObj[artId].stock+"' class='art-stock'>En Stock : "+articlesObj[artId].stock+"</p>"+
+    ""
+    // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+    "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+    // "<div><img class='plus' id='plus' src='img/plus.png'></div>
+}
 
 function displayArticles(){
     if(localStorage.getItem("articles") !== null){
         articlesObj = JSON.parse(localStorage.getItem("articles"));
     }
-    console.log(articlesObj);
     articlesName = Object.keys(articlesObj);
-    
     let display = "";
 
     for(const art of articlesName){
-        display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
-        "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
-        "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
-        "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
-        "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
-        "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
-        // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
-        "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='1'></div></li>";
-        // "<div><img class='plus' id='plus' src='img/plus.png'></div>
-    
+        if(type != null && type == articlesObj[art].categorie) {
+            display += createArticleItemList(art);
+        } else if(type == null) {
+            display += createArticleItemList(art);
+        }
+        // display += "<li class='article-item'><a data-name='"+art+"' class='article-link' id='"+art+"' href='#' >"+
+        // "<img class='article-img' src='img/"+art+".png' alt='"+articlesObj[art].name+"' ></a>"+
+        // "<div class='art-info'><button data-article='"+art+"' class='modify-art'>"+
+        // "<img class='modify-img' src='img/crayon.png' alt='modifier'></button>"+
+        // "<p class='art-name'>"+articlesObj[art].name+"</p><p class='art-price'>"+articlesObj[art].prix+" PO</p>"+
+        // "<p data-stock='"+articlesObj[art].stock+"' class='art-stock'>En Stock : "+articlesObj[art].stock+"</p>"+
+        // ""
+        // // "<div class='main-btns' id='main-btns'><img class='minus' id='minus' src='img/minus.png'></div>"+
+        // "<input class='main-number' type='number' min='0' max='"+articlesObj[art].stock+"' data-qtty='"+art+"' value='0'></div></li>";
+        // // "<div><img class='plus' id='plus' src='img/plus.png'></div>
     }
-
+    
     articles.innerHTML = display;
 
     imgLinks = document.querySelectorAll(".article-link")
@@ -172,6 +205,19 @@ function displayArticles(){
 
     addOpcacityIfNoneStock();
 }
+
+document.getElementById("panel-arme").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("arme");
+})
+document.getElementById("panel-armure").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("armure");
+})
+document.getElementById("panel-conso").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles("consommable");
+})
 
 displayArticles();
 
@@ -372,6 +418,7 @@ function modifArticle(){
 //         createModalOfDetails.parentElement.remove();
    
 // })}
+
 addArticle.addEventListener("click", addAnArticle);
 
 function addAnArticle(){
