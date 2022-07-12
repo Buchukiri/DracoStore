@@ -89,10 +89,10 @@ button {
 
 .header-logo{
     position: relative;
-    top: 7rem;
+    top: 0.2rem;
+    left:0.5rem;
     z-index: 10;
-    height: 20rem;
-    opacity: .8;
+    height: 7rem;
 }
 
 .header-content{
@@ -137,6 +137,7 @@ button {
     flex-direction: column;
     height: calc(100vh - 8rem);
     width: 20%;
+    top: -100px;
     /* justify-content: space-between; */
     /* border: 1px solid gray; */
 }
