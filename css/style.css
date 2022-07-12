@@ -139,6 +139,7 @@ button {
     top: 160px;
 }
 
+
 .arme{
     width: 280px;
     position: relative;
@@ -186,14 +187,33 @@ button {
     left: 71px;
     }
 
-.art-title{
-    text-align: center;
-    font-size: 30px;
-}
-
 .articles{
     position: relative;
     width: 100%;
+    height: calc(100vh - 8rem);
+    overflow-y: auto;
+}
+
+.article-main{
+    position: relative;
+    overflow-y: auto;
+}
+
+.add-article{
+    position: absolute;
+    right: 25px;
+    top: 60px;
+    background-color: bisque;
+    font-size: 22px;
+    font-family: 'East Sea Dokdo', cursive;
+    border-radius: 10px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+.art-title{
+    text-align: center;
+    font-size: 30px;
 }
 
 .modal{
@@ -235,6 +255,37 @@ button {
     align-items: center;
 }
 
+.add-art-modal{
+    font-family: 'East Sea Dokdo', cursive;
+    font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 15px;
+}
+
+.add-art-modal div{
+    width: 100%;
+}
+
+.add-art-modal input{
+    width: 110px;
+    height: 30px;
+    position: relative;
+    bottom: 7px;
+}
+
+.submit-add{
+    font-family: 'East Sea Dokdo', cursive;
+    display: block;
+    font-size: 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+
 .form{
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
@@ -249,6 +300,26 @@ button {
     bottom: 30px;
     font-family: 'East Sea Dokdo', cursive;
     font-size: 50px;
+
+    text-align: left;
+}
+
+.modal-caisse input{
+    position: relative;
+    bottom: 5px;
+    height: 25px;
+}
+
+.pull-submit{
+    font-family: 'East Sea Dokdo', cursive;
+    background-color: white;
+    width: 80px;
+    font-size: 25px;
+    position: relative;
+    bottom: 4px;
+    margin-left: 15px;
+    border-radius: 10px;
+
 }
 
 .article-list{
@@ -398,7 +469,7 @@ button {
 .active-cart{
     text-align: center;
     height: 51%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* .cart-price{
@@ -494,7 +565,7 @@ button {
 }
 
 .logo-white-img {
-    margin-top: 20%;
+    margin-top: 10%;
     width: 200px;
     height: auto;
 }
@@ -507,4 +578,37 @@ button {
     width: 6%;
     filter: invert(100%);
     margin-top: 15px;
+}
+
+
+.validate-cart-ttl {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 4rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+.nom,
+.prenom {
+    font-size: 3rem;
+    margin-left: 2rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+
+
+.detail-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'East Sea Dokdo', cursive;
+}
+.final-list-to-validate{
+    margin-top: 3rem;
+    height: 40rem;
+    background-color: rgba(255, 0, 0, 0.138);
+}
+
+.confirm-btn {
+    background-color: white;
+    height: 2rem;
 }
