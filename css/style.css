@@ -8,7 +8,7 @@
 
 
     /* Special colors */
-   
+    --hoverText: #014e0e;
   
 }
 
@@ -149,6 +149,15 @@ button {
     top: 200px;
     left: 55px;
     z-index: 10;
+}
+
+.admin :hover{
+    color: rgba(30, 218, 108, 0.74);
+    text-shadow: 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText);
 }
 
 .admin-img{
