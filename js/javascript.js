@@ -270,27 +270,33 @@ deleteBtn.addEventListener("click", function(event) {
 
 function validateCart(){
     const name = prompt("Veillez saisir le nom");
-    if(confirm("Voulez vous valider la transaction ?")){
-        const qttList = document.querySelectorAll(".articleCart input");
-        for(const qtt of qttList){
-            articlesObj[qtt.dataset.input].stock -= qtt.value;
-            if(articlesObj[qtt.dataset.input].stock <= 0){
-                alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
+        if(confirm("Voulez vous valider la transaction ?")){
+            const qttList = document.querySelectorAll(".articleCart input");
+            for(const qtt of qttList){
+                articlesObj[qtt.dataset.input].stock -= qtt.value;
+                if(articlesObj[qtt.dataset.input].stock <= 0){
+                    alert("Attention ! Stock de "+articlesObj[qtt.dataset.input].name +" épuisé ! Il faut se réapprovisionner !");
+                }
+                finalCart.innerHTML = "";
+                document.getElementById("final-price").innerHTML = "";
+                priceWithoutTaxe=0;
+                this.removeEventListener("click",validateCart);
+                localStorage.setItem("articles", JSON.stringify(articlesObj));
+                displayArticles();
             }
-            finalCart.innerHTML = "";
-            document.getElementById("final-price").innerHTML = "";
-            priceWithoutTaxe=0;
-            this.removeEventListener("click",validateCart);
-            localStorage.setItem("articles", JSON.stringify(articlesObj));
-            displayArticles();
+            totalCaisse += priceTTC;
+            // const caissePO = parseInt(totalCaisse);
+            // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
+            // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
+            localStorage.setItem("caisse", totalCaisse);
+            giftThreshold(priceTTC);
         }
-        totalCaisse += priceTTC;
-        // const caissePO = parseInt(totalCaisse);
-        // const caissePA = (totalCaisse % 1).toFixed(1).substring(2);
-        // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
-        localStorage.setItem("caisse", totalCaisse);
-        giftThreshold(priceTTC);
-    }
+        document.getElementById("modal-close3").addEventListener("click", function() {
+            modalContent.parentElement.remove();
+             })
+            document.getElementById("confirmButton").addEventListener("click", function() {
+            modalContent.parentElement.remove();
+             });
 }
 
 document.getElementById("validate").addEventListener("click", validateCart);
