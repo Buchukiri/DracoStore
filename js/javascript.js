@@ -61,7 +61,7 @@ let imgLinks;
 let articlesName = Object.keys(articlesObj);
 const articles = document.getElementById("article-list");
 let priceWithoutTaxe = 0;
-let pourcentTaxe = 0; 
+let pourcentTaxe = 13; 
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
 let priceTTC;
