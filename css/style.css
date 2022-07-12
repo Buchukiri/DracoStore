@@ -489,6 +489,10 @@ left: 64px;
     height: 130px;
 }
 
+.article-img:hover{
+    opacity: 0.8;
+}
+
 .art-info{
     position: relative;
     right: 10px;
