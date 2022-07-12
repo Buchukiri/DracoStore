@@ -146,7 +146,7 @@ function createArticleItemList(artId) {
     // "<div><img class='plus' id='plus' src='img/plus.png'></div>
 }
 
-function displayArticles(){
+function displayArticles(type = null){
     if(localStorage.getItem("articles") !== null){
         articlesObj = JSON.parse(localStorage.getItem("articles"));
     }
