@@ -74,12 +74,12 @@ button {
     align-items: center;
     height: 8rem;
     width: 100%;
-    background-image: url("../img/background-wood2.png");
+    background-image: url("../img/background-wood.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     padding: 1rem;
-    border: black 1px solid;
+    border: black 3px solid;
 }
 
 .header-img{
@@ -620,12 +620,14 @@ left: 64px;
     position: absolute;
     z-index: 1000;
     height: 5.9rem;
-    top: 19rem;
+    top: 16rem;
     left: 7.5rem;
 }
 .buy-btn:hover {
     cursor: pointer;
     height: 6.2rem;
+    transition: 500ms;
+    filter: contrast(120%);
 }
 
 
