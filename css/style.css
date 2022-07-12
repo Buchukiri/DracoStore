@@ -8,7 +8,10 @@
 
 
     /* Special colors */
-   
+    --hoverText: #014e0e;
+    --hoverText2: #643601;
+    --hoverText3: #4d2900;
+    --hoverText4: #ffffff;
   
 }
 
@@ -76,7 +79,7 @@ button {
     background-size: cover;
     background-position: center;
     padding: 1rem;
-    border: black 1px solid;
+    border: black 3px solid;
 }
 
 .header-img{
@@ -86,10 +89,10 @@ button {
 
 .header-logo{
     position: relative;
-    top: 7rem;
+    top: 0.2rem;
+    left:0.5rem;
     z-index: 10;
-    height: 20rem;
-    opacity: .8;
+    height: 7rem;
 }
 
 .header-content{
@@ -134,6 +137,7 @@ button {
     flex-direction: column;
     height: calc(100vh - 8rem);
     width: 20%;
+    top: -100px;
     /* justify-content: space-between; */
     /* border: 1px solid gray; */
 }
@@ -144,6 +148,11 @@ button {
     font-size: 50px;
     display: flex;
     flex-direction: column;
+    text-shadow: 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 0 0 2px var(--hoverText), 
+    0 0 2px var(--hoverText);
     
 }
 
@@ -154,6 +163,17 @@ button {
     top: 40px;
     left: 45px;
     
+}
+
+.admin :hover{
+    color: rgba(30, 218, 108, 0.74);
+    transition: 500ms;
+    font-size: 82px;
+    text-shadow: 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 0 0 4px var(--hoverText), 
+    0 0 4px var(--hoverText);
 }
 
 .admin-img{
@@ -180,19 +200,46 @@ button {
 }
 .title-arme, .title-armure, .title-conso, .title-reset {
     font-family: 'East Sea Dokdo', cursive;
-    color: #e2e2e2;
+    color: #ffce74;
     font-size: 76px;
     position: relative;
     top: 65px;
     left: 54px;
     z-index: 10;  
+    text-shadow: 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 0 0 2px var(--hoverText2), 
+    0 0 2px var(--hoverText2);
 }
+.title-reset{
+    color: #e6ae47;
+}
+
+.title-arme:hover, .title-armure:hover, .title-conso:hover, .title-reset:hover {
+    color: #fcc839;
+    transition: 500ms;
+    text-shadow: 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 0 0 4px var(--hoverText3), 
+    0 0 4px var(--hoverText3);
+}
+
+.title-arme:hover{
+    font-size: 79px;
+}
+
 
 .title-armure{
     font-size: 64px;
     left: 42px;
     top: 75px;
 }
+
+.title-armure:hover{
+    font-size: 67px;
+}   
 .armure-container{
     height: 178px;
     background-image: url(/img/panneau-price.png);
@@ -217,6 +264,9 @@ button {
     bottom: 205px;
     left: 71px;
 }
+.title-conso:hover{
+    font-size: 84px;
+}
 
 .reset-container{
     height: 137px;
@@ -232,6 +282,11 @@ left: 64px;
     left: 12px;
     top: 50px;
 }
+
+.title-reset:hover{
+    font-size: 64px;
+}
+
 .articles{
     position: relative;
     width: 100%;
@@ -255,6 +310,13 @@ left: 64px;
     border: 1px solid;
     cursor: pointer;
 }
+.add-article:hover{
+    background-color: rgb(255, 201, 134);
+    transition: 500ms;
+    font-size: 22.2px;
+    border:yellow 1px solid;
+}
+
 
 .art-title{
     text-align: center;
@@ -291,6 +353,11 @@ left: 64px;
     cursor: pointer;
     border: none;
     background: none;
+}
+
+.modal-close:hover {
+    color: white;
+    font-size: 2.2rem;
 }
 
 .modif-content{
@@ -436,6 +503,10 @@ left: 64px;
     height: 130px;
 }
 
+.article-img:hover{
+    opacity: 0.8;
+}
+
 .art-info{
     position: relative;
     right: 10px;
@@ -457,7 +528,7 @@ left: 64px;
     position: absolute;
     top: 33px;
     right: 25px;
-    border: 1px solid black;
+    border: none;
     width: 22px;
     height: 19px;
     cursor: pointer;
@@ -465,7 +536,13 @@ left: 64px;
 }
 
 .modify-img{
-    height: 80%;
+    height: 100%;
+    filter:brightness(0%);
+}
+
+.modify-img:hover{
+    height: 105%;
+    filter:brightness(60%);
 }
 
 .art-stock{
@@ -507,6 +584,7 @@ left: 64px;
 }
 .delete-btn:hover {
     cursor: pointer;
+    background-color: rgba(250, 220, 120, 0.678);
 }
 
 
@@ -543,12 +621,14 @@ left: 64px;
     position: absolute;
     z-index: 1000;
     height: 5.9rem;
-    top: 19rem;
+    top: 16rem;
     left: 7.5rem;
 }
 .buy-btn:hover {
     cursor: pointer;
     height: 6.2rem;
+    transition: 500ms;
+    filter: contrast(120%);
 }
 
 
@@ -654,7 +734,10 @@ left: 64px;
     filter: invert(100%);
     margin-top: 15px;
 }
-
+.confirm-img:hover {
+    width: 7%;
+    transition: 500ms;
+}
 
 .validate-cart-ttl {
     margin-top: 2rem;

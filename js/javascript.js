@@ -349,7 +349,7 @@ function validateCart(){
         sellList.push({
             date : new Date(),
             name : nameC.value,
-            price : priceTTC
+            price : priceTTC,
         });
         console.log(sellList);
         localStorage.setItem("dates", JSON.stringify(sellList));
