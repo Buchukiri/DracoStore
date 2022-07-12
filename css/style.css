@@ -115,6 +115,9 @@ button {
     position:relative;
     display: flex;
     flex-direction: column;
+    height: calc(100vh - 8rem);
+    width: 20%;
+    /* justify-content: space-between; */
     /* border: 1px solid gray; */
 }
 
@@ -128,10 +131,12 @@ button {
 }
 
 .admin-ttl{
-    position: absolute;
-    top: 200px;
-    left: 55px;
+    position: relative;
     z-index: 10;
+    font-size: 78px;
+    top: 40px;
+    left: 45px;
+    
 }
 
 .admin-img{
@@ -139,54 +144,77 @@ button {
     top: 160px;
 }
 
-
-.arme{
-    width: 280px;
-    position: relative;
-    top: 89px;
+.admin-container{
+    height: 178px;
+   background-image: url(/img/panneau-bois.png); 
+   position: relative;
+   top: 147px;
 }
 
-.title-arme{
+
+.arme-container{
+    height: 178px;
+    background-image: url(/img/panneau-price.png);
+    background-size: 269px;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 77px;
+    left: 6px;
+}
+.title-arme, .title-armure, .title-conso, .title-reset {
     font-family: 'East Sea Dokdo', cursive;
     color: #e2e2e2;
     font-size: 76px;
-    position: absolute; 
-    z-index: 10;
-    top: 343px;
-    left: 62px;
-}
-.armure{
-    width: 280px;
     position: relative;
-    top: 19px;
+    top: 65px;
+    left: 54px;
+    z-index: 10;  
 }
 
 .title-armure{
-    font-family: 'East Sea Dokdo', cursive;
-    color: #e2e2e2;
-    font-size: 66px;
-    position: absolute; 
-    z-index: 10;
-    top: 493px;
-    left: 49px;
-    }
-
-.consommable{
-    width: 280px;
+    font-size: 64px;
+    left: 42px;
+    top: 75px;
+}
+.armure-container{
+    height: 178px;
+    background-image: url(/img/panneau-price.png);
+    background-size: 269px;
+    background-repeat: no-repeat;
     position: relative;
-    bottom: 49px;
+    top: 28px;
+    left: 5px;
+}
+.conso-container{
+    height: 178px;
+    background-image: url(/img/panneau-price.png);
+    background-size: 269px;
+    background-repeat: no-repeat;
+    position: relative;
+    bottom: 20px;
+    left: 5px;
 }
 
 .title-conso{
-    font-family: 'East Sea Dokdo', cursive;
-    color: #e2e2e2;
-    font-size: 74px;
-    position: absolute; 
-    z-index: 10;
-    bottom: 133px;
+    font-size: 80px;
+    bottom: 205px;
     left: 71px;
-    }
+}
 
+.reset-container{
+    height: 137px;
+background-image: url(/img/panneau-trie.png);
+background-size: 130px;
+background-repeat: no-repeat;
+position: relative;
+bottom: 43px;
+left: 64px;
+}
+.title-reset{
+    font-size: 60px;
+    left: 12px;
+    top: 50px;
+}
 .articles{
     position: relative;
     width: 100%;

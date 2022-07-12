@@ -206,17 +206,21 @@ function displayArticles(type = null){
     addOpcacityIfNoneStock();
 }
 
-document.getElementById("panel-arme").addEventListener('click', function(){
+document.getElementById("title-arme").addEventListener('click', function(){
     articles.innerHTML = "";
     displayArticles("arme");
 })
-document.getElementById("panel-armure").addEventListener('click', function(){
+document.getElementById("title-armure").addEventListener('click', function(){
     articles.innerHTML = "";
     displayArticles("armure");
 })
-document.getElementById("panel-conso").addEventListener('click', function(){
+document.getElementById("title-conso").addEventListener('click', function(){
     articles.innerHTML = "";
     displayArticles("consommable");
+})
+document.getElementById("title-reset").addEventListener('click', function(){
+    articles.innerHTML = "";
+    displayArticles();
 })
 
 displayArticles();
