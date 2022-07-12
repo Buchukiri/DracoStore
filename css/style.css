@@ -103,6 +103,18 @@ button {
     height: 9rem;
 }
 
+.client-label {
+    position: relative;
+    top: -3rem;
+    left: 46rem;
+    font-size: 2rem;
+}
+.client-input {
+    height: 2.8rem;
+    border-radius: 1rem;
+    border: none;
+}
+
 
 /* MAIN DIV */
 
