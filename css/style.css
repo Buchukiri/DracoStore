@@ -354,6 +354,11 @@ left: 64px;
     background: none;
 }
 
+.modal-close:hover {
+    color: white;
+    font-size: 2.2rem;
+}
+
 .modif-content{
     display: flex;
     height: 100%;
@@ -535,9 +540,8 @@ left: 64px;
 }
 
 .modify-img:hover{
-    height: 120%;
+    height: 105%;
     filter:brightness(60%);
-    transition: 500ms;
 }
 
 .art-stock{
@@ -726,7 +730,10 @@ left: 64px;
     filter: invert(100%);
     margin-top: 15px;
 }
-
+.confirm-img:hover {
+    width: 7%;
+    transition: 500ms;
+}
 
 .validate-cart-ttl {
     margin-top: 2rem;
