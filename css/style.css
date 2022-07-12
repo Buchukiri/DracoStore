@@ -508,6 +508,21 @@ button {
     width: 360px;
     overflow: hidden;
 }
+.validate {
+    cursor: default;
+}
+.buy-btn {
+    position: absolute;
+    z-index: 1000;
+    height: 5.9rem;
+    top: 19rem;
+    left: 7.5rem;
+}
+.buy-btn:hover {
+    cursor: pointer;
+    height: 6.2rem;
+}
+
 
 .articleCart{
     display: flex;
