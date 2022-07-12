@@ -65,6 +65,9 @@ let priceTTC;
 let totalCaisse=0;
 let giftValue = 100;
 let sellList = [];
+let monthSixMonthAgo;
+let dateSixMonthAgo;
+let totalPriceClient = 0;
 const articles = document.getElementById("article-list");
 const admin = document.getElementById("admin");
 const finalCart = document.getElementById("final-cart-ul");
@@ -323,6 +326,9 @@ deleteBtn.addEventListener("click", function(event) {
 /* MODIFY STOCK AFTER SELLING */
 
 function validateCart(){
+    if(localStorage.getItem("dates") !== null){
+        sellList = JSON.parse(localStorage.getItem("dates"));
+    }
     let nameC = document.getElementById("client-input-name");
     if(nameC.value === ''){
         alert("Veuillez entrer le nom du client");
@@ -347,14 +353,35 @@ function validateCart(){
         // const infoCaisse = caissePO + " PO et " + caissePA + " PA.";
         localStorage.setItem("caisse", totalCaisse);
         sellList.push({
-            date : new Date(),
+            date : new Date(Date.now()),
             name : nameC.value,
             price : priceTTC
         });
-        console.log(sellList);
+        getTotalPriceClient(nameC);
         localStorage.setItem("dates", JSON.stringify(sellList));
         giftThreshold(priceTTC);
         nameC.value = '';
+    }
+}
+
+function getTotalPriceClient(nameC){
+    const milliNow = new Date().getTime();
+    const milliSixMonthAgo = milliNow - 15778800000;
+    dateSixMonthAgo = new Date(milliSixMonthAgo);
+    const clientList = sellList.filter(order => new Date(order.date) > dateSixMonthAgo && order.name === nameC.value);
+    console.log(clientList);
+    for(const client of clientList){
+        totalPriceClient += client.price;
+    }
+    if(totalPriceClient > 200){
+        let modalContent = createModal();
+        modalContent.innerHTML += "<img class='gift-img' src='img/goldBag.png' alt='imggift' id='imgGift'>" ;
+        modalContent.innerHTML += "<form class='modal-gift'  method='post'> <label> Le client obtient un bon d'achat de 20 PO ! </label></form>";
+        modalContent.innerHTML += '<button class="modal-close" id="modal-close3">x</button>';
+        modalContent.innerHTML += "<img class='confirm-img' src='img/confirmButton.png' alt='confirmButton' id='confirmButton2'></form>";
+
+        document.getElementById("modal-close3").addEventListener("click", removeModal)
+        document.getElementById("confirmButton2").addEventListener("click", removeModal)
     }
 }
 
